@@ -1,2 +1,2 @@
-# Personalised Campagins for Bank Marketing
+# Personalised Campaigns for Bank Marketing
 Landing Page
