@@ -1,8 +1,8 @@
+import pandas as pd
 import psycopg2
 import os
 from dotenv import load_dotenv
 from io import StringIO
-import pandas as pd
 import numpy as np
 
 DB_NAME = os.getenv('DB_NAME')
