@@ -60,7 +60,7 @@ with open(csv_file_path_train, 'r', encoding='utf-8') as f:
     cur.copy_from(f, 'bank_full_dataset', sep=';', columns=("age","job","marital","education","is_default","balance","housing","loan","contact","day","month","duration","campaign","pdays","previous","poutcome","y"))
 
 conn.commit()
-print("bank_full.csv data imported successfully!")
+print("bank_full.csv data uploaded to Supabase PosgresDB successfully!")
 
 
 # Close connection when done
