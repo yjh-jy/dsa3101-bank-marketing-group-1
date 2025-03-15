@@ -1,0 +1,101 @@
+campaign_id,campaign_type,target_audience,campaign_duration,conversion_rate,acquisition_cost,roi,campaign_language,impressions,click
+1,Display Advertising,Women 55+All Ages,32,0.0915,13609.57,2.64,English,32813,3002
+2,Affliate Marketing,Men 55+,47,0.1407,27318.75,3.27,French,22561,3174
+3,Search Engine Optimization,Women 35-44,30,0.0457,15809.99,2.81,Spanish,47362,2164
+4,Search Engine Optimization,Men 45-54,26,0.0238,5377.55,4.25,Spanish,27131,646
+5,Email Marketing,Women 45-54,59,0.1488,4016.68,2.05,English,3886,578
+6,Telemarketing,Women 25-34,18,0.0704,1362.02,1.8,Mandarin,3529,248
+7,Email Marketing,Men 35-44,8,0.0358,10817.75,3.45,Mandarin,36943,1323
+8,Affliate Marketing,Men 35-44,36,0.0348,3695.04,1.58,German,46717,1626
+9,Search Engine Optimization,Men 18-24,45,0.1044,1936.29,2.13,Spanish,2960,309
+10,Affliate Marketing,Men 45-54,7,0.08,3476.45,4.95,French,5054,404
+11,Display Advertising,Men 25-34,33,0.0941,14148.84,4.71,German,32316,3041
+12,Affliate Marketing,Women 45-54,49,0.0183,1095.71,3.17,English,43659,799
+13,Display Advertising,Men 55+,41,0.0653,9220.43,4.05,French,45324,2960
+14,Search Engine Optimization,Men 18-24,51,0.0946,10614.18,2.36,German,19894,1882
+15,Telemarketing,Men 45-54,27,0.0359,5761.97,2.35,French,32407,1163
+16,Email Marketing,Women 45-54,26,0.1124,1164.06,2.8,English,1067,120
+17,Search Engine Optimization,Men 35-44,13,0.1421,14905.25,4.17,Spanish,12727,1809
+18,Telemarketing,Men 55+,60,0.1218,12282.26,2.92,Mandarin,46648,5682
+19,Telemarketing,Women 25-34,13,0.0477,6468.7,1.61,Mandarin,14125,674
+20,Email Marketing,Men 18-24,39,0.0821,14907.7,4.48,Mandarin,38201,3136
+21,Display Advertising,Women 55+All Ages,33,0.1272,15449.5,2.54,French,43935,5589
+22,Affliate Marketing,Men 45-54,13,0.0748,8237.39,2.35,Spanish,29136,2179
+23,Affliate Marketing,Women 18-24,40,0.0203,987.17,1.55,English,5053,103
+24,Search Engine Optimization,Men 55+,31,0.0991,13069.55,1.89,English,25085,2486
+25,Search Engine Optimization,Men 35-44,47,0.1263,10822.87,4.38,Spanish,12134,1533
+26,Affliate Marketing,Women 55+All Ages,48,0.0221,7516.48,2.14,French,39815,880
+27,Telemarketing,Women 55+All Ages,27,0.018,4025.35,1.71,English,26613,479
+28,Display Advertising,Men 35-44,9,0.0283,253.05,3.18,Spanish,1484,42
+29,Telemarketing,Men 55+,57,0.1411,6453.07,4.28,French,4771,673
+30,Display Advertising,Women 25-34,43,0.0304,2296.44,3.5,Mandarin,28293,860
+31,Email Marketing,Men 25-34,55,0.1229,14847.75,4.32,French,21608,2656
+32,Display Advertising,Men 45-54,31,0.0634,16723.22,2.19,English,30336,1923
+33,Search Engine Optimization,Women 55+All Ages,55,0.0429,10023.54,3.34,Spanish,32669,1402
+34,Email Marketing,Women 18-24,28,0.0893,6626.8,4.57,Spanish,13069,1167
+35,Email Marketing,Men 25-34,15,0.0338,3015.64,2.56,German,9117,308
+36,Affliate Marketing,Men 35-44,16,0.0549,7821.65,2.38,Mandarin,18883,1037
+37,Search Engine Optimization,Women 25-34,39,0.1388,5740.18,4.68,German,15485,2149
+38,Affliate Marketing,Women 45-54,17,0.037,3108.45,4.0,German,37156,1375
+39,Email Marketing,Men 25-34,29,0.0546,6668.45,2.11,Spanish,30501,1665
+40,Telemarketing,Men 18-24,29,0.0454,6858.41,3.88,French,15695,713
+41,Search Engine Optimization,Men 18-24,17,0.0634,14770.8,1.98,German,47185,2992
+42,Display Advertising,Men 18-24,50,0.0807,13458.31,1.75,German,30390,2452
+43,Display Advertising,Women 18-24,59,0.132,13341.72,3.01,German,44262,5843
+44,Telemarketing,Men 25-34,10,0.0485,6554.58,3.07,German,44933,2179
+45,Display Advertising,Women 18-24,11,0.1289,20520.11,2.37,English,39664,5113
+46,Search Engine Optimization,Women 45-54,49,0.1291,8191.74,2.19,German,26450,3415
+47,Search Engine Optimization,Men 55+,26,0.0301,765.31,3.58,Mandarin,3464,104
+48,Display Advertising,Women 55+All Ages,24,0.0322,5676.02,2.37,Mandarin,30333,977
+49,Telemarketing,Men 18-24,56,0.0833,9661.14,2.68,Spanish,12112,1009
+50,Telemarketing,Women 18-24,45,0.1231,12737.64,4.59,Spanish,27421,3376
+51,Affliate Marketing,Women 45-54,46,0.0577,2141.14,4.23,German,15760,909
+52,Display Advertising,Men 45-54,16,0.0329,3324.31,3.91,Spanish,29525,971
+53,Search Engine Optimization,Men 55+,48,0.1074,5820.84,2.36,English,14155,1520
+54,Search Engine Optimization,Men 55+,12,0.053,409.33,2.74,Mandarin,3546,188
+55,Search Engine Optimization,Men 18-24,27,0.0568,1412.49,4.92,French,23920,1359
+56,Affliate Marketing,Men 45-54,19,0.0875,326.18,4.09,German,1301,114
+57,Display Advertising,Women 45-54,40,0.0883,6419.29,4.79,English,49210,4345
+58,Affliate Marketing,Women 25-34,14,0.0192,1654.04,3.42,Spanish,20193,388
+59,Display Advertising,Women 25-34,35,0.1288,7267.39,2.59,Spanish,5957,767
+60,Display Advertising,Women 55+All Ages,27,0.0465,9252.22,2.31,German,31467,1463
+61,Email Marketing,Men 55+,14,0.0794,2056.5,4.16,German,3533,281
+62,Email Marketing,Men 55+,51,0.131,10842.84,2.28,Spanish,15250,1998
+63,Telemarketing,Men 55+,15,0.1361,2000.67,4.43,Spanish,10616,1445
+64,Search Engine Optimization,Women 25-34,40,0.0417,5958.82,4.6,Mandarin,15214,634
+65,Email Marketing,Men 45-54,44,0.0784,12065.15,1.86,Mandarin,20093,1575
+66,Search Engine Optimization,Women 18-24,47,0.1012,13288.18,3.59,Mandarin,48702,4929
+67,Display Advertising,Men 55+,33,0.0129,77.2,4.52,French,1175,15
+68,Email Marketing,Men 45-54,54,0.1201,9857.23,4.2,German,10018,1203
+69,Display Advertising,Men 45-54,57,0.1034,4737.45,2.07,English,41484,4289
+70,Search Engine Optimization,Women 18-24,16,0.0904,3450.2,3.67,Mandarin,9193,831
+71,Display Advertising,Men 18-24,29,0.0307,8078.99,5.0,English,35556,1092
+72,Email Marketing,Men 35-44,41,0.132,4642.11,3.86,English,4134,546
+73,Display Advertising,Women 45-54,8,0.067,3593.37,4.44,Mandarin,32026,2146
+74,Telemarketing,Men 25-34,10,0.076,1522.51,4.81,German,4917,374
+75,Display Advertising,Men 55+,57,0.1147,7342.61,4.52,Spanish,19375,2222
+76,Affliate Marketing,Women 35-44,9,0.0912,972.27,2.99,Spanish,10517,959
+77,Display Advertising,Women 45-54,17,0.0579,14901.7,2.3,Mandarin,42170,2442
+78,Search Engine Optimization,Men 18-24,35,0.118,8720.99,2.94,English,10735,1267
+79,Display Advertising,Men 25-34,7,0.0225,1548.87,4.43,German,10284,231
+80,Affliate Marketing,Men 18-24,29,0.1135,45076.64,3.93,Spanish,49657,5636
+81,Email Marketing,Men 18-24,29,0.0626,2370.1,1.81,English,4654,291
+82,Email Marketing,Men 55+,31,0.0756,10561.71,4.7,German,43595,3296
+83,Email Marketing,Men 25-34,58,0.0306,5409.15,4.6,Mandarin,19174,587
+84,Telemarketing,Men 35-44,54,0.013,2184.82,3.66,English,42892,558
+85,Telemarketing,Men 25-34,46,0.1008,395.12,4.51,Mandarin,1634,165
+86,Search Engine Optimization,Women 25-34,49,0.0424,6126.5,4.48,German,20316,861
+87,Search Engine Optimization,Women 35-44,60,0.1425,32987.62,3.74,French,43188,6154
+88,Display Advertising,Women 25-34,19,0.0764,3362.09,3.1,Mandarin,24637,1882
+89,Display Advertising,Women 45-54,42,0.1166,3251.42,4.17,Spanish,3189,372
+90,Display Advertising,Men 25-34,40,0.0391,11461.21,2.79,English,29557,1156
+91,Display Advertising,Women 18-24,9,0.0924,20262.48,4.3,Mandarin,45917,4243
+92,Email Marketing,Men 25-34,57,0.1315,5552.24,2.01,Spanish,37919,4986
+93,Email Marketing,Men 18-24,48,0.0988,31234.87,2.89,Mandarin,45492,4495
+94,Telemarketing,Men 25-34,32,0.1331,2463.83,1.51,German,6801,905
+95,Affliate Marketing,Men 25-34,26,0.0778,1760.34,3.64,Spanish,10030,780
+96,Affliate Marketing,Women 45-54,21,0.125,22914.0,4.36,German,46495,5812
+97,Display Advertising,Men 45-54,10,0.0628,8966.37,2.47,English,28341,1780
+98,Affliate Marketing,Women 18-24,36,0.1266,5298.39,2.48,Spanish,36715,4648
+99,Search Engine Optimization,Men 35-44,41,0.0802,11947.63,1.7,French,17184,1378
+100,Email Marketing,Men 18-24,35,0.1007,5158.07,4.46,French,32381,3261
