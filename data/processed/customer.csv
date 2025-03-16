@@ -1,5 +1,5 @@
 customer_id,age,job,marital,education,default,balance,debt,income,tenure,nps,dependents,customer_lifetime_value
-166,35,unemployed,married,secondary,1,-10837.7,38473.44,0.0,31,8,3,214.12
+166,35,unemployed,married,secondary,1,-10837.7,38473.44,1456.22,31,8,3,214.12
 139,32,retired,single,secondary,1,-8163.9,96402.54,597.64,20,3,3,255.79
 484,24,student,married,secondary,1,-7492.65,9731.79,822.64,36,0,3,129.42
 508,32,unemployed,married,secondary,1,-5520.04,18799.09,340.44,29,9,3,125.3
