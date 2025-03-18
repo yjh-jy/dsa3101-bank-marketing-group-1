@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS customer_segments (
+    CustomerID INT PRIMARY KEY,
+    SpendingScore FLOAT,
+    AnnualIncome FLOAT,
+    Segment VARCHAR(50),
+    LastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
