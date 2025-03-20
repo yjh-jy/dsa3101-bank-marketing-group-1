@@ -16,7 +16,12 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     depends_on:
       - zookeeper
+    # healthcheck:
+    #   test: ["CMD", "kafka-topics.sh", "--bootstrap-server", "kafka:9092", "--list"]
+    #   interval: 10s
+    #   retries: 5
 
+  # Optional: PostgreSQL setup (commented out for now)
   # postgres:
   #   image: postgres
   #   container_name: postgres
@@ -28,6 +33,7 @@ services:
   #     - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
   #     - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
 
+  # Optional: Segmentation API service (commented out for now)
   # segmentation_api:
   #   build: ./segmentation_service
   #   container_name: segmentation_api
@@ -43,22 +49,22 @@ services:
   producer:
     build:
       context: .
-      dockerfile: producer/Dockerfile 
+      dockerfile: producer/Dockerfile
     container_name: kafka_producer
     depends_on:
       - kafka
+    environment:
+      KAFKA_BROKER: kafka:9092  # Ensure this matches your Kafka setup
 
   consumer:
     build:
       context: .
-      dockerfile: consumer/Dockerfile 
+      dockerfile: consumer/Dockerfile
     container_name: kafka_consumer
     depends_on:
       - kafka
-      # - postgres
-    # environment:
-    #   - DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/banking
-    #   - KAFKA_BROKER=kafka:9092
+    environment:
+      KAFKA_BROKER: kafka:9092  # Ensure this matches your Kafka setup
 
 volumes:
-  postgres_data:
+  postgres_data:  # Keep this if you decide to use PostgreSQL later

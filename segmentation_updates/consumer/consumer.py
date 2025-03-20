@@ -5,9 +5,11 @@ from sklearn.cluster import KMeans
 import numpy as np
 import os
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
+KAFKA_BROKER = os.getenv('KAFKA_BROKER', 'kafka:9092')
 # DB_NAME = os.getenv('DB_NAME')
 # DB_USER = os.getenv('DB_USER')
 # DB_PASSWORD = os.getenv('DB_PASSWORD')
@@ -27,9 +29,9 @@ def main():
 
     # Kafka Consumer
     consumer = KafkaConsumer(
-        'customer_data',
-        bootstrap_servers='kafka:9092',
-        value_deserializer=lambda v: json.loads(v.decode('utf-8'))
+            'customer_data',
+            bootstrap_servers=KAFKA_BROKER,
+            value_deserializer=lambda v: json.loads(v.decode('utf-8'))
     )
 
     # Real-time segmentation
