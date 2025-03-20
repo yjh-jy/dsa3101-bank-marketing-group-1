@@ -17,28 +17,28 @@ services:
     depends_on:
       - zookeeper
 
-  postgres:
-    image: postgres
-    container_name: postgres
-    restart: always
-    env_file: "../.env"  # Loads credentials from .env
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
+  # postgres:
+  #   image: postgres
+  #   container_name: postgres
+  #   restart: always
+  #   env_file: "../.env"  # Loads credentials from .env
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
+  #     - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
 
-  segmentation_api:
-    build: ./segmentation_service
-    container_name: segmentation_api
-    ports:
-      - "5000:5000"
-    depends_on:
-      - postgres
-      - kafka
-    environment:
-      - DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/banking
-      - KAFKA_BROKER=kafka:9092
+  # segmentation_api:
+  #   build: ./segmentation_service
+  #   container_name: segmentation_api
+  #   ports:
+  #     - "5000:5000"
+  #   depends_on:
+  #     - postgres
+  #     - kafka
+  #   environment:
+  #     - DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/banking
+  #     - KAFKA_BROKER=kafka:9092
 
   producer:
     build:
