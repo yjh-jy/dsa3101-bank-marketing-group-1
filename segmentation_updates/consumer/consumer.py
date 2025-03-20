@@ -37,7 +37,7 @@ def main():
     for message in consumer:
         data = message.value
         print(data)
-        customer_data.append([data['SpendingScore'], data['AnnualIncome']])
+        # customer_data.append([data['SpendingScore'], data['AnnualIncome']])
         
         # if len(customer_data) >= 10:  # Process every 10 records
         #     kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
