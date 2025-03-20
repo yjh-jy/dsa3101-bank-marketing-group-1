@@ -1,4 +1,4 @@
-# Customer segmentation into 4 categories ("High-value", "At risk / inactive customers", "Budget-conscious")
+# Customer segmentation into 3 categories ("High-value", "At risk / inactive customers", "Budget-conscious")
 ## Importing packages
 import pandas as pd
 import numpy as np
@@ -124,7 +124,7 @@ for col in robust_features:
 
 
 # Features that need Standard scaling (normally distributed)
-standard_features = ["days_from_last_transaction", "avg_transaction_amt", "digital_engagement_score", "total_products_owned", "loan_repayment_time", "num_transactions"]
+standard_features = ["days_from_last_transaction",  "digital_engagement_score", "total_products_owned", "loan_repayment_time", "num_transactions"]
 
 # Apply RobustScaler
 scalerrobust =  RobustScaler()
@@ -152,11 +152,11 @@ print("\nPCA Explained Variance:\n", explained_variance.sort_values(by="Explaine
 
 ## K-MEANS CLUSTERING
 optimal_k = 3
-df_scaled["Cluster"] = KMeans(n_clusters= optimal_k,  init="k-means++", n_init=20, random_state=42).fit_predict(df_scaled)
+df_scaled["Cluster"] = KMeans(n_clusters= optimal_k,  init="k-means++", n_init=20, random_state=42).fit_predict(df_scaled[features_to_scale])
 df["Cluster"] = df_scaled["Cluster"]
 
 # Silhouette Score
-silhouette_avg = silhouette_score(df_scaled, df["Cluster"])
+silhouette_avg = silhouette_score(df_scaled[features_to_scale], df["Cluster"])
 print(f"Silhouette Score = {silhouette_avg:.4f}")
 
 ### Number of clients in each cluster
@@ -213,4 +213,3 @@ print(segment_means)
 ## Creates csv table in under customer segmentation
 df_final.to_csv("customer_segmentation/customer_segments.csv", index=False)
 print("Saved 'customer_segments.csv' with Customer ID & segment name")
-
