@@ -85,8 +85,9 @@ Campaign,click,INTEGER,"Of the number of people who viewed the ad, how many clic
 Loan,loan_id,INTEGER,Unique identifer of the loan,sequentially generated from 1-7290,,,
 Loan,customer_id,INTEGER,Same as customer_id,Sampled from the total customer_ids and retrieved 66%,,,
 Loan,loan_amount,MONEY,Amount of the loan,Sampled from the another loans dataset in kaggle,,,
-Loan,past_due_date,INTEGER,Number of days past the deadline of the loan,Sampled from the another loans dataset in kaggle,,,
 Loan,loan_purpose,VARCHAR(50),"Purpose of loan, can be categorised as: 'debt_consolidation', 'major_purchase', 'credit_card', 'small_business', 'house-related', 'educational', vacation', 'wedding', 'medical'",Sampled from the another loans dataset in kaggle,,,
+Loan,due_date,DATETIME,Deadline of the loan,,,,
+Loan,paid_off_date,DATETIME,Date loan was paid off,,,,
 ProductsOwned,has_investment_product ,INTEGER,,"weighted probability based on income,  balance, dti, and  average transactions (lower emphasis)",,,
 ProductsOwned,has_credit_card,INTEGER,,"weighted probability bsaed on income, balance, and transaction frequency (lower emphasis)
 
