@@ -8,16 +8,24 @@ producer = KafkaProducer(
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
-def generate_customer_data():
+# Simulating transactions coming in for each customers
+def generate_customer_data(i):
     return {
-        "CustomerID": random.randint(1000, 9999),
-        "SpendingScore": random.uniform(0, 100),
-        "AnnualIncome": random.randint(20000, 100000),
-        "Timestamp": time.time()
+        "transaction_id": i,
+        "customer_id": random.randint(1, 4000),
+        "transaction_type": random.choice(['Credit', 'Withdrawal', 'Transfer', 'Deposit']),
+        "transaction_amt": random.randint(1, 5000),
+        "transaction_date": time.time()
     }
 
-while True:
-    data = generate_customer_data()
-    producer.send('customer_data', value=data)
-    print(f"Sent: {data}")
-    time.sleep(2)  # Simulates real-time transactions every 2 seconds
+def main():
+    i = 999821
+    while True:
+        i += 1
+        data = generate_customer_data(i)
+        producer.send('customer_data', value=data)
+        print(f"Sent: {data}")
+        time.sleep(1)  # Simulates real-time transactions every 1 seconds
+
+if __name__ == '__main__':
+    main()
