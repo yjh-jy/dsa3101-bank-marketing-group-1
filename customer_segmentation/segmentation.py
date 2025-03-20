@@ -7,7 +7,6 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.metrics import silhouette_score
 
 
 ## READING IN DATA
@@ -32,9 +31,9 @@ transaction_summary = transactions_df.groupby("customer_id").agg(total_transacti
 transaction_summary["avg_transaction_amt"] = transaction_summary["total_transaction_amt"] / transaction_summary["num_transactions"]
 transaction_summary = transaction_summary[["customer_id", "avg_transaction_amt"]]
 
-scaler = MinMaxScaler()
 
 ### Calculate digital engagement score
+scaler = MinMaxScaler() 
 digital_usage_df["normalized_logins"] = scaler.fit_transform(digital_usage_df[["mobile_logins_wk", "web_logins_wk"]].sum(axis=1).values.reshape(-1, 1))
 digital_usage_df["normalized_session_time"] = scaler.fit_transform(digital_usage_df[["avg_mobile_time", "avg_web_time"]].sum(axis=1).values.reshape(-1, 1))
 digital_usage_df["digital_engagement_score"] = (digital_usage_df["normalized_logins"] * 0.7 +digital_usage_df["normalized_session_time"] * 0.3)
@@ -80,36 +79,62 @@ print(df.isnull().sum())
 scaler = StandardScaler()
 features_to_scale = ["income", "balance", "customer_lifetime_value", "debt", "days_from_last_transaction", "avg_transaction_amt", "digital_engagement_score", "total_products_owned", "loan_repayment_time"]
 df_scaled = scaler.fit_transform(df[features_to_scale])
+df_scaled = pd.DataFrame(df_scaled, columns=features_to_scale)
 
-features = df.columns
 
 ## K-MEANS CLUSTERING
 optimal_k = 4
-kmeans = KMeans(n_clusters=optimal_k, random_state=42)
-df["Cluster"] = kmeans.fit_predict(df_scaled)
+df_scaled["Cluster"] = KMeans(n_clusters= optimal_k, random_state=42).fit_predict(df_scaled)
+df["Cluster"] = df_scaled["Cluster"]
 
 ### Number of clients in each cluster
 print(df["Cluster"].value_counts())
 
 ### Get information about each cluster
-print(df.groupby("Cluster")[features].mean())
+cluster_means = df_scaled.groupby("Cluster")[features_to_scale].mean()
+print(cluster_means)
 
-### Based on mean of features (1 = High value, 2 = At risk / inactive customers, 3 = "Occasional", 0 = "Budget conscious" )
-segment_mapping = {
-    1: "High-value",
-    2: "At risk / inactive customers",
-    3: "Occasional",
-    0: "Budget-conscious"
+
+# Step 1: Compute Weighted Scores
+cluster_means["score"] = (
+    cluster_means["income"] * 0.4 + 
+    cluster_means["balance"] * 0.2 + 
+    cluster_means["digital_engagement_score"] * 0.2 + 
+    cluster_means["avg_transaction_amt"] * 0.1 + 
+    cluster_means["total_products_owned"] * 0.1
+)
+
+# Step 2: Rank Clusters Based on Score (Descending)
+sorted_clusters = cluster_means["score"].sort_values(ascending=False).index.tolist()
+
+# Step 3: Assign Segments Based on Rank
+dynamic_segment_mapping = {
+    sorted_clusters[0]: "High-value",
+    sorted_clusters[1]: "Occasional",
+    sorted_clusters[2]: "Budget-conscious",
+    sorted_clusters[3]: "At risk / inactive customers"
 }
 
-customer_segments = df[["customer_id", "Cluster"]].copy()
-customer_segments["Segment"] = customer_segments["Cluster"].map(segment_mapping)
+# Print cluster rankings before applying
+print("\nCluster Ranking by Score (Best to Worst):")
+for i, cluster in enumerate(sorted_clusters):
+    print(f"Rank {i+1}: Cluster {cluster} → {dynamic_segment_mapping[cluster]}")
 
-### Drop 'Cluster' column
-customer_segments.drop(columns=["Cluster"], inplace=True)
+# Step 4: Apply Mapping to DataFrame
+df["Segment"] = df["Cluster"].map(dynamic_segment_mapping)
+print(df["Segment"].value_counts())
 
-print(customer_segments.head())
+df_final = df[["customer_id", "Segment"]]
+
+print(df_final.head())
+
+segment_means = df.groupby("Segment")[features_to_scale].mean()
+
+# Display the results
+print("Mean of original features per segment:")
+print(segment_means)
 
 ## Creates csv table in under customer segmentation
-customer_segments.to_csv("customer_segmentation/customer_segments.csv", index=False)
+df_final.to_csv("customer_segmentation/customer_segments.csv", index=False)
 print("Saved 'customer_segments.csv' with Customer ID & segment name")
+
