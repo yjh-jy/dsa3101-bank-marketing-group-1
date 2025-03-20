@@ -21,8 +21,9 @@ Here’s a brief overview of the project structure:
         consumer.py          # Kafka consumer script
         Dockerfile           # Dockerfile for the consumer
     /requirements.txt        # Python dependencies for Docker
+    /build_and_start.sh      # Bash script to coordinate container builds and runs
     /init_db.sql             # Optional SQL script for initializing the PostgreSQL DB
-    /other_folders           # Optional eda scripts or model scripts
+    /other_folders_scripts   # Optional eda scripts or model scripts
 ```
 
 ## Setup Instructions
