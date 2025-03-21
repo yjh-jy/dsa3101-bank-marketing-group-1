@@ -21,29 +21,34 @@ services:
     #   interval: 10s
     #   retries: 5
 
-  # Optional: PostgreSQL setup (commented out for now)
-  # postgres:
-  #   image: postgres
-  #   container_name: postgres
-  #   restart: always
-  #   env_file: "../.env"  # Loads credentials from .env
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
-  #     - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
+  # # Optional: PostgreSQL setup (commented out for now)
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_NAME: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dsa3101project
+      POSTGRES_HOST: localhost
+    ports:
+      - "5433:5432"
+    volumes:
+      # - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
+      - ./customer_segments_full.csv:/csv_files/customer_segments_full.csv  # Mount CSV file directly
 
-  # Optional: Segmentation API service (commented out for now)
   # segmentation_api:
-  #   build: ./segmentation_service
+  #   build:
+  #     context: .
+  #     dockerfile: segmentation_service
   #   container_name: segmentation_api
   #   ports:
   #     - "5000:5000"
   #   depends_on:
-  #     - postgres
   #     - kafka
+  #     - postgres
   #   environment:
-  #     - DATABASE_URL=postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/banking
   #     - KAFKA_BROKER=kafka:9092
 
   producer:
@@ -63,8 +68,10 @@ services:
     container_name: kafka_consumer
     depends_on:
       - kafka
+      - postgres
     environment:
       KAFKA_BROKER: kafka:9092  # Ensure this matches your Kafka setup
 
 volumes:
-  postgres_data:  # Keep this if you decide to use PostgreSQL later
+  postgres_data:  
+    driver: local
