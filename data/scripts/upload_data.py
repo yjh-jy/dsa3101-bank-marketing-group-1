@@ -9,6 +9,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 csv_file_path_test = os.path.join(script_dir, '..', 'raw', 'test.csv')
 csv_file_path_train = os.path.join(script_dir, '..', 'raw', 'bank_full.csv')
 
+
 DB_NAME = os.getenv('DB_NAME')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
