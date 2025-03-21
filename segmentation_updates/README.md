@@ -1,5 +1,5 @@
 # Segmentation Updates
-This documentation provides step-by-step instructions for running a basic Kafka prototype locally using Docker.
+This documentation provides step-by-step instructions for setting up a real-time customer segmentation model locally using Kafka, PostgreSQL, and KMeans++, with simulated live transaction data for dynamic clustering and analysis.
 
 ## Prerequisites
 
@@ -13,17 +13,19 @@ Here’s a brief overview of the project structure:
 
 ```
 /segmentation-updates
-    /docker-compose.yml      # Docker Compose configuration to run the containers
-    /producer                # Directory containing producer.py script
-        producer.py          # Kafka producer script
-        Dockerfile           # Dockerfile for the producer
-    /consumer                # Directory containing consumer.py script
-        consumer.py          # Kafka consumer script
-        Dockerfile           # Dockerfile for the consumer
-    /requirements.txt        # Python dependencies for Docker
-    /build_and_start.sh      # Bash script to coordinate container builds and runs
-    /init_db.sql             # Optional SQL script for initializing the PostgreSQL DB
-    /other_folders_scripts   # Optional eda scripts or model scripts
+    /producer                       # Directory containing producer.py script
+        producer.py                 # Kafka producer script
+        Dockerfile                  # Dockerfile for the producer
+    /consumer                       # Directory containing consumer.py script
+        consumer.py                 # Kafka consumer script
+        Dockerfile                  # Dockerfile for the consumer
+    /db                             # Directory containing init_db.sql script
+        init_db.sql                 # SQL script for initializing the PostgreSQL DB
+    /build_and_start.sh             # Bash script to coordinate container builds and runs
+    /customer_segments_full.csv     # Inital data for init_db.sql
+    /docker-compose.yml             # Docker Compose configuration to run the containers
+    /README.md                      # README documentation
+    /requirements.txt               # Python dependencies for Docker
 ```
 
 ## Setup Instructions
@@ -68,34 +70,74 @@ Running the services sequentially ensures that each service is properly initiali
 
 #### Expected Outcome
 - **Zookeeper** starts first, followed by **Kafka** once Zookeeper is ready.
+- **Postgres** starts before **Consumer**, to ensure that the database is ready before insertion/update is executed
 - **Producer** starts once Kafka is operational, and it can begin producing messages to Kafka.
 - **Consumer** starts last, after Kafka is ready to handle incoming messages.
 
 By following this order, you ensure that all services are started in the correct sequence, allowing them to function properly together.
 
-Kafka will be running on your local machine, and the producer and consumer will simulate transactions in real-time.
+Kafka and Postgres will be running on your local machine, and the producer and consumer will simulate transactions and clustering in real-time.
 
-### 3. Verify the Setup
+### 3. PostgreSQL Integration  
 
-You can verify that everything is running correctly by checking the logs:
+This project integrates **PostgreSQL** as the primary database for handling customer segments and real-time transactions. The setup includes efficient data ingestion, batch processing, and automated updates using triggers and stored functions.  
+
+The PostgresSQL db can be setup with the provided SQL script (`init_db.sql`).
+
+### **Database Schema**  
+
+#### **Tables**  
+
+##### **`customer_segments`**  
+Stores customer information and dynamically updates clustering based on transaction history.  
+
+| Column Name                    | Data Type    | Description |
+|---------------------------------|-------------|-------------|
+| `customer_id`                   | `INT PRIMARY KEY` | Unique identifier for each customer |
+| `income`                        | `FLOAT`    | Annual income of the customer |
+| `balance`                       | `FLOAT`    | Account balance |
+| `customer_lifetime_value`       | `FLOAT`    | Predicted lifetime value of the customer |
+| `debt`                          | `FLOAT`    | Outstanding debt |
+| `tenure`                        | `INT`      | Duration of relationship with the company (years) |
+| `credit_default`                | `INT`      | Indicates if the customer has defaulted on credit |
+| `days_from_last_transaction`    | `INT`      | Number of days since last transaction |
+| `avg_transaction_amt`           | `FLOAT`    | Average transaction amount (updated in real-time) |
+| `num_transactions`              | `INT`      | Total transactions made |
+| `digital_engagement_score`      | `FLOAT`    | Customer engagement score |
+| `loan_repayment_time`           | `FLOAT`    | Estimated loan repayment time |
+| `total_products_owned`          | `INT`      | Number of financial products owned |
+| `has_loan`                      | `INT`      | Indicates if the customer has an active loan |
+| `segment`                       | `VARCHAR(50)` | Customer segmentation label (updated dynamically) |
+| `last_updated`                  | `TIMESTAMP`  | Timestamp for tracking last update |
+
+##### **`live_transaction_data`**  
+Stores incoming transactions before aggregating them into `customer_segments`.  
+
+| Column Name        | Data Type   | Description |
+|-------------------|------------|-------------|
+| `transaction_id`   | `INT PRIMARY KEY` | Unique transaction ID |
+| `customer_id`     | `INT` | Customer making the transaction |
+| `transaction_amt` | `FLOAT` | Transaction amount |
+| `transaction_time` | `TIMESTAMP` | Timestamp of the transaction |
+
+---
+
+
+### 4. Verify the Setup
+
+You can verify that everything is running correctly by checking the logs of the consumer and producer in split terminals:
 
 ```bash
-docker-compose logs -f
+docker-compose logs consumer -f
+```
+
+```bash
+docker-compose logs producer -f
 ```
 
 Look for messages indicating that both the producer and consumer are connected to Kafka and processing transactions.
 
-### 4. PostgreSQL (Optional)
-
-A PostgreSQL database is provided as part of the setup with a basic SQL script (`init_db.sql`). If you don't need the PostgreSQL setup, you can remove or modify the configuration in `docker-compose.yml` and the SQL file. 
-
-To initialize the database, uncomment out and ensure the PostgreSQL service is running in your `docker-compose.yml`, then use the following command to check the logs for the database setup:
-
-```bash
-docker-compose logs -f postgres
-```
-
-### 4. Stopping the Services
+### 5. Stopping the Services
 
 To stop all running services, use:
 
@@ -117,7 +159,7 @@ If you encounter any issues, try the following steps:
 
 3. Make sure Kafka and Zookeeper are running correctly by verifying their logs.
 
-## Notes
+## 📊 **Future Work: Real-Time Visualization**  
 
-- The PostgreSQL database setup is optional and may be removed in future versions if found unnecessary.
-- The producer and consumer scripts can be modified to handle different types of data or additional functionality.
+- Integrating a **dashboard** (e.g., **Streamlit, Dash, or Grafana**) to visualize customer segment changes in real-time.  
+- Implementing a **web socket**-based system to push updates to the frontend dynamically.  
