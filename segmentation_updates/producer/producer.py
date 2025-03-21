@@ -1,3 +1,4 @@
+from datetime import datetime
 from kafka import KafkaProducer
 import json
 import random
@@ -18,17 +19,17 @@ def generate_customer_data(i):
         "customer_id": random.randint(1, 4000),
         "transaction_type": random.choice(['Credit', 'Withdrawal', 'Transfer', 'Deposit']),
         "transaction_amt": random.randint(1, 5000),
-        "transaction_date": time.time()
+        "transaction_date": datetime.now().isoformat()
     }
 
 def main():
-    i = 999821
+    i = 1
     while True:
         i += 1
         data = generate_customer_data(i)
         producer.send('customer_data', value=data)
         print(f"Sent: {data}")
-        time.sleep(1)  # Simulates real-time transactions every 1 seconds
+        time.sleep(2)  # Simulates real-time transactions every 2 seconds
 
 if __name__ == '__main__':
     main()
