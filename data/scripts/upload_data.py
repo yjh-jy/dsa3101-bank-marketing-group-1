@@ -6,8 +6,9 @@ load_dotenv()
 #Obtain absolute reference path of import_date path
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-csv_file_path_test = os.path.join(script_dir, '..', 'data', 'raw', 'test.csv')
-csv_file_path_train = os.path.join(script_dir, '..', 'data', 'raw', 'bank_full.csv')
+csv_file_path_test = os.path.join(script_dir, '..', 'raw', 'test.csv')
+csv_file_path_train = os.path.join(script_dir, '..', 'raw', 'bank_full.csv')
+
 
 DB_NAME = os.getenv('DB_NAME')
 DB_USER = os.getenv('DB_USER')
