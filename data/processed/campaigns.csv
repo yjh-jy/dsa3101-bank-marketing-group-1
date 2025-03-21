@@ -1,100 +1,100 @@
 campaign_id,campaign_type,target_audience,campaign_duration,conversion_rate,acquisition_cost,roi,campaign_language,impressions,clicks
-82,Display Advertising,35-44,60,0.1491,9167.83,2.21,French,23475,3500.0
-1,Email Marketing,45-54,30,0.1016,26089.01,3.95,Spanish,26863,2729.0
-86,Telemarketing,25-34,60,0.0671,3080.36,2.71,Spanish,10128,
-7,Email Marketing,25-34,15,0.1137,40701.81,2.36,French,42170,4795.0
-94,Telemarketing,35-44,30,0.111,2249.33,4.98,Spanish,7083,
-89,Telemarketing,25-34,45,0.0349,1058.34,3.65,Spanish,7641,
-15,Email Marketing,18-24,45,0.0247,1419.75,1.57,Mandarin,25348,626.0
-8,Email Marketing,45-54,45,0.0716,8227.05,2.13,German,35468,2540.0
-96,Telemarketing,35-44,45,0.1062,2685.4,3.68,Spanish,10427,
-52,Display Advertising,25-34,15,0.1097,6477.47,1.95,English,13539,1485.0
-91,Telemarketing,35-44,15,0.0379,6748.93,3.41,German,36276,
-43,Affiliate Marketing,35-44,15,0.0438,752.13,1.65,Mandarin,7771,340.0
-45,Affiliate Marketing,25-34,60,0.1403,4745.52,2.84,German,6505,913.0
-70,Display Advertising,25-34,45,0.0854,656.85,2.82,Spanish,1348,115.0
-22,Display Advertising,35-44,60,0.0742,12482.1,2.48,Spanish,39756,2950.0
-74,Display Advertising,45-54,60,0.0963,4472.01,1.68,Spanish,31948,3077.0
-42,Affiliate Marketing,25-34,30,0.0626,7152.27,1.96,French,19832,1241.0
-53,Display Advertising,45-54,15,0.0166,654.51,4.31,English,4468,74.0
-2,Email Marketing,45-54,15,0.1403,53765.73,3.34,Mandarin,43413,6091.0
-59,Display Advertising,45-54,15,0.1364,21091.43,3.72,English,25983,3544.0
-28,Display Advertising,45-54,75,0.0426,8711.48,3.48,French,24256,1033.0
-4,Email Marketing,35-44,15,0.1032,4373.6,4.5,French,13308,1373.0
-32,Search Engine Optimization,45-54,30,0.1439,11286.41,2.04,Spanish,7856,1130.0
-60,Display Advertising,45-54,30,0.1184,6680.58,2.0,German,20676,2448.0
-84,Telemarketing,45-54,75,0.0267,4818.31,2.93,French,43854,
-55,Affiliate Marketing,45-54,30,0.0794,5803.54,3.35,English,11943,948.0
-10,Email Marketing,18-24,30,0.0161,828.41,3.97,English,5726,92.0
-51,Display Advertising,35-44,45,0.0963,4692.39,4.22,Spanish,6956,670.0
-19,Search Engine Optimization,45-54,45,0.0985,13364.59,2.66,English,15459,1523.0
-87,Telemarketing,45-54,75,0.1021,4171.16,2.57,German,39248,
-36,Display Advertising,35-44,60,0.1048,3260.72,3.43,Spanish,3538,371.0
-27,Display Advertising,45-54,45,0.0741,5391.29,3.43,English,8031,595.0
-49,Affiliate Marketing,45-54,30,0.0905,1654.87,4.51,French,3668,332.0
-97,Telemarketing,45-54,45,0.102,6454.91,3.59,Spanish,30080,
-93,Telemarketing,45-54,75,0.0298,2966.36,4.38,German,24135,
-24,Search Engine Optimization,45-54,15,0.0567,3323.47,4.36,German,23382,1326.0
-14,Email Marketing,35-44,60,0.135,5689.44,1.86,German,13904,1877.0
-33,Display Advertising,45-54,15,0.145,17114.05,3.27,German,33165,4809.0
-78,Display Advertising,25-34,60,0.087,14321.55,1.78,French,26102,2271.0
-11,Email Marketing,35-44,45,0.1449,8891.68,2.55,English,18789,2723.0
-26,Display Advertising,45-54,15,0.0288,3758.64,2.86,Mandarin,37113,1069.0
-83,Display Advertising,25-34,60,0.0212,2199.18,4.72,Spanish,23229,492.0
-77,Display Advertising,45-54,60,0.1026,26570.47,2.72,Mandarin,27002,2770.0
-92,Telemarketing,18-24,15,0.0346,1394.75,3.03,English,38511,
-38,Affiliate Marketing,55+,30,0.0601,9651.97,3.2,German,49039,2947.0
-67,Affiliate Marketing,45-54,15,0.135,16580.85,3.79,Spanish,15972,2156.0
-3,Email Marketing,55+,30,0.0227,4429.54,2.03,French,39907,906.0
-16,Email Marketing,55+,30,0.0467,1943.55,4.29,Mandarin,13037,609.0
-47,Affiliate Marketing,35-44,45,0.1153,13010.57,4.21,Mandarin,40243,4640.0
-65,Display Advertising,55+,60,0.086,9269.07,3.38,German,26707,2297.0
-62,Affiliate Marketing,25-34,30,0.0234,1307.01,3.41,English,27099,634.0
-13,Email Marketing,25-34,75,0.1046,9612.51,4.55,French,14180,1483.0
-58,Affiliate Marketing,25-34,45,0.1038,8547.59,3.17,Spanish,21188,2199.0
-57,Affiliate Marketing,45-54,60,0.0783,4135.04,3.73,Mandarin,14478,1134.0
-88,Telemarketing,35-44,45,0.0528,1407.12,2.35,English,7521,
-64,Affiliate Marketing,35-44,15,0.1473,3793.09,2.61,French,5129,756.0
-31,Display Advertising,25-34,15,0.023,4133.31,4.23,German,21633,498.0
-69,Display Advertising,35-44,45,0.0908,23929.87,2.99,Mandarin,33446,3037.0
-68,Display Advertising,55+,30,0.0835,19028.28,3.1,German,32339,2700.0
-25,Display Advertising,25-34,60,0.1201,12666.72,3.95,German,28320,3401.0
-85,Telemarketing,35-44,15,0.0268,1967.36,2.07,English,27661,
-37,Display Advertising,25-34,75,0.0187,3526.74,4.22,English,43690,817.0
-20,Search Engine Optimization,35-44,30,0.1496,19344.44,3.98,French,27863,4168.0
-40,Affiliate Marketing,35-44,30,0.0444,4902.4,1.53,Mandarin,40477,1797.0
-79,Display Advertising,18-24,60,0.0608,6282.61,1.79,Mandarin,41718,2536.0
-75,Display Advertising,35-44,60,0.0178,1127.89,2.52,German,8384,149.0
-50,Affiliate Marketing,35-44,45,0.1204,21063.68,1.66,German,23945,2883.0
-30,Display Advertising,25-34,15,0.0482,4410.11,3.77,English,19797,954.0
-98,Telemarketing,35-44,15,0.1304,4397.3,2.49,French,29760,
-95,Telemarketing,25-34,45,0.1178,666.26,4.32,Spanish,2202,
-21,Search Engine Optimization,25-34,60,0.1009,3110.69,3.14,German,4855,490.0
-34,Affiliate Marketing,45-54,30,0.0303,6226.62,3.03,English,26039,789.0
-73,Display Advertising,25-34,30,0.0124,3806.44,4.22,Mandarin,34918,433.0
-63,Display Advertising,35-44,60,0.0612,4962.31,4.12,Mandarin,16033,981.0
-12,Email Marketing,35-44,75,0.0691,15833.53,2.78,Spanish,24252,1676.0
-80,Display Advertising,18-24,60,0.1302,32188.74,2.47,English,34135,4444.0
-71,Display Advertising,45-54,75,0.0505,11370.0,3.21,German,37157,1876.0
-48,Display Advertising,25-34,60,0.1214,1047.24,3.87,Mandarin,2318,281.0
-17,Email Marketing,45-54,75,0.1116,26265.3,4.57,German,43109,4811.0
-5,Email Marketing,35-44,30,0.1064,9870.61,4.96,Mandarin,14085,1499.0
-54,Affiliate Marketing,35-44,15,0.1296,5730.83,3.81,English,22213,2879.0
-39,Affiliate Marketing,55+,15,0.1346,49373.77,1.88,German,37615,5063.0
-90,Telemarketing,35-44,75,0.1085,2796.68,1.96,French,9934,
-29,Display Advertising,25-34,75,0.1443,12554.77,2.85,German,42743,6168.0
-99,Telemarketing,25-34,15,0.0824,12964.94,3.64,Mandarin,36742,
-61,Affiliate Marketing,55+,45,0.1398,22798.63,3.97,Mandarin,44748,6256.0
-41,Display Advertising,45-54,15,0.029,6930.71,2.84,Mandarin,39386,1142.0
-18,Email Marketing,35-44,15,0.1005,8793.23,3.98,French,31379,3154.0
-81,Display Advertising,25-34,15,0.1058,1583.84,4.02,English,11176,1182.0
-76,Display Advertising,35-44,60,0.1487,34920.34,3.63,German,30477,4532.0
-35,Affiliate Marketing,25-34,15,0.0172,5084.64,4.36,French,30363,522.0
-23,Search Engine Optimization,45-54,15,0.0756,10889.88,4.12,French,41933,3170.0
-66,Display Advertising,25-34,60,0.1488,61117.56,3.77,French,49366,7346.0
-46,Affiliate Marketing,45-54,15,0.1422,28694.84,3.57,Mandarin,42121,5990.0
-56,Display Advertising,35-44,30,0.076,738.14,1.96,English,5192,395.0
-6,Email Marketing,35-44,15,0.0315,4317.4,2.65,Mandarin,24810,782.0
-9,Email Marketing,45-54,15,0.0878,7483.95,4.68,Mandarin,14999,1317.0
-72,Display Advertising,18-24,30,0.08,6366.06,2.83,French,25920,2074.0
-44,Display Advertising,25-34,30,0.0423,1406.39,4.07,French,4856,205.0
+91,Telemarketing,25-34,15,0.1196,39481.97,1.69,German,44712,
+57,Affiliate Marketing,45-54,60,0.1309,36438.26,1.69,English,26736,3500.0
+1,Email Marketing,55+,30,0.0157,36.82,4.32,French,1317,21.0
+25,Search Engine Optimization,55+,60,0.0587,8389.16,1.58,French,11900,699.0
+35,Display Advertising,35-44,15,0.0528,8429.22,3.41,German,31998,1689.0
+60,Affiliate Marketing,35-44,30,0.1614,49613.15,3.36,Mandarin,28691,4631.0
+47,Affiliate Marketing,55+,45,0.0685,21370.35,4.38,English,31832,2180.0
+85,Telemarketing,35-44,15,0.1293,16741.24,2.43,French,35553,
+18,Email Marketing,45-54,15,0.0569,2581.54,2.75,French,18449,1050.0
+5,Email Marketing,25-34,30,0.0425,3636.74,3.87,French,24669,1048.0
+74,Display Advertising,35-44,60,0.0821,2698.23,2.26,Mandarin,4052,333.0
+76,Display Advertising,25-34,60,0.1039,22866.97,1.83,Spanish,40690,4228.0
+54,Display Advertising,25-34,15,0.1064,708.67,2.81,Spanish,2311,246.0
+16,Email Marketing,35-44,30,0.043,2182.49,1.84,Spanish,23261,1000.0
+92,Telemarketing,18-24,15,0.1318,27005.79,1.86,Mandarin,48556,
+83,Display Advertising,25-34,60,0.0885,17791.12,4.08,German,46047,4075.0
+27,Display Advertising,18-24,45,0.1419,1427.34,3.75,German,1510,214.0
+95,Telemarketing,25-34,45,0.0826,5178.92,1.78,German,6895,
+87,Telemarketing,25-34,75,0.1306,10688.94,2.4,Mandarin,5850,
+41,Display Advertising,45-54,15,0.0438,227.73,1.73,Spanish,1683,74.0
+30,Display Advertising,25-34,15,0.1033,14984.55,4.71,French,37022,3824.0
+71,Display Advertising,55+,75,0.0556,10284.77,3.6,Spanish,46227,2570.0
+55,Display Advertising,55+,30,0.0821,11620.91,3.72,German,20291,1666.0
+70,Display Advertising,45-54,45,0.0831,15121.41,4.51,German,21179,1760.0
+82,Display Advertising,45-54,60,0.0492,6791.82,4.16,Spanish,29527,1453.0
+90,Telemarketing,35-44,75,0.0988,48599.92,3.41,Mandarin,40147,
+75,Display Advertising,35-44,60,0.0739,4384.02,3.56,German,9025,667.0
+59,Affiliate Marketing,25-34,15,0.1586,42877.75,4.66,Mandarin,26501,4203.0
+19,Search Engine Optimization,25-34,45,0.1527,20840.37,4.68,German,15685,2395.0
+96,Telemarketing,18-24,45,0.0937,31025.03,3.91,German,47912,
+68,Affiliate Marketing,45-54,30,0.0991,38726.39,4.57,German,31506,3122.0
+86,Telemarketing,45-54,60,0.0943,4439.52,3.73,German,4185,
+42,Display Advertising,45-54,30,0.047,7117.04,4.95,Spanish,43046,2023.0
+26,Search Engine Optimization,35-44,15,0.0837,16157.59,3.54,French,23995,2008.0
+63,Display Advertising,25-34,60,0.1061,15573.11,3.98,German,30952,3284.0
+12,Email Marketing,45-54,75,0.0555,4557.54,4.73,German,27601,1532.0
+84,Telemarketing,45-54,75,0.0765,20632.9,3.94,French,28387,
+62,Display Advertising,55+,30,0.0529,7854.92,3.2,Spanish,37429,1980.0
+4,Email Marketing,25-34,15,0.0628,2763.81,3.39,Spanish,48828,3066.0
+78,Display Advertising,25-34,60,0.0873,677.6,4.11,Spanish,1416,124.0
+46,Affiliate Marketing,35-44,15,0.1413,43658.35,3.54,Mandarin,22427,3169.0
+31,Search Engine Optimization,35-44,15,0.1309,6506.36,3.95,German,5624,736.0
+73,Display Advertising,18-24,30,0.0762,13263.35,1.59,French,26870,2047.0
+89,Telemarketing,18-24,45,0.1695,54405.44,4.96,Mandarin,40110,
+13,Email Marketing,55+,75,0.0208,2123.92,2.57,German,17703,368.0
+28,Search Engine Optimization,35-44,75,0.1085,8695.87,4.35,English,9369,1017.0
+61,Affiliate Marketing,45-54,45,0.1065,2806.35,1.78,German,2164,230.0
+67,Affiliate Marketing,25-34,15,0.1951,55254.93,2.86,German,23482,4581.0
+2,Email Marketing,35-44,15,0.0148,396.9,4.63,Spanish,12061,179.0
+39,Affiliate Marketing,35-44,15,0.1171,16006.72,4.8,French,24414,2859.0
+64,Display Advertising,25-34,15,0.0392,474.19,1.61,English,5213,204.0
+32,Display Advertising,35-44,30,0.0995,20710.61,3.38,German,45062,4484.0
+48,Display Advertising,35-44,60,0.0939,14146.61,2.6,Spanish,45032,4229.0
+14,Email Marketing,25-34,60,0.0504,615.24,3.91,Mandarin,5092,257.0
+52,Affiliate Marketing,35-44,15,0.2,8221.49,3.27,German,3549,710.0
+43,Display Advertising,35-44,15,0.1021,13302.9,4.54,French,36519,3729.0
+66,Affiliate Marketing,35-44,60,0.1274,80627.4,2.15,Mandarin,45890,5846.0
+8,Email Marketing,35-44,45,0.0157,2822.93,3.98,German,40918,642.0
+79,Display Advertising,18-24,60,0.0918,9350.47,3.23,English,21748,1996.0
+98,Telemarketing,45-54,15,0.0851,603.6,1.63,English,1698,
+21,Search Engine Optimization,18-24,60,0.1776,31984.93,2.23,French,16605,2949.0
+9,Email Marketing,25-34,15,0.0574,216.89,4.6,French,1602,92.0
+45,Affiliate Marketing,55+,60,0.1243,51162.04,4.13,German,31152,3872.0
+44,Display Advertising,55+,30,0.0807,12038.42,2.53,German,41899,3381.0
+37,Display Advertising,45-54,75,0.0665,3037.47,4.6,German,5299,352.0
+53,Affiliate Marketing,18-24,15,0.1964,36683.56,3.39,Spanish,28695,5636.0
+22,Display Advertising,45-54,60,0.0767,25545.66,3.63,French,44478,3411.0
+69,Affiliate Marketing,55+,45,0.0989,21114.86,1.51,French,19621,1941.0
+88,Telemarketing,35-44,45,0.0851,18978.75,2.02,English,32082,
+10,Email Marketing,18-24,30,0.0681,1443.99,4.81,German,12960,883.0
+20,Display Advertising,35-44,30,0.0853,15194.65,1.55,French,33217,2833.0
+81,Display Advertising,45-54,15,0.0495,185.14,3.46,English,1034,51.0
+56,Display Advertising,35-44,30,0.0894,2320.39,4.19,Spanish,5450,487.0
+15,Email Marketing,35-44,45,0.0215,2741.07,2.65,English,43024,925.0
+72,Display Advertising,45-54,30,0.0738,4152.98,4.7,French,15822,1168.0
+49,Affiliate Marketing,35-44,30,0.1585,73557.31,2.73,German,37272,5908.0
+7,Email Marketing,25-34,15,0.0322,1341.82,4.84,Mandarin,10129,326.0
+29,Display Advertising,35-44,75,0.0841,3907.7,4.72,English,6163,518.0
+34,Display Advertising,18-24,30,0.1419,7796.57,2.28,German,10967,1556.0
+65,Affiliate Marketing,55+,60,0.0889,34816.64,4.53,English,31315,2784.0
+58,Affiliate Marketing,35-44,45,0.1684,60790.18,3.29,French,29335,4940.0
+17,Email Marketing,45-54,75,0.0351,2590.72,1.65,French,26475,929.0
+6,Email Marketing,35-44,15,0.0299,960.59,3.53,Spanish,17972,537.0
+93,Telemarketing,35-44,75,0.0698,6960.41,4.46,French,16665,
+36,Display Advertising,45-54,60,0.0386,3324.13,2.77,French,15846,612.0
+24,Search Engine Optimization,18-24,15,0.1474,35639.72,4.72,French,28008,4128.0
+50,Display Advertising,35-44,45,0.0509,708.11,2.55,Spanish,3978,202.0
+97,Telemarketing,45-54,45,0.0874,15858.2,1.57,Spanish,38715,
+80,Display Advertising,45-54,60,0.0292,1084.24,3.64,English,5850,171.0
+51,Affiliate Marketing,45-54,45,0.11,12201.01,4.04,Spanish,14783,1626.0
+94,Telemarketing,25-34,30,0.1514,11351.94,4.27,Mandarin,9348,
+23,Search Engine Optimization,25-34,15,0.1622,3865.64,2.54,German,3033,492.0
+38,Display Advertising,45-54,30,0.0642,14701.5,4.46,German,46671,2996.0
+99,Telemarketing,25-34,15,0.1566,13746.2,4.86,Mandarin,13122,
+3,Email Marketing,45-54,30,0.0228,718.88,1.88,Spanish,15734,359.0
+11,Email Marketing,25-34,45,0.0453,2801.12,3.46,Mandarin,16405,743.0
+33,Affiliate Marketing,35-44,15,0.1063,23906.32,2.35,French,27930,2969.0
+40,Affiliate Marketing,35-44,30,0.1331,33570.04,1.73,French,31619,4208.0
+77,Display Advertising,35-44,60,0.0573,3553.45,4.45,Mandarin,9001,516.0
