@@ -33,18 +33,18 @@ services:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
       - ./customer_segments_full.csv:/csv_files/customer_segments_full.csv  # Mount CSV file directly
 
-  # segmentation_api:
-  #   build:
-  #     context: .
-  #     dockerfile: segmentation_service
-  #   container_name: segmentation_api
-  #   ports:
-  #     - "5000:5000"
-  #   depends_on:
-  #     - kafka
-  #     - postgres
-  #   environment:
-  #     - KAFKA_BROKER=kafka:9092
+  segmentation_service:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: segmentation_service
+    ports:
+      - "5001:5001"
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      - KAFKA_BROKER=kafka:9092
 
   producer:
     build:
