@@ -11,13 +11,18 @@ from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
 from scipy.stats.mstats import winsorize
 from scipy.stats import zscore
+import os
 
 
 ## READING IN DATA
-customer_df = pd.read_csv("data/processed/customer.csv")
-digital_usage_df = pd.read_csv("data/processed/digital_usage.csv")
-transactions_df = pd.read_csv("data/processed/transactions.csv")
-products_df = pd.read_csv("data/processed/products_owned.csv")
+project_root = os.getcwd()  # Assumes script runs from project root
+# Define the path to the processed data folder
+data_path = os.path.join(project_root, "data", "processed")
+# Load the CSV files
+customer_df = pd.read_csv(os.path.join(data_path, "customer.csv"))
+digital_usage_df = pd.read_csv(os.path.join(data_path, "digital_usage.csv"))
+transactions_df = pd.read_csv(os.path.join(data_path, "transactions.csv"))
+products_df = pd.read_csv(os.path.join(data_path, "products_owned.csv"))
 
 # Ensure transaction dates are in datetime format
 transactions_df["transaction_date"] = pd.to_datetime(transactions_df["transaction_date"])
@@ -83,12 +88,20 @@ features_to_scale = [ "income", "balance", "debt", "customer_lifetime_value","da
 fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(15, 12))
 fig.suptitle("Feature-Wise Outlier Visualization", fontsize=16)
 axes = axes.flatten()
+# Make visuals folder
+visuals_path = os.path.join(project_root, "customer_segmentation", "visuals")
+os.makedirs(visuals_path, exist_ok=True)
 # Plot boxplots
 for i, feature in enumerate(features_to_scale):
     sns.boxplot(y=df[feature], ax=axes[i])
     axes[i].set_title(feature)
-plt.tight_layout(rect=[0, 0, 1, 0.96])
-plt.show()
+    axes[i].set_ylabel("")  # optional: remove y-axis label for cleaner look
+    axes[i].grid(True)
+# Adjust layout to make space for title
+plt.tight_layout(rect=[0, 0, 1, 0.95])
+plot_path = os.path.join(visuals_path, "boxplots.png")
+plt.savefig(plot_path)
+plt.close()
 
 
 # Define function to count outliers using Z-score method
@@ -178,12 +191,10 @@ cluster_means["score"] = (
     cluster_means["transaction_freq"] * 0.20  # Higher impact because frequent usage matters
 )
 
-
-
-# Step 2: Rank Clusters Based on Score (Descending)
+# Rank Clusters Based on Score (Descending)
 sorted_clusters = cluster_means["score"].sort_values(ascending=False).index.tolist()
 
-# Step 3: Assign Segments Based on Rank
+# Assign Segments Based on Rank
 dynamic_segment_mapping = {
     sorted_clusters[0]: "High-value",
     sorted_clusters[1]: "Budget-conscious",
@@ -210,5 +221,5 @@ print("Mean of original features per segment:")
 print(segment_means)
 
 ## Creates csv table in under customer segmentation
-df_final.to_csv("customer_segmentation/customer_segments.csv", index=False)
+df_final.to_csv(os.path.join(project_root, "customer_segmentation", "customer_segments.csv"), index=False)
 print("Saved 'customer_segments.csv' with Customer ID & segment name")
