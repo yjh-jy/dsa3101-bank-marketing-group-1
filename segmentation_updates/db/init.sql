@@ -44,6 +44,6 @@ COPY customer_segments (
     digital_engagement_score, loan_repayment_time, total_products_owned, 
     has_loan, segment
 )
-FROM '/csv_files/customer_segments_full.csv'  
+FROM '/csv_files/customer_segments_initial_data.csv.csv'  
 DELIMITER ',' 
 CSV HEADER;  -- Indicates that the first row is a header row
