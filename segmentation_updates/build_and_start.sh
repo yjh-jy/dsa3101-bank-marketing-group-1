@@ -24,7 +24,13 @@ docker-compose build producer
 docker-compose up -d producer
 echo "Producer service started."
 
-# Step 5: Build and start the consumer service
+# Step 5: Build and start the api and dash service
+echo "Building and starting consumer service..."
+docker-compose build segmentation_service
+docker-compose up -d segmentation_service
+echo "Segmentation service (API and Dash) started."
+
+# Step 6: Build and start the consumer service
 echo "Building and starting consumer service..."
 docker-compose build consumer
 docker-compose up -d consumer
