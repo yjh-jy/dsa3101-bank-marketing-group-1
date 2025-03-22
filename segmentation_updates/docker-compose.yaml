@@ -16,12 +16,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     depends_on:
       - zookeeper
-    # healthcheck:
-    #   test: ["CMD", "kafka-topics.sh", "--bootstrap-server", "kafka:9092", "--list"]
-    #   interval: 10s
-    #   retries: 5
 
-  # # Optional: PostgreSQL setup (commented out for now)
   postgres:
     image: postgres
     container_name: postgres
@@ -34,7 +29,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      # - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
+      - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
       - ./customer_segments_full.csv:/csv_files/customer_segments_full.csv  # Mount CSV file directly
 
