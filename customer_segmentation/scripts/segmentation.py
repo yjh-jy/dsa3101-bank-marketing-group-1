@@ -100,7 +100,6 @@ for i, feature in enumerate(features_to_scale):
 plt.tight_layout(rect=[0, 0, 1, 0.95])
 plot_path = os.path.join(visuals_path, "boxplots_for_outliers.png")
 plt.savefig(plot_path)
-plt.show()  
 
 
 # Define function to count outliers using Z-score method
@@ -157,7 +156,6 @@ for i, feature in enumerate(features_to_scale):
 plt.tight_layout(rect=[0, 0, 1, 0.95])
 plot_path = os.path.join(visuals_path, "post_winsorize_boxplots_for_outliers.png")
 plt.savefig(plot_path)
-plt.show()
 plt.close()
 
 # Apply PCA
