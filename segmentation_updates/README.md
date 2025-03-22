@@ -159,6 +159,8 @@ If you encounter any issues, try the following steps:
 
 3. Make sure Kafka and Zookeeper are running correctly by verifying their logs.
 
+4. Before starting a new instance, run `docker volume rm segmentation_updates_postgres_data` to remove persisted Postgres data. In production, this is not an issue because the producer runs continuously and does not restart, preventing conflicting transaction_id inserts. However, in our local setup, frequent restarts can lead to such conflicts.
+
 ## 📊 **Future Work: Real-Time Visualization**  
 
 - Integrating a **dashboard** (e.g., **Streamlit, Dash, or Grafana**) to visualize customer segment changes in real-time.  
