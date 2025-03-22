@@ -95,13 +95,12 @@ os.makedirs(visuals_path, exist_ok=True)
 for i, feature in enumerate(features_to_scale):
     sns.boxplot(y=df[feature], ax=axes[i])
     axes[i].set_title(feature)
-    axes[i].set_ylabel("")  # optional: remove y-axis label for cleaner look
+    axes[i].set_ylabel("") 
     axes[i].grid(True)
-# Adjust layout to make space for title
 plt.tight_layout(rect=[0, 0, 1, 0.95])
-plot_path = os.path.join(visuals_path, "boxplots.png")
+plot_path = os.path.join(visuals_path, "boxplots_for_outliers.png")
 plt.savefig(plot_path)
-plt.close()
+plt.show()  
 
 
 # Define function to count outliers using Z-score method
@@ -124,29 +123,42 @@ print(outliers_zscore_df)
 # Features that need Robust scaling 
 # Features that need Robust scaling 
 robust_features = ["income", "balance", "debt", "customer_lifetime_value",  "avg_transaction_amt", "transaction_freq"]
-
 # Heavily skewed → higher winsorization
 heavy_outliers = ["income", "balance", "debt"]
 for col in heavy_outliers:
-    df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.05, 0.10])).astype(float)
-
+    df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.05, 0.15])).astype(float)
 # Moderate outliers → light winsorization
 moderate_outliers = ["customer_lifetime_value", "avg_transaction_amt", "transaction_freq"]
 for col in moderate_outliers:
     df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.0, 0.01])).astype(float)
-
-
 # Features that need Standard scaling (normally distributed)
 standard_features = ["days_from_last_transaction", "digital_engagement_score", "total_products_owned"]
-
 # Apply RobustScaler
 scalerrobust =  RobustScaler()
 df_scaled = df.copy()
 df_scaled[robust_features] = scalerrobust.fit_transform(df[robust_features])
-
 # Apply StandardScaler
 scaler_standard = StandardScaler()
 df_scaled[standard_features] = scaler_standard.fit_transform(df[standard_features])
+
+# boxplot after winsorize
+# Create 3x3 grid
+fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(15, 12))
+fig.suptitle("Feature-Wise Outlier Visualization Post Winsorization", fontsize=16)
+axes = axes.flatten()
+os.makedirs(visuals_path, exist_ok=True)
+# Plot boxplots
+for i, feature in enumerate(features_to_scale):
+    sns.boxplot(y=df[feature], ax=axes[i])
+    axes[i].set_title(feature)
+    axes[i].set_ylabel("")  
+    axes[i].grid(True)
+
+plt.tight_layout(rect=[0, 0, 1, 0.95])
+plot_path = os.path.join(visuals_path, "post_winsorize_boxplots_for_outliers.png")
+plt.savefig(plot_path)
+plt.show()
+plt.close()
 
 # Apply PCA
 pca = PCA(n_components=len(features_to_scale))  # Keep all components
