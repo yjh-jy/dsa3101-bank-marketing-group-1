@@ -14,7 +14,7 @@ class CampaignOptimizer:
         for campaign in available_campaigns:
             key = (campaign, income_level, target_audience, channel_type)
             alpha_val = self.alpha.get(key,1)
-            beta_val = self.alpha.get(key,1)
+            beta_val = self.beta.get(key,1)
             samples[campaign] = np.random.beta(alpha_val, beta_val)
         
         if not samples:
@@ -32,9 +32,9 @@ class CampaignOptimizer:
             self.beta[key] = 1
 
         if success:
-            self.alpha[key] += 1
+            self.alpha[key] += 3
         else:
-            self.beta[key] += 1
+            self.beta[key] += 3
 
 # Load Relevant Data
 customers = pd.read_csv("data/processed/customer.csv")
@@ -69,11 +69,18 @@ campaign_stats["engagement_rate"] = campaign_stats["successful_engagements"] / c
 alpha = {}
 beta = {}
 
+global_mean_engagement = campaign_stats["engagement_rate"].mean()
+
 for index, row in campaign_stats.iterrows():
     key = (row["campaign_id"], row["income_category"], row["target_audience"], row["channel_used"])
-    alpha[key] = row["successful_engagements"] + 1  # Add 1 for Laplace smoothing
-    beta[key] = (row["total_attempts"] - row["successful_engagements"]) + 1  # Add 1 for Laplace smoothing
     
+    prior_strength = 2  # Adjust this based on dataset size
+    prior_alpha = global_mean_engagement * prior_strength
+    prior_beta = (1 - global_mean_engagement) * prior_strength
+    
+    alpha[key] = row["successful_engagements"] + prior_alpha  
+    beta[key] = (row["total_attempts"] - row["successful_engagements"]) + prior_beta  
+
 # Initialize campaign optimizer
 campaign_optimizer = CampaignOptimizer(alpha, beta)
 
@@ -88,34 +95,20 @@ def simulate_engagement(campaign_id, income_category, target_audience, channel_u
 # Update initial alpha-beta values with prior data
 campaign_stats_concise = campaign_stats[["campaign_id", "income_category", "target_audience", "channel_used", "engagement_rate"]]
 
-for index, row in campaign_stats_concise.iterrows():
-    campaign_id = row["campaign_id"]
-    income_category = row["income_category"]
-    target_audience = row["target_audience"]
-    channel_used = row["channel_used"]
-    engagement_rate = row["engagement_rate"]
-    engagement_results = simulate_engagement(campaign_id, income_category, target_audience, channel_used)
-    campaign_optimizer.update_campaign(campaign_id, income_category, target_audience, channel_used, engagement_results)
 
-
-for index, row in campaign_stats_concise.iterrows():
-    campaign_id = row["campaign_id"]
-    income_category = row["income_category"]
-    target_audience = row["target_audience"]
-    channel_used = row["channel_used"]
-    engagement_rate = row["engagement_rate"]
-    engagement_results = simulate_engagement(campaign_id, income_category, target_audience, channel_used)
-    campaign_optimizer.update_campaign(campaign_id, income_category, target_audience, channel_used, engagement_results)
+for _ in range(50):
+    for index, row in campaign_stats_concise.iterrows():
+        campaign_id = row["campaign_id"]
+        income_category = row["income_category"]
+        target_audience = row["target_audience"]
+        channel_used = row["channel_used"]
+        engagement_rate = row["engagement_rate"]
+        engagement_results = simulate_engagement(campaign_id, income_category, target_audience, channel_used)
+        campaign_optimizer.update_campaign(campaign_id, income_category, target_audience, channel_used, engagement_results)
 
 
 lol = []
 for _ in range(200):
     lol.append(campaign_optimizer.select_campaign("Low Income", "25-34", "Email"))
-
-
-from collections import Counter
-# Count occurrences of each number
-counts = Counter(lol)
-
-# Print the counts
-print(counts)
+    
+print(campaigns[campaigns['campaign_id'] == 2])
