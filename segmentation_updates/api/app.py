@@ -4,8 +4,9 @@ from dash import Dash, dcc, html, Input, Output, dash_table
 import plotly.express as px
 import pandas as pd
 import psycopg2
-import threading
-import time
+import plotly.io as pio
+
+
 
 # Flask App Setup
 app = Flask(__name__)
@@ -24,38 +25,53 @@ def get_cluster_data():
 
 # Dash Layout
 dash_app.layout = html.Div([
-    html.H1("Real-Time Customer Segmentation Dashboard"),
-    html.H2("Live Customer Table (Sorted by last updated)"),
+    html.H1("  Real-Time Customer Segmentation Dashboard"),
+    html.H2("  Live Customer Table (Sorted by last updated)"),
     dash_table.DataTable(
         id='customer-table',
         columns=[
             {'name': 'Customer ID', 'id': 'customer_id'},
             {'name': 'Balance', 'id': 'balance'},
-            {'name': 'Avg Transaction Amt', 'id': 'avg_transaction_amt'},
+            {'name': 'Average Transaction Amount', 'id': 'avg_transaction_amt'},
             {'name': 'Cluster', 'id': 'segment'},
         ],
-        style_data_conditional=[  # Add colors to clusters
+        style_table={'width':'99%'},
+        style_header={
+            'backgroundColor': 'rgb(30, 30, 30)',
+            'color': 'white',
+            'fontWeight':'bold',
+            'fontSize': '18px'
+        },
+        style_data={
+            'backgroundColor': 'rgb(50, 50, 50)',
+            'color': 'white',
+            'border': '0px',
+            'fontSize': '16px'
+        },
+        style_data_conditional=[ 
             {
                 'if': {'column_id': 'segment', 'filter_query': '{segment} = "High-value"'},
                 'backgroundColor': '#28A745',  
-                'color': 'black',
+                'color': 'white',
             },
             {
                 'if': {'column_id': 'segment', 'filter_query': '{segment} = "Budget-conscious"'},
                 'backgroundColor': '#007BFF',  
-                'color': 'black',
+                'color': 'white',
             },
             {
                 'if': {'column_id': 'segment', 'filter_query': '{segment} = "At risk / inactive customers"'},
                 'backgroundColor': '#FF4136', 
-                'color': 'black',
+                'color': 'white',
             }
         ],
         page_size=10,
     ),
-    dcc.Graph(id='cluster-graph-scatter', style={'height': '800px'}, ),
+    dcc.Graph(id='cluster-graph-scatter', style={'height': '800px'},),
     dcc.Interval(id='interval-component', interval=1000, n_intervals=0)  # Update every 1 sec
-])
+    ],
+    style={'backgroundColor': '#111111', 'color': 'white', 'height': '100vh', 'width':'100vw', 'margin-top':'-20px',  'margin-left':'-9px'}
+    )
 
 @dash_app.callback(
     Output('cluster-graph-scatter', 'figure'),
@@ -69,6 +85,7 @@ def update_graph(n):
     }
     df = get_cluster_data()
     fig = px.scatter(df, x='balance', y='avg_transaction_amt', color='segment', hover_data=['customer_id'], color_discrete_map=color_map)
+    fig.layout.template = 'plotly_dark'
     fig.update_layout(
     legend=dict(
         orientation="h",     
@@ -76,7 +93,7 @@ def update_graph(n):
         xanchor="center",
         x= 0.5, 
         y=1.05,               
-        font=dict(size=17),    
+        font=dict(size=20),    
     ),
     legend_title=dict(text='Customer Segments'),  # Optional: Add a title to the legend
 )
