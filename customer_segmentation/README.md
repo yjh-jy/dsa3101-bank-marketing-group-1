@@ -25,7 +25,7 @@ customer_segmentation/
 |------|-------------|
 | `customer_segmentation/scripts/segmentation.py` | Main script that performs customer segmentation using input features (e.g., balance, transaction amount). Also generates boxplots and outputs a CSV file. |
 | `customer_segmentation/scripts/customer_segments.csv` | Input data file containing customer features for segmentation. |
-| `customer_segmentation/notebook/segmentation.ipynb` | Jupyter Notebook version for cleaner, visual exploration of segmentation logic and data characteristics (for presentation / EDA). |
+| `customer_segmentation/notebook/segmentation.ipynb` | Includes business logic and explanation of code in segmentation.py. Jupyter Notebook version for cleaner, visual exploration of segmentation logic and data characteristics (for presentation / EDA). |
 | `customer_segmentation/visuals/` | Folder where generated boxplots will be saved after running the script. |
 | `customer_segmentation/README.md` | Documentation for the customer segmentation module. |
 
