@@ -42,7 +42,7 @@ def main():
         data = generate_customer_data(i)
         producer.send('customer_data', value=data)
         print(f"Sent: {data}")  # Log the sent data
-        time.sleep(2)  # Wait for 2 seconds before sending the next transaction
+        time.sleep(1)  # Wait for 2 seconds before sending the next transaction
 
 if __name__ == '__main__':
     main()
