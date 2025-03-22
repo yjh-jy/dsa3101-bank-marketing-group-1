@@ -31,7 +31,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
-      - ./customer_segments_full.csv:/csv_files/customer_segments_initial_data.csv  # Mount CSV file directly
+      - ./customer_segments_initial_data.csv:/csv_files/customer_segments_initial_data.csv  # Mount CSV file directly
 
   segmentation_service:
     build:
