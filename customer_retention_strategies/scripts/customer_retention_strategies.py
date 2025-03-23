@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[149]:
+
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -6,7 +12,13 @@ from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
+from imblearn.over_sampling import SMOTE
+from sklearn.utils import shuffle
 seed = 888
+
+
+# In[150]:
+
 
 # Load datasets
 file_paths = {
@@ -19,6 +31,10 @@ file_paths = {
 }
 
 dataframes = {name: pd.read_csv(path) for name, path in file_paths.items()}
+
+
+# In[151]:
+
 
 # Merge datasets using 'customer_id' as the key
 df_merged = dataframes["customer"]
@@ -35,12 +51,20 @@ df_merged["due_date"] = pd.to_datetime(df_merged["due_date"], errors="coerce")
 df_merged["last_mobile_use"] = pd.to_datetime(df_merged["last_mobile_use"], errors="coerce")
 df_merged["last_web_use"] = pd.to_datetime(df_merged["last_web_use"], errors="coerce")
 
+
+# In[152]:
+
+
 # Feature Engineering
 df_merged["debt_to_income_ratio"] = df_merged["debt"] / df_merged["income"]
 df_merged["total_products_owned"] = df_merged[
     ["has_investment_product", "has_credit_card", 
      "has_personal_loan", "has_fixed_deposit", "has_insurance"]
 ].sum(axis=1)
+
+
+# In[153]:
+
 
 # Define churn indicator (customers inactive for 6+ months since the last transaction of dataset)
 latest_transaction = df_merged.groupby("customer_id")["transaction_date"].max()
@@ -70,6 +94,10 @@ def is_churn(customer_id):
     return (pd.isna(last_txn) or last_txn < churn_threshold_date) and digital_inactive
 df_merged["churn_risk"] = df_merged["customer_id"].map(is_churn)
 
+
+# In[154]:
+
+
 # Prepare dataset for model training
 features = [
     "age", "tenure", "balance", "debt", "income", "debt_to_income_ratio",
@@ -77,24 +105,37 @@ features = [
     "mobile_logins_wk", "web_logins_wk"
 ]
 
-df_clean = df_merged.dropna(subset=features + ["churn_risk"])
+df_clean = df_merged.dropna(subset=features + ["churn_risk"]).copy()
 X = df_clean[features]
 y = df_clean["churn_risk"].astype(str)
+customer_ids = df_clean["customer_id"]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed, stratify=y)
+# Split before applying SMOTE
+X_train, X_test, y_train, y_test, customer_train, customer_test = train_test_split(
+    X, y, customer_ids, test_size=0.2, random_state=seed, stratify=y
+)
 
-# Check class distribution of churn labels
-churn_counts = df_clean["churn_risk"].value_counts(normalize=True)
+smote = SMOTE(sampling_strategy='auto', random_state=seed)
+X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+
+X_train_resampled, y_train_resampled = shuffle(X_train_resampled, y_train_resampled, random_state=seed)
+
+
+# In[155]:
+
 
 plt.figure(figsize=(6, 4))
-churn_counts.plot(kind="bar")
-plt.title("Churn Class Distribution")
+pd.Series(y_train_resampled).value_counts(normalize=True).plot(kind="bar", color=["steelblue", "orange"])
+plt.title("Balanced Churn Class Distribution (Training Set After SMOTE)")
 plt.xlabel("Churn Label")
 plt.ylabel("Proportion")
 plt.xticks(ticks=[0, 1], labels=["No Churn", "Churn"], rotation=0)
+plt.ylim(0, 1)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.show()
 
-churn_counts
+
+# In[156]:
 
 
 # Train Random Forest Model
@@ -103,6 +144,10 @@ rf_model.fit(X_train, y_train)
 
 y_pred = rf_model.predict(X_test)
 report = classification_report(y_test, y_pred)
+
+
+# In[157]:
+
 
 feature_importance = rf_model.feature_importances_
 feature_names = np.array(features)
@@ -116,6 +161,9 @@ plt.ylabel("Features")
 plt.title("Key Factors Driving Churn")
 plt.gca().invert_yaxis()  
 plt.show()
+
+
+# In[158]:
 
 
 # Ensure df_clean is a full copy, not a view
@@ -137,6 +185,10 @@ df_clean.loc[:, "risk_level"] = pd.cut(
 )
 
 df_clean["churn_label"] = df_clean["churn_risk"].replace({True: "Churn", False: "Non-Churn"})
+
+
+# In[159]:
+
 
 # Save Early Warning Report
 warning_report = df_clean[
