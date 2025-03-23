@@ -39,7 +39,7 @@ df_merged["last_web_use"] = pd.to_datetime(df_merged["last_web_use"], errors="co
 # Feature Engineering
 df_merged["debt_to_income_ratio"] = df_merged["debt"] / df_merged["income"]
 df_merged["total_products_owned"] = df_merged[
-    ["has_investment_product", "has_credit_card", "has_home_loan", 
+    ["has_investment_product", "has_credit_card", 
      "has_personal_loan", "has_fixed_deposit", "has_insurance"]
 ].sum(axis=1)
 
