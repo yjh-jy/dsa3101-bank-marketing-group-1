@@ -11,16 +11,21 @@ os.makedirs('figures/barplots', exist_ok=True)
 
 
 def check_missing_correlation(df, col_to_check, target_col):
-    # Filter for rows where col_to_check is missing
+    # Filter rows where col_to_check is missing
     filtered_df = df[df[col_to_check].isnull()]
-    
-    # Print the number of missing values for context
-    print(f"Total missing values in '{col_to_check}': {len(filtered_df)}")
-    
-    # Check the count of target_col
-    value_counts = filtered_df[target_col].value_counts()
-    
-    return value_counts
+
+    # Print number of missing values
+    num_missing = len(filtered_df)
+    print(f"Total missing values in '{col_to_check}': {num_missing}")
+
+    # Print value counts of the target column for these rows
+    if num_missing > 0:
+        print(f"\nValue counts of '{target_col}' where '{col_to_check}' is missing:")
+        print(filtered_df[target_col].value_counts(dropna=False))
+    else:
+        print(f"No missing values in '{col_to_check}'.")
+
+    return filtered_df[target_col].value_counts(dropna=False)
 
 def get_boxplot(df, target_col):
     binary_cols = [col for col in df.columns
