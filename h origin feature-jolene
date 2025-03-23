@@ -1,0 +1,94 @@
+[33m63db1de[m[33m ([m[1;36mHEAD -> [m[1;32mfeature-jolene[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #41 from yjh-jy/feature-junhan
+[33m4313f78[m[33m ([m[1;31morigin/feature-junhan[m[33m)[m Switched theme to dark mode
+[33m3e7b971[m Merge pull request #45 from yjh-jy/feature-sybella
+[33ma78811d[m Added customer engagement script and supporting files
+[33medcf029[m Minor changes to CLV in customer.csv generation
+[33m8677e9e[m[33m ([m[1;31morigin/feature-ashley[m[33m)[m Minor changes to CLV in customer.csv generation
+[33m4047b32[m Fixed typo
+[33m6446e3d[m Fixed a bug
+[33ma857ea8[m Rename the file and corresponding file paths for clarity
+[33m7de5674[m Updated requirements.txt
+[33m31ad372[m Update README.md
+[33m1ef45a5[m Adjusted the sleep time
+[33m33c0a57[m Added a new service for the Dash frontend and Flask API
+[33m50fdcd3[m Edited the bash script to incude the service for the Dash frontend
+[33m79e59d4[m Added the script and dockerfile for the Dash frontend and Flask API
+[33mcca2203[m Added sub-model for conversion rate
+[33m698a713[m Added sub-model for conversion rate
+[33m5a08a2e[m Merge pull request #39 from yjh-jy/feature-rena
+[33mb9ae78a[m Merge pull request #47 from yjh-jy/feature-teresaliau
+[33m0cba150[m Added more boxplots
+[33m3fe67c9[m Merge pull request #46 from yjh-jy/feature-teresaliau
+[33m9b71aff[m Changed some directories
+[33m32770f1[m Added docstrings, inline comments
+[33m2361abe[m Updated troubleshootting to account for bugs relating to DB persistence
+[33m73657ed[m changed parts regarding the dates
+[33mdec78a0[m[33m ([m[1;31morigin/feature-sybella[m[33m)[m Baseline model for predicting customer preferences
+[33m66492ee[m Tidyied up config file and added persistence to postgres db
+[33mc2f8f9c[m added acquisition cost sub-model based on linear reg
+[33m262d94d[m Merge pull request #42 from yjh-jy/feature-sybella
+[33md348f48[m Outline for predicting customer preferences
+[33m9e516ef[m added acquisition cost sub-model based on linear reg
+[33m050b22a[m Updated README to reflect recent changes
+[33mdd5bee5[m Deleted empty files
+[33mfc201ce[m Updated bash script to include postgres build and start
+[33mc8ed0e2[m Merge pull request #40 from yjh-jy/feature-ashley
+[33m2ae7bfc[m Reversed trend for LANGUAGE_COST
+[33m27bc567[m[33m ([m[1;31morigin/feature-rena[m[33m, [m[1;32mfeature-rena[m[33m)[m First draft of behavioral patterns task with initial analysis and framework
+[33m7a1ee6f[m Updated requirements.txt
+[33m4afd436[m Fixed a bug in the transaction_date type
+[33mb850319[m Finalised consumer.py, added mini batching and recalculation of clusters logic
+[33m9b3e944[m Added postgres service
+[33mebce13c[m Create base customer segments for initializing the customer_segments table in PostgreSQL
+[33m9408087[m Finalised initalisations for the customer_segments and live_transaction_data tables
+[33m186721b[m Merge pull request #38 from yjh-jy/data-cleaning-roderich
+[33m0f120a8[m[33m ([m[1;31morigin/data-cleaning-roderich[m[33m)[m adjusted weightage for campaigns dataset
+[33m39c7222[m Merge pull request #37 from yjh-jy/feature-ashley
+[33m48ecd0e[m added updated customer.csv (tweaked CLV)
+[33m4184826[m Merge pull request #36 from yjh-jy/feature-ashley
+[33m840f99c[m tweaked CLV generation
+[33m376a79e[m Merge branch 'main' of https://github.com/yjh-jy/dsa3101-bank-marketing-group-1 into feature-ashley
+[33m2b3ea3e[m edited file path and made tweaked CLV generation
+[33m4011956[m Merge pull request #33 from yjh-jy/feature-ashley
+[33m9942f7c[m Merge pull request #30 from yjh-jy/data-cleaning-roderich
+[33mfb16141[m shifted synthetic program notebooks to notebook directory
+[33mc14c097[m Uploaded approach outline for campaign roi model
+[33m73fea4e[m Merge pull request #31 from yjh-jy/feature-sybella
+[33m598deaa[m Fixed typo in the relative file path
+[33m8ad5f91[m Delete data/notebooks/products_owned_script.ipynb
+[33m5622fc6[m Upload Data_Schema.csv
+[33m34b404c[m Merge branch 'main' of https://github.com/yjh-jy/dsa3100-bank-marketing-group-1 into data-cleaning-roderich
+[33mcae1388[m Fixed file path of scripts
+[33mce43102[m Merge pull request #29 from yjh-jy/data-cleaning-roderich
+[33m14cb23f[m Merge branch 'main' into data-cleaning-roderich
+[33med1ccaa[m Resolved merge conflicts
+[33m6544b78[m Fixed data inconsistency between engagement details and campaigns
+[33m92d0719[m[33m ([m[1;31morigin/feature-jasmine[m[33m)[m Upload updates Data_Schema.csv
+[33me567918[m Delete data/raw/Data_Schema.csv
+[33m0b9e07f[m Delete cost_effectiveness_of_campaigns/notebooks/cost_effectiveness_of_campaigns.ipynb
+[33m71a786a[m Merge pull request #26 from yjh-jy/feature-sybella
+[33m06f9474[m Cost-benefit analysis for campaigns
+[33maa34c0f[m Merge pull request #25 from yjh-jy/feature-junhan
+[33md38d200[m updated script for product ownership synthetic data generation
+[33m0e3f828[m Updated folder structure to reflect recent changes
+[33mfb361c8[m Added a bash script to coordinate container builds and runs
+[33m832f905[m Added environmental vars
+[33m16278d4[m Update README.md
+[33m6dd9b42[m Commented buggy code
+[33m67eac51[m Commented out API and Postgres services
+[33mda580bd[m Merge pull request #23 from yjh-jy/reorganize-scripts-notebooks-folders-bao
+[33m77679d5[m Refactor code into main function
+[33me6e1847[m Remove connection to databse for testing
+[33m5029b28[m Fixed bugs in dockerfile and docker-compose
+[33m0be883c[m Rearranged folder structure
+[33m94f7b21[m Added custom requirements.txt for segmentation updates
+[33m8bd2926[m Update Data_Schema.csv
+[33m99330e2[m Add files via upload
+[33mbad4ddc[m[33m ([m[1;31morigin/reorganize-scripts-notebooks-folders-bao[m[33m)[m Add scripts/ folder for all business questions
+[33mb4afc61[m Move scripts/ folder content to scripts/ and notebooks/ inside data/
+[33mb74a068[m Merge pull request #21 from yjh-jy/feature-teresaliau
+[33m2c58630[m Added explanations for Silhouette Score
+[33me0c1323[m Reduced number of segments to 3 due to overlap and added evaluation metric and handled outliers
+[33meba0c2c[m Initialised sql script to create postgres db
+[33mb2728f0[m Initialised dockerfiles and compose yaml files
+[33mf09a7d1[m Initialised producers and consumers for Kafka
