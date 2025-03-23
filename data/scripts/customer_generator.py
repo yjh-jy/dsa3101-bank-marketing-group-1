@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[942]:
-
-
 import pandas as pd
 import numpy as np
 from faker import Faker
@@ -11,6 +5,8 @@ import random
 import scipy.stats as stats
 import sklearn
 from sklearn.linear_model import LinearRegression
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 bank_df = pd.read_csv("../raw/bank_full.csv", delimiter=";")
@@ -44,10 +40,6 @@ synthetic_data
 # # Balance
 # 
 # Synthesize 'balance' values, assuming 'balance' follows lognormal distribution.
-
-# In[943]:
-
-
 # Assuming 'balance' has lognormal distribution, fit it to the distribution.
 balance_data = bank_df['balance']
 log_balance = np.log(balance_data[balance_data > 0])  
@@ -68,8 +60,6 @@ synthetic_data
 
 
 # # Age
-
-# In[944]:
 
 
 # Analyze correlation between balance and age
@@ -100,11 +90,7 @@ synthetic_data['age'] = synthetic_age
 synthetic_data
 
 
-# In[945]:
 
-
-import seaborn as sns
-import matplotlib.pyplot as plt
 # Define variables to compare
 variables_to_compare = ['balance', 'age']
 
@@ -136,8 +122,6 @@ plt.show()
 
 # # Income
 # Assuming lognormal distribution for balance, synthesize 4000 income values. Assuming positve correlation between balance and income, add 'income' to the synthetic dataset by used rank-based matching with 'balance'.
-
-# In[946]:
 
 
 loan_pred_df = loan_pred_df.rename(columns={'ApplicantIncome': 'income'})
@@ -186,8 +170,6 @@ plt.show()
 # 
 # First, compute probability that a customer has a certain job. Then, calculate the max and min age for each job in the original dataset (bank_full.csv), excluding any outliers. For each synthetic observation, check which jobs are valid for their age. Among these jobs, use the computed probabilities to randomly sample a job for the individual.
 
-# In[947]:
-
 
 # Compute job frequency distribution per age group
 job_age_counts = bank_df.groupby("job")["age"].count()
@@ -225,8 +207,6 @@ synthetic_data["job"] = synthetic_data["age"].apply(assign_weighted_job)
 
 # After generating the the 'job' variable based on its relationship with age as observed in the original dataset, we realised that some of the data points did not make sense. Since there were a lot of blue-collared workers, there was a higher probability that an individual was a blue-collared worker, even if their income was 40k+. Hence, we assumed a reasonable relationship between income and jobs, based on the average salary for each occupation.
 
-# In[948]:
-
 
 job_income_ranges = {
     "management": (5000, 15000),
@@ -263,9 +243,6 @@ synthetic_data
 
 # # Marital
 
-# In[949]:
-
-
 # Analyze marital distribution
 marital_counts = bank_df['marital'].value_counts(normalize=True)
 marital_choices = marital_counts.index.tolist()
@@ -293,9 +270,6 @@ plt.show()
 
 # # Education
 
-# In[950]:
-
-
 # Analyze education distribution
 education_counts = bank_df['education'].value_counts(normalize=True)
 education_choices = education_counts.index.tolist()
@@ -317,9 +291,6 @@ plt.show()
 
 
 # # Tenure
-
-# In[951]:
-
 
 random.seed(3101)
 churners_df_age_tenure = churners_df.rename(columns={'Customer_Age': 'age'})[['age', 'Months_on_book']]
@@ -366,9 +337,6 @@ synthetic_data
 
 # # NPS
 
-# In[952]:
-
-
 nps_values = nps_df['NPS']
 
 # Compute the relative frequency of each unique NPS score as probabilities
@@ -393,9 +361,6 @@ synthetic_data
 
 # # Dependents
 
-# In[953]:
-
-
 # Extract the distribution of Dependent_count
 dependent_distribution = churners_df['Dependent_count'].value_counts(normalize=True).sort_index()
 
@@ -415,9 +380,6 @@ plt.show()
 
 
 # # Customer Lifetime Value
-
-# In[954]:
-
 
 # Extract and filter the distribution of CLV
 df_clv_filtered = ecommerce_df[(ecommerce_df["CustomerLifetimeValue"] >= ecommerce_df["CustomerLifetimeValue"].quantile(0.25)) &
@@ -459,9 +421,6 @@ synthetic_data['customer_lifetime_value'] = synthetic_clv
 
 # # Debt
 
-# In[955]:
-
-
 # Convert Revolving Credit Balance to numeric
 loan_ir_df["Revolving.CREDIT.Balance"] = pd.to_numeric(loan_ir_df["Revolving.CREDIT.Balance"], errors="coerce")
 
@@ -501,11 +460,6 @@ plt.ylabel("Density")
 plt.show()
 
 
-
-
-# In[956]:
-
-
 # Convert data types according to the schema
 synthetic_data = synthetic_data.astype({
     "customer_id": "int64",
@@ -525,20 +479,11 @@ monetary_columns = ["balance", "debt", "income"]
 synthetic_data[monetary_columns] = synthetic_data[monetary_columns].round(2).astype("float64")
 
 
-# In[957]:
-
-
 synthetic_data
-
-
-# In[958]:
 
 
 synthetic_data
 synthetic_data.to_csv("../processed/customer.csv", index=False)
-
-
-# In[959]:
 
 
 customers = pd.read_csv("../processed/customer.csv")
