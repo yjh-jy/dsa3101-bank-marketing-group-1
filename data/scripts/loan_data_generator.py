@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import pandas as pd
 import numpy as np
 import random as rd
@@ -19,9 +13,6 @@ pd.set_option('display.max_columns', None)
 np.random.seed(888)
 
 
-# In[ ]:
-
-
 # Initalising the DataFrame 
 s = pd.read_csv("../raw/loan_data_train.csv")
 df = pd.DataFrame( 
@@ -33,9 +24,6 @@ df = pd.DataFrame(
               'paid_off_date',
               ])
 df
-
-
-# In[3]:
 
 
 # Only extracting the loan purpose and loan amount variables
@@ -53,16 +41,10 @@ loan_purpose = s['Loan.Purpose']
 loan_amount = s['Amount.Requested']
 
 
-# In[4]:
-
-
 # Sequentially generate load_ids from 1 to 4000 and mutliplying by 3
 a = random.sample([i for i in range(1, 4001)], k=int(4000 * 0.66))
 a = a + a + a 
 df.customer_id = a
-
-
-# In[5]:
 
 
 # Generating the due date 
@@ -92,9 +74,6 @@ res = choices(res_dates, k=K)
 df.paid_off_date = res
 
 
-# In[6]:
-
-
 # Randomly replacing the paid off date with NaNs
 unique_cust = df.customer_id.unique()
 indicies = random.sample(list(unique_cust), k=int(len(unique_cust)*0.6))
@@ -107,21 +86,12 @@ loan_purpose = random.choices(list(loan_purpose), k=7920)
 loan_amount = random.choices(list(loan_amount), k=7920)
 
 
-# In[7]:
-
-
 df.loan_amount = loan_amount
 df.loan_purpose = loan_purpose
 
 
-# In[8]:
-
-
 sns.barplot(data=df, x='loan_purpose', y='loan_amount')
 plt.xticks(rotation=90)
-
-
-# In[ ]:
 
 
 df.to_csv("../processed/loans.csv")
