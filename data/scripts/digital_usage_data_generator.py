@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 import pandas as pd
 import numpy as np
 import random as rd
@@ -16,9 +10,6 @@ from random import choices
 pd.set_option('display.max_columns', None)
 # Set random seed for reproducibility
 np.random.seed(888)
-
-
-# In[4]:
 
 
 # Initalising the DataFrame 
@@ -34,9 +25,6 @@ df = pd.DataFrame(
               'last_web_use',
               ])
 df
-
-
-# In[5]:
 
 
 # Sequentially generate customer_ids from 1 to 4000
@@ -56,14 +44,8 @@ replace_indices = np.random.choice(indicies, num_to_replace, replace=False)
 df.loc[replace_indices, 'has_web_account'] = 1
 
 
-# In[6]:
-
-
 # Breakdown of web account and mobile app ownership
 df.groupby(by=['has_web_account', 'has_mobile_app']).count()
-
-
-# In[7]:
 
 
 # Initalising the rest of the columns accordingly, ensuring NaNs in the appropriate indicies
@@ -74,9 +56,6 @@ df.last_mobile_use = [i if i == 1 else np.nan for i in df.has_mobile_app]
 df.web_logins_wk = [i if i == 1 else np.nan for i in df.has_web_account]
 df.avg_web_time = [i if i == 1 else np.nan for i in df.has_web_account]
 df.last_web_use = [i if i == 1 else np.nan for i in df.has_web_account]
-
-
-# In[8]:
 
 
 num_of_mobile_users = int(4000 * 0.73) + 1
@@ -100,18 +79,12 @@ indicies = df[df.mobile_logins_wk == 1].index
 df.loc[indicies, "mobile_logins_wk"] = avg_mobile_logins
 
 
-# In[9]:
-
-
 plt.figure(figsize=(10, 5))
 sns.kdeplot(df['mobile_logins_wk'], fill=True, bw_adjust=.8)
 plt.xlabel("Logins per Week")
 plt.ylabel("Density")
 plt.title("KDE Distribution of Average App Logins per Week")
 plt.show()
-
-
-# In[10]:
 
 
 num_of_web_users = int(4000 * 0.88)
@@ -135,18 +108,12 @@ indicies = df[df.web_logins_wk == 1].index
 df.loc[indicies, "web_logins_wk"] = avg_web_logins
 
 
-# In[11]:
-
-
 plt.figure(figsize=(10, 5))
 sns.kdeplot(avg_web_logins, fill=True, bw_adjust=.8)
 plt.xlabel("Logins per Week")
 plt.ylabel("Density")
 plt.title("KDE Distribution of Average Web Logins per Week")
 plt.show()
-
-
-# In[12]:
 
 
 num_of_mobile_users = int(4000 * 0.73) + 1
@@ -180,16 +147,10 @@ df.loc[indicies, "avg_mobile_time"] = light_sessions
 df["avg_mobile_time"] = df["avg_mobile_time"].apply(lambda x: np.round(x, 2) if pd.notna(x) else x)
 
 
-# In[13]:
-
-
 # Relationship of average weekly mobile logins and average time spent in a single mobile session
 sns.lineplot(df.mobile_logins_wk, df.avg_mobile_time)
 plt.xlabel("Average mobile logins per week ")
 plt.ylabel("Average time spent in a single mobile session (mins)")
-
-
-# In[14]:
 
 
 num_of_web_users = int(4000 * 0.88) 
@@ -223,9 +184,6 @@ df.loc[indicies, "avg_web_time"] =  light_sessions
 df["avg_web_time"] = df["avg_web_time"].apply(lambda x: np.round(x, 2) if pd.notna(x) else x)
 
 
-# In[15]:
-
-
 # Relationship of average weekly web logins and average time spent in a single web session
 sns.lineplot(df.web_logins_wk, df.avg_web_time)
 plt.xlabel("Average web logins per week ")
@@ -237,9 +195,6 @@ sns.kdeplot(df.avg_web_time, fill=True, bw_adjust=.8)
 plt.xlabel("Average time spent in a single web session")
 plt.ylabel("Density")
 plt.show()
-
-
-# In[16]:
 
 
 # Generate the last web login times
@@ -281,9 +236,6 @@ res = choices(res_dates, k=K)
 df.loc[indicies, 'last_web_use'] = res
 
 
-# In[ ]:
-
-
 # Generate the last mobile login times
 indicies = df[(5 <= df.avg_mobile_time) & (df.avg_mobile_time <= 10)].index
 test_date1, test_date2 = date(2024, 12, 20), date(2024, 12, 31)
@@ -322,15 +274,9 @@ res = choices(res_dates, k=K)
 df.loc[indicies, 'last_mobile_use'] = res
 
 
-# In[21]:
-
-
 sns.lineplot(df.last_web_use, df.web_logins_wk)
 plt.xticks(rotation=45)
 plt.ylabel("mobile_logins_wk")
-
-
-# In[ ]:
 
 
 # convert to csv
