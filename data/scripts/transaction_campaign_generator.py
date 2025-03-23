@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 # ## Transaction Table
 # 
 # To make it realistic
@@ -20,14 +17,13 @@
 # High CLV customers have larger and more frequent transaction 
 # 
 
-# In[626]:
-
-
 import random
 import pandas as pd
 from faker import Faker
 from scipy.stats import norm
 from datetime import datetime
+import matplotlib.pyplot as plt
+import numpy as np
 
 fake = Faker()
 
@@ -122,11 +118,6 @@ print(df_transactions.head())
 
 # # Transaction table data analysis
 
-# In[627]:
-
-
-import pandas as pd
-import matplotlib.pyplot as plt
 
 data = pd.read_csv("../processed/customer.csv")
 
@@ -150,12 +141,6 @@ plt.show()
 
 # # Campaign Table
 
-# In[628]:
-
-
-import random
-import pandas as pd
-import numpy as np
 
 # Combine Customer and EngagementDetail data for reference
 customer_df = pd.read_csv("../processed/customer.csv")
@@ -340,9 +325,6 @@ df_campaigns.to_csv("../processed/campaigns.csv", index=False)
 
 df_campaigns
 
-
-
-# In[629]:
 
 
 # Plotting the distributions
