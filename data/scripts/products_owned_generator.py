@@ -1,13 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[117]:
-
-
 import numpy as np
 import pandas as pd
 from scipy.stats import norm
 from scipy.special import expit  
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 np.random.seed(42)
@@ -32,9 +28,6 @@ customers_df = customers_df.merge(transaction_frequency, on='customer_id', how='
 customers_df['transaction_frequency'] = customers_df['transaction_frequency'].fillna(0)
 
 customers_df
-
-
-# In[118]:
 
 
 # Generate Product Ownership based on Conditional Probabilities
@@ -96,18 +89,10 @@ print("Product Ownership Rates After Adjustments:\n", df.mean())
 df
 
 
-# In[119]:
-
-
 # export to data folder
 df.to_csv("../processed/products_owned.csv", index=False)
 
 
-# In[120]:
-
-
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Count the number of customers who own each product
 ownership_counts = df.drop(columns=['customer_id']).sum()
