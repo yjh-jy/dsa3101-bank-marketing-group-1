@@ -12,13 +12,25 @@ docker-compose build kafka
 docker-compose up -d kafka
 echo "Kafka service started."
 
-# Step 3: Build and start the producer service
+# Step 3: Build and start the Postgres service
+echo "Building and starting consumer service..."
+docker-compose build postgres
+docker-compose up -d postgres
+echo "Postgres service started."
+
+# Step 4: Build and start the producer service
 echo "Building and starting producer service..."
 docker-compose build producer
 docker-compose up -d producer
 echo "Producer service started."
 
-# Step 4: Build and start the consumer service
+# Step 5: Build and start the api and dash service
+echo "Building and starting consumer service..."
+docker-compose build segmentation_service
+docker-compose up -d segmentation_service
+echo "Segmentation service (API and Dash) started."
+
+# Step 6: Build and start the consumer service
 echo "Building and starting consumer service..."
 docker-compose build consumer
 docker-compose up -d consumer
