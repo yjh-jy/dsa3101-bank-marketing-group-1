@@ -1,27 +1,17 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[52]:
-
-
 import pandas as pd
 import numpy as np
 from faker import Faker
 from datetime import timedelta, datetime
 import random
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 fake = Faker()
-
-
-# In[53]:
 
 
 # Generate engagement_id feature
 total_engagements = 16000
 engagement_ids = np.arange(1, total_engagements + 1)
-
-
-# In[ ]:
 
 
 #Generate channel_used feature
@@ -83,9 +73,6 @@ print("Final Synthetic Channel Distribution:", synthetic_dist)
 print(sum(synthetic_dist.values()))
 
 
-# In[55]:
-
-
 # Generate has_engaged based on channel-specific engagement probabilities
 engagement_probs = {
     'Email': 0.2,       # Lower engagement
@@ -98,9 +85,6 @@ engagement_probs = {
 }
 
 has_engaged = np.array([1 if random.random() < engagement_probs[channel] else 0 for channel in channel_used])
-
-
-# In[56]:
 
 
 # Generate campaign_id based on channel_used
@@ -121,9 +105,6 @@ for channel in channel_used:
     start, end = campaign_ranges[channel]
     campaign_ids.append(np.random.randint(start, end + 1))
 
-
-
-# In[57]:
 
 
 # Generate day, month, and duration (based on has_engaged)
@@ -190,9 +171,6 @@ day, month, duration = zip(*[
 ])
 
 
-# In[58]:
-
-
 #Generate customer_id, ensuring that each customer engages with an average of 2 campaigns
 total_customers = 4000
 
@@ -237,9 +215,6 @@ def generate_customer_id(has_engaged, total_customers=4000):
 customer_ids = generate_customer_id(has_engaged)
 
 
-# In[59]:
-
-
 # Final DataFrame
 df = pd.DataFrame({
     'engagement_id': engagement_ids,
@@ -255,9 +230,6 @@ df = pd.DataFrame({
 df
 
 
-# In[60]:
-
-
 # Checking customer_id logic
 #  Number of unique customers who engaged at least once
 engaged_customers = df[df['has_engaged'] == 1]['customer_id'].nunique()
@@ -269,20 +241,12 @@ print("Total unique customer IDs in dataset:", total_customers_in_dataset)
 
 
 
-# In[61]:
-
-
 #export to csv
 df.to_csv("../data/processed/engagement_details.csv", index=False)
 
 
-# In[62]:
-
-
 #verifying/visualizing logical trends/engagement patterns
 
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Filter only engaged rows
 engaged_df = df[df['has_engaged'] == 1]
