@@ -35,14 +35,12 @@ df_merged["due_date"] = pd.to_datetime(df_merged["due_date"], errors="coerce")
 df_merged["last_mobile_use"] = pd.to_datetime(df_merged["last_mobile_use"], errors="coerce")
 df_merged["last_web_use"] = pd.to_datetime(df_merged["last_web_use"], errors="coerce")
 
-
 # Feature Engineering
 df_merged["debt_to_income_ratio"] = df_merged["debt"] / df_merged["income"]
 df_merged["total_products_owned"] = df_merged[
     ["has_investment_product", "has_credit_card", 
      "has_personal_loan", "has_fixed_deposit", "has_insurance"]
 ].sum(axis=1)
-
 
 # Define churn indicator (customers inactive for 6+ months since the last transaction of dataset)
 latest_transaction = df_merged.groupby("customer_id")["transaction_date"].max()
@@ -72,7 +70,6 @@ def is_churn(customer_id):
     return (pd.isna(last_txn) or last_txn < churn_threshold_date) and digital_inactive
 df_merged["churn_risk"] = df_merged["customer_id"].map(is_churn)
 
-
 # Prepare dataset for model training
 features = [
     "age", "tenure", "balance", "debt", "income", "debt_to_income_ratio",
@@ -85,7 +82,6 @@ X = df_clean[features]
 y = df_clean["churn_risk"].astype(str)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed, stratify=y)
-
 
 # Check class distribution of churn labels
 churn_counts = df_clean["churn_risk"].value_counts(normalize=True)
@@ -123,6 +119,12 @@ plt.show()
 
 
 # Ensure df_clean is a full copy, not a view
+report = classification_report(
+    y_test, 
+    y_pred, 
+    target_names=["Non-Churn", "Churn"]
+)
+
 df_clean = df_clean.copy()
 
 df_clean.loc[:, "churn_risk_score"] = rf_model.predict_proba(X)[:, 1]
@@ -134,13 +136,16 @@ df_clean.loc[:, "risk_level"] = pd.cut(
     include_lowest=True
 )
 
+df_clean["churn_label"] = df_clean["churn_risk"].replace({True: "Churn", False: "Non-Churn"})
 
 # Save Early Warning Report
 warning_report = df_clean[
     ["customer_id", "age", "tenure", "balance", "debt_to_income_ratio", "total_products_owned", 
-     "nps", "has_mobile_app", "has_web_account", "churn_risk_score", "risk_level"]
+     "nps", "has_mobile_app", "has_web_account", 
+     "churn_risk_score", "risk_level", "churn_label"]
 ].sort_values(by="churn_risk_score", ascending=False)
 
 warning_report.to_csv("churn_warning_report.csv", index=False)
 print("Churn Early Warning Report saved as 'churn_warning_report.csv'.")
 print(report)
+
