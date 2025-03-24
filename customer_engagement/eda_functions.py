@@ -39,7 +39,7 @@ def get_boxplot(df, target_col):
         sns.boxplot(x=df[target_col], y=df[col])
         plt.title(f'Boxplot of {col} by {target_col}')
         plt.savefig(f'figures/boxplots/{col}_boxplot.png')
-        plt.show()
+        plt.close()
 
 
 def get_ttest(df, target_col):
@@ -85,4 +85,4 @@ def get_barplot(df, cat_col, target_col):
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.savefig(f'figures/barplots/{cat_col}_barplot.png')    
-    plt.show()
+    plt.close()
