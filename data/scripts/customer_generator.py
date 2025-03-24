@@ -121,6 +121,7 @@ for i, var in enumerate(variables_to_compare, 1):
 
 plt.tight_layout()
 plt.savefig("../visuals/kde_distribution_comparison.png")
+plt.close()
 
 
 # # Income
@@ -158,6 +159,7 @@ plt.ylabel("Density")
 plt.legend()
 plt.title("Income Distribution: Original vs. Synthetic")
 plt.savefig("../visuals/income_distribution.png")
+plt.close()
 
 # Relationship Between Income and Balance
 plt.figure(figsize=(8, 5))
@@ -166,6 +168,7 @@ plt.xlabel("Balance")
 plt.ylabel("Income")
 plt.title("Scatter Plot: Income vs. Balance (Synthetic Data)")
 plt.savefig("../visuals/income_vs_balance.png")
+plt.close()
 
 
 # # Job
@@ -268,6 +271,7 @@ sns.barplot(x=pd.Series(synthetic_data.marital).value_counts(normalize=True).ind
 plt.legend()
 plt.title("Comparison of Original and Synthetic Marital Distributions")
 plt.savefig("../visuals/marital_distribution_comparison.png")
+plt.close()
 
 
 
@@ -290,6 +294,7 @@ sns.barplot(x=education_synthetic_counts.index, y=education_synthetic_counts.val
 plt.legend()
 plt.title("Comparison of Original and Synthetic Education Distributions")
 plt.savefig("../visuals/education_distribution_comparison.png")
+plt.close()
 
 
 
@@ -322,6 +327,7 @@ sns.histplot(synthetic_data.tenure, bins=30, kde=True, alpha=0.3, stat="density"
 plt.legend()
 plt.title("Comparison of Original and Synthetic Tenure Distributions")
 plt.savefig("../visuals/tenure_distribution_comparison.png")
+plt.close()
 
 # Plot relationship between age and tenure in synthetic data with original dataset points
 plt.figure(figsize=(8, 5))
@@ -332,6 +338,7 @@ plt.xlabel("Age")
 plt.ylabel("Tenure (Months on Book)")
 plt.legend()
 plt.savefig("../visuals/age_vs_tenure.png")
+plt.close()
 
 synthetic_data
 
@@ -358,6 +365,7 @@ plt.title("Comparison of Original and Synthetic NPS Distributions")
 plt.xlabel("NPS Score")
 plt.ylabel("Density")
 plt.savefig("../visuals/nps_distribution_comparison.png")
+plt.close()
 
 synthetic_data
 
@@ -380,6 +388,7 @@ plt.title("Comparison of Original and Synthetic Dependent Distributions")
 plt.xlabel("Number of Dependents")
 plt.ylabel("Density")
 plt.savefig("../visuals/dependents_distribution_comparison.png")
+plt.close()
 
 
 # # Customer Lifetime Value
@@ -461,6 +470,7 @@ plt.title("Comparison of Original and Synthetic Debt Distributions")
 plt.xlabel("Debt (Revolving Credit Balance)")
 plt.ylabel("Density")
 plt.savefig("../visuals/debt_distribution_comparison.png")
+plt.close()
 
 
 # Convert data types according to the schema
@@ -497,6 +507,7 @@ plt.xlabel("Balance")
 plt.ylabel("Income")
 plt.title("Scatter Plot: Income vs. Balance (Synthetic Data)")
 plt.savefig("../visuals/income_vs_balance_customers.png")
+plt.close()
 
 # Plot the distribution of 'job' in the new dataset
 plt.figure(figsize=(10, 5))
@@ -505,4 +516,5 @@ plt.xticks(rotation=45)
 plt.legend()
 plt.title("Job Distribution in Synthetic Dataset")
 plt.savefig("../visuals/job_distribution.png")
+plt.close()
 

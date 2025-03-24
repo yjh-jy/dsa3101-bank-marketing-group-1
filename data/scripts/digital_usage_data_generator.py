@@ -6,11 +6,13 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 from datetime import date, timedelta
 from random import choices
+import os
 
 pd.set_option('display.max_columns', None)
 # Set random seed for reproducibility
 np.random.seed(888)
 
+os.makedirs("../visuals", exist_ok=True)
 
 # Initalising the DataFrame 
 df = pd.DataFrame( 
@@ -84,7 +86,8 @@ sns.kdeplot(df['mobile_logins_wk'], fill=True, bw_adjust=.8)
 plt.xlabel("Logins per Week")
 plt.ylabel("Density")
 plt.title("KDE Distribution of Average App Logins per Week")
-plt.show()
+plt.savefig("../visuals/mobile_logins_kde.png")
+plt.close()
 
 
 num_of_web_users = int(4000 * 0.88)
@@ -113,7 +116,8 @@ sns.kdeplot(avg_web_logins, fill=True, bw_adjust=.8)
 plt.xlabel("Logins per Week")
 plt.ylabel("Density")
 plt.title("KDE Distribution of Average Web Logins per Week")
-plt.show()
+plt.savefig("../visuals/web_logins_kde.png")
+plt.close()
 
 
 num_of_mobile_users = int(4000 * 0.73) + 1
@@ -148,9 +152,11 @@ df["avg_mobile_time"] = df["avg_mobile_time"].apply(lambda x: np.round(x, 2) if 
 
 
 # Relationship of average weekly mobile logins and average time spent in a single mobile session
-sns.lineplot(df.mobile_logins_wk, df.avg_mobile_time)
+sns.lineplot(x=df.mobile_logins_wk, y=df.avg_mobile_time)
 plt.xlabel("Average mobile logins per week ")
 plt.ylabel("Average time spent in a single mobile session (mins)")
+plt.savefig("../visuals/mobile_logins_vs_time.png")
+plt.close()
 
 
 num_of_web_users = int(4000 * 0.88) 
@@ -185,16 +191,19 @@ df["avg_web_time"] = df["avg_web_time"].apply(lambda x: np.round(x, 2) if pd.not
 
 
 # Relationship of average weekly web logins and average time spent in a single web session
-sns.lineplot(df.web_logins_wk, df.avg_web_time)
+sns.lineplot(x=df.web_logins_wk, y=df.avg_web_time)
 plt.xlabel("Average web logins per week ")
 plt.ylabel("Average time spent in a single web session (mins)")
+plt.savefig("../visuals/web_logins_vs_time.png")
+plt.close()
 
 
 plt.figure(figsize=(10, 5))
 sns.kdeplot(df.avg_web_time, fill=True, bw_adjust=.8)
 plt.xlabel("Average time spent in a single web session")
 plt.ylabel("Density")
-plt.show()
+plt.savefig("../visuals/web_time_kde.png")
+plt.close()
 
 
 # Generate the last web login times
@@ -274,9 +283,11 @@ res = choices(res_dates, k=K)
 df.loc[indicies, 'last_mobile_use'] = res
 
 
-sns.lineplot(df.last_web_use, df.web_logins_wk)
+sns.lineplot(x=df.last_web_use, y=df.web_logins_wk)
 plt.xticks(rotation=45)
 plt.ylabel("mobile_logins_wk")
+plt.savefig("../visuals/last_web_use_vs_logins.png")
+plt.close()
 
 
 # convert to csv
