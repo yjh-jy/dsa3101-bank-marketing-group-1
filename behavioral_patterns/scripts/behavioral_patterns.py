@@ -102,7 +102,7 @@ loan_cat_percent = pd.crosstab(df['Segment'], df['loan_category'], normalize='in
 print(loan_cat_percent)
 
 # Analyzing product usage across customer segments
-product_columns = ['has_investment_product', 'has_credit_card', 'has_home_loan', 
+product_columns = ['has_investment_product', 'has_credit_card', 
                    'has_personal_loan', 'has_fixed_deposit', 'has_insurance']
 
 usage_summary = df.groupby('Segment')[product_columns].mean()
