@@ -22,7 +22,7 @@ services:
     container_name: postgres
     restart: always
     environment:
-      POSTGRES_NAME: postgres
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: dsa3101project
     ports:
@@ -44,7 +44,7 @@ services:
       - kafka
     environment:
       - KAFKA_BROKER=kafka:9092
-    command: ["python", "scripts/real_time_data.py"]  # Overrides CMD in Dockerfile
+    command: ["python", "scripts/real_time_data_generation.py"]  # Overrides CMD in Dockerfile
 
 
 volumes:
