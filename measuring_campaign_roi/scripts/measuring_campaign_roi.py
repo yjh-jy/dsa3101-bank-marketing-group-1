@@ -47,7 +47,8 @@ df = merged_campaigns[['campaign_id', 'campaign_type', 'target_audience', 'campa
 summary_stats = df.describe(include='all')
 
 # Log-transform the acquisition_cost column due to high variance
-df.loc[:, 'log_acquisition_cost'] = np.log(df['acquisition_cost'])
+df = df.copy()
+df['log_acquisition_cost'] = np.log(df['acquisition_cost'])
 # Encode an order for target_audience
 df.loc[:, 'target_audience'] = pd.Categorical(
     df['target_audience'], 
@@ -181,14 +182,14 @@ cat_feats = ['campaign_type', 'campaign_language']
 num_feats = ['campaign_duration']
 
 model, preds_cost, true_vals, coef_df = cost_model(X, y, cat_feats, num_feats)
-print("CONVERSION RATE MODEL COEFFICIENTS")
-coef_df
+print("ACQUISITION COST MODEL COEFFICIENTS")
+print(coef_df)
 print("\n")
 
 # Evaluate cost_model
 metrics = evaluate_model_performance(preds_cost, true_vals, num_features=coef_df.shape[0])
-print("CONVERSION RATE MODEL EVALUATION")
-metrics
+print("ACQUISITION COST MODEL EVALUATION")
+print(metrics)
 print("\n")
 
 ############### Conversion Rate Sub-Model ###############
@@ -247,15 +248,15 @@ y_conv = df['conversion_rate']
 cat_features_conv = ['campaign_type', 'target_audience']
 
 model_conv, preds_conv, true_conv, coef_df_conv = conversion_model(X_conv, y_conv, cat_features_conv)
-print("ACQUISITION COST MODEL COEFFICIENTS")
-coef_df_conv
+print("CONVERSION RATE MODEL COEFFICIENTS")
+print(coef_df_conv)
 print("\n")
 
 
 # Evaluate conversion rate model
 metrics_conv = evaluate_model_performance(preds_conv, true_conv, num_features=coef_df_conv.shape[0])
-print("ACQUISITION COST MODEL EVALUATION")
-metrics_conv
+print("CONVERSION RATE MODEL EVALUATION")
+print(metrics_conv)
 print("\n")
 
 ############### ROI Model ###############
@@ -319,11 +320,7 @@ model, X_roi_scaled, scaler = predict_roi(preds_conv, preds_cost, df['roi'])
 coefficients = model.coef_
 feature_names = ['Conversion Rate', 'Cost']
 
-for name, coef in zip(feature_names, coefficients):
-    print(f"{name} coefficient: {coef:.4f}")
-
 print("ROI MODEL COEFFICIENTS")
-metrics_conv
 print("Conversion rate:", coefficients[0])
 print("Cost:", coefficients[1])
 print("\n")
@@ -362,4 +359,3 @@ print("ROI MODEL EVALUATION")
 print(f"Mean R²: {mean_r2_roi:.4f}")
 print(f"Mean MSE: {mean_mse:.4f}")
 print(f"Mean RMSE: {mean_rmse:.4f}")
-print("\n")
