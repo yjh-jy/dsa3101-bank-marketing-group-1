@@ -17,6 +17,20 @@ services:
     depends_on:
       - zookeeper
 
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_NAME: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dsa3101project
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
+
   real_time_data:
     build:
       context: .
