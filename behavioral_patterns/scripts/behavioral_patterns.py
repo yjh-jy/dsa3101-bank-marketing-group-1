@@ -164,7 +164,7 @@ print(money_summary)
 ## calculating the percentage of each money_flow type within each segment
 money_summary['percentage'] = money_summary.groupby('Segment')['transaction_amt'].transform(lambda x: x / x.sum() * 100)
 
-## calculating the percentage of transaction counts for money inflows and outflows across segments
+## calculating the percentage of transaction counts for money in vs. money out across segments
 flow_percent.reset_index(inplace=True)
 flow_percent_melted = flow_percent.melt(id_vars='Segment', var_name='money_flow', value_name='percentage')
 print(flow_percent_melted)
