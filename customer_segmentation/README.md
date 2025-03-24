@@ -46,7 +46,7 @@ pwd
 
 3. **Dependencies: Install required Python packages**
 ```bash
-pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib seaborn scipy==1.9.0
+pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 matplotlib-inline==0.1.6 seaborn==0.13.2 python-dateutil==2.9.0.post0 scipy==1.9.0
 ```
 
 4. **Run the Python script**
@@ -101,6 +101,12 @@ Segment labels and meanings:
 - `post_winsorize_boxplots_for_outliers.png`: Shows distributions after applying winsorization
 
 These visuals help explain the variation in customer behavior across segments.
+
+---
+
+### 3. Package mismatch output
+
+When running the segmentation script, if packages used are not the same packages required, a message and a reminder to install the correct packages will be printed. The script will still run but please download the necessary packages and run again.
 
 ---
 

@@ -1,4 +1,4 @@
-# 📊 Detailed Engagement Analysis Report
+# Detailed Engagement Analysis Report
 
 This report summarizes the findings from an exploratory analysis on factors influencing **user engagement with marketing campaigns** (`has_engaged`) in the bank marketing dataset.
 
