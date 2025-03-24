@@ -77,9 +77,9 @@ df['has_fixed_deposit'] = np.random.binomial(1, scale_to_0_1(fixed_deposit_prob)
 
 # Insurance: Age, dependents, or moderate income
 insurance_prob = (
-    norm.cdf(customers_df['age'], 50, 15) * 0.5 +  
-    norm.cdf(customers_df['income'], 12000, 6000) * 0.2 +  
-    (customers_df['dependents'] / 3) * 0.5  
+    norm.cdf(customers_df['age'], 50, 15) * 0.3 +  
+    norm.cdf(customers_df['income'], 12000, 6000) * 0.3 +  
+    (customers_df['dependents'] / 3) * 0.7  
 )
 df['has_insurance'] = np.random.binomial(1, scale_to_0_1(insurance_prob))
 
