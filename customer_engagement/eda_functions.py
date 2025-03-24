@@ -9,6 +9,7 @@ from scipy.stats import chi2_contingency
 os.makedirs("figures/boxplots", exist_ok=True)
 os.makedirs("figures/barplots", exist_ok=True)
 os.makedirs("figures/violinplots", exist_ok=True)
+os.makedirs("figures/histograms", exist_ok=True)
 
 
 def check_missing_correlation(df, col_to_check, target_col):
@@ -191,3 +192,39 @@ def get_violin_plots_by_engagement_bin(df, target_col):
         plt.close()
 
     df.drop(columns="bin", inplace=True)
+
+def plot_numeric_distributions(df, prefix, cols=None):
+    """
+    Plots histograms with KDE for selected or auto-detected numeric columns.
+    Saves plots in figures/histograms/<prefix>_colname_hist.png.
+    """
+    if cols is None:
+        cat_cols = [col for col in df.columns
+                    if df[col].dropna().nunique() <= 5 and 
+                    df[col].dtype in ["int64", "float64"]]
+        num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
+    else:
+        num_cols = cols
+
+    for col in num_cols:
+        plt.figure(figsize=(6, 4))
+        sns.histplot(df[col].dropna(), bins=30, kde=True)
+        plt.title(f"Distribution of {col}")
+        plt.tight_layout()
+        plt.savefig(f"figures/histograms/{prefix}_{col}_hist.png")
+        plt.close()
+
+
+def plot_product_ownership_barplot(df, id_col):
+    """
+    Plots bar chart showing average product ownership proportions.
+    Saves the plot as figures/barplots/product_ownership_barplot.png.
+    """
+    product_cols = [col for col in df.columns if col != id_col]
+
+    df[product_cols].mean().sort_values(ascending=False).plot(kind="bar")
+    plt.title("Proportion of Customers Owning Each Product")
+    plt.ylabel("Proportion")
+    plt.tight_layout()
+    plt.savefig("figures/barplots/product_ownership_barplot.png")
+    plt.close()
