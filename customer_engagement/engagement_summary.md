@@ -201,3 +201,22 @@ Figures used in this EDA are saved under:
 - `figures/barplots/` for engagement rates across categories
 - `figures/violinplots/` for spread and density of features across engagement tiers
 - `figures/histograms/` for overall distributions of numeric features
+
+---
+
+## Expected Outcome: Key Metrics for Tracking Customer Engagement
+Based on the updated campaign-level and customer-level analyses, the following metrics are recommended for tracking customer engagement over time. These are grounded in both statistical significance and consistent visual patterns observed during exploratory analysis:
+
+- Engagement rate: The primary metric for measuring campaign performance, defined as the proportion of engaged users over those targeted. This should be tracked consistently across time and campaign segments.
+
+- Click-through rate: One of the strongest indicators of engagement. Campaigns with higher CTRs consistently exhibit better overall engagement outcomes.
+
+- Clicks per day: Reflects daily interaction momentum. Higher values are associated with campaigns in the high engagement tier.
+
+- Impressions per day: A pacing metric that correlates positively with engagement. Useful for monitoring how exposure volume influences responsiveness.
+
+- Campaign type and channel used: Certain campaign types (e.g., affiliate marketing) and channels (e.g., TikTok, Instagram) have statistically significant associations with engagement. These categorical features can guide future campaign design and targeting strategy.
+
+- Campaign duration: Engagement tends to peak for campaigns lasting around 30 days, with diminishing returns observed for longer durations.
+
+These metrics provide a focused and evidence-based foundation for tracking engagement performance over time and supporting campaign decision-making.
