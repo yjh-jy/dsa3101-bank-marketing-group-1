@@ -6,14 +6,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-os.makedirs("../visuals", exist_ok=True)
+os.makedirs("data/visuals", exist_ok=True)
 
 np.random.seed(42)
 
 # Load Pre-Processed CSVs
-loans_df = pd.read_csv("../processed/loans.csv", delimiter=",")
-customers_df = pd.read_csv("../processed/customer.csv", delimiter=",")
-transactions_df = pd.read_csv("../processed/transactions.csv", delimiter=",")
+loans_df = pd.read_csv("data/processed/loans.csv", delimiter=",")
+customers_df = pd.read_csv("data/processed/customer.csv", delimiter=",")
+transactions_df = pd.read_csv("data/processed/transactions.csv", delimiter=",")
 
 # Feature Engineering (DTI, Avg Transaction Amount, and Transaction Frequency)
 # Compute Debt-to-Income Ratio (DTI)
@@ -92,7 +92,7 @@ df
 
 
 # export to data folder
-df.to_csv("../processed/products_owned.csv", index=False)
+df.to_csv("data/processed/products_owned.csv", index=False)
 
 
 
@@ -103,6 +103,6 @@ plt.figure(figsize=(8, 5))
 sns.barplot(x=ownership_counts.index, hue=ownership_counts.index, y=ownership_counts.values, palette='viridis')
 plt.title('Product Ownership Distribution')
 plt.xticks(rotation=45)
-plt.savefig("../visuals/product_ownership_distribution.png")
+plt.savefig("data/visuals/product_ownership_distribution.png")
 plt.close()
 

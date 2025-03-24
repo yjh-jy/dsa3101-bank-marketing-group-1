@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-os.makedirs("../visuals", exist_ok=True)
+os.makedirs("data/visuals", exist_ok=True)
 
 fake = Faker()
 
@@ -19,7 +19,7 @@ engagement_ids = np.arange(1, total_engagements + 1)
 
 #Generate channel_used feature
 
-reference_df = pd.read_csv("../raw/marketing_campaign_dataset.csv", delimiter=",")
+reference_df = pd.read_csv("data/raw/marketing_campaign_dataset.csv", delimiter=",")
 
 # Assign channel_used based on predefined probabilities
 original_dist = reference_df['Channel_Used'].value_counts(normalize=True).to_dict()
@@ -245,7 +245,7 @@ print("Total unique customer IDs in dataset:", total_customers_in_dataset)
 
 
 #export to csv
-df.to_csv("../processed/engagement_details.csv", index=False)
+df.to_csv("data/processed/engagement_details.csv", index=False)
 
 
 #verifying/visualizing logical trends/engagement patterns
@@ -258,7 +258,7 @@ engaged_df = df[df['has_engaged'] == 1]
 plt.figure(figsize=(8, 5))
 sns.countplot(data=engaged_df, x='channel_used', hue='channel_used', order=engaged_df['channel_used'].value_counts().index, palette='viridis', legend = False)
 plt.title('Engagement Count per Channel')
-plt.savefig("../visuals/engagement_count_per_channel.png")
+plt.savefig("data/visuals/engagement_count_per_channel.png")
 plt.close()
 
 # Engagement by Month
@@ -273,7 +273,7 @@ plt.figure(figsize=(10, 5))
 sns.countplot(data=engaged_df, x='month', hue='month', order=month_weights.keys(), palette='magma', legend = False)
 plt.title('Monthly Engagement Trend')
 plt.xticks(rotation=45)
-plt.savefig("../visuals/monthly_engagement_trend.png")
+plt.savefig("data/visuals/monthly_engagement_trend.png")
 plt.close()
 
 # Engagement Count per Customer
@@ -284,6 +284,6 @@ plt.title('Engagement Count per Customer')
 plt.xlabel('Number of Engagements')
 plt.ylabel('Number of Customers')
 plt.grid(True)
-plt.savefig("../visuals/engagement_count_per_customer.png")
+plt.savefig("data/visuals/engagement_count_per_customer.png")
 plt.close()
 

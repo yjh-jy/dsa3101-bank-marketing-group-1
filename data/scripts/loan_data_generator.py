@@ -9,7 +9,7 @@ from random import choices
 import random
 import os
 
-os.makedirs("../visuals", exist_ok=True)
+os.makedirs("data/visuals", exist_ok=True)
 
 pd.set_option('display.max_columns', None)
 # Set random seed for reproducibility
@@ -17,7 +17,7 @@ np.random.seed(888)
 
 
 # Initalising the DataFrame 
-s = pd.read_csv("../raw/loan_data_train.csv")
+s = pd.read_csv("data/raw/loan_data_train.csv")
 df = pd.DataFrame( 
     columns = ['loan_id', 
               'customer_id', 
@@ -95,9 +95,9 @@ df.loan_purpose = loan_purpose
 
 sns.barplot(data=df, x='loan_purpose', y='loan_amount')
 plt.xticks(rotation=90)
-plt.savefig("../visuals/loan_purpose_vs_amount.png")
+plt.savefig("data/visuals/loan_purpose_vs_amount.png")
 plt.close()
 
 
-df.to_csv("../processed/loans.csv")
+df.to_csv("data/processed/loans.csv")
 

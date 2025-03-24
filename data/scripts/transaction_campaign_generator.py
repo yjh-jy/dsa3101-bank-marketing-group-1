@@ -26,12 +26,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-os.makedirs("../visuals", exist_ok=True)
+os.makedirs("data/visuals", exist_ok=True)
 
 fake = Faker()
 
 #Extract customer dataset
-df_customers = pd.read_csv("../processed/customer.csv")
+df_customers = pd.read_csv("data/processed/customer.csv")
 customers = df_customers.to_dict(orient="records")
 
 NUM_TRANSACTIONS = 2500
@@ -110,7 +110,7 @@ df_transactions = pd.DataFrame(transactions)
 
 # Save datasets (optional)
 df_customers.to_csv("customers.csv", index=False)
-df_transactions.to_csv("../processed/transactions.csv", index=False)
+df_transactions.to_csv("data/processed/transactions.csv", index=False)
 
 # Display sample data
 # print("Customer Data Sample:")
@@ -122,7 +122,7 @@ print(df_transactions.head())
 # # Transaction table data analysis
 
 
-data = pd.read_csv("../processed/customer.csv")
+data = pd.read_csv("data/processed/customer.csv")
 
 
 # Plot density curves for transaction_amt grouped by transaction_type
@@ -138,7 +138,7 @@ plt.ylabel("Density")
 plt.title("Density Curve of Transaction Amount by Transaction Type")
 plt.legend(title="Transaction Type")
 plt.xlim(0,5000)
-plt.savefig("../visuals/transaction_amount_density.png")
+plt.savefig("data/visuals/transaction_amount_density.png")
 plt.close()
 
 
@@ -146,8 +146,8 @@ plt.close()
 
 
 # Combine Customer and EngagementDetail data for reference
-customer_df = pd.read_csv("../processed/customer.csv")
-engagement_df = pd.read_csv("../processed/engagement_details.csv")
+customer_df = pd.read_csv("data/processed/customer.csv")
+engagement_df = pd.read_csv("data/processed/engagement_details.csv")
 merge_df = pd.merge(customer_df, engagement_df, on="customer_id", how="inner")
 
 # Define Languages and Duration
@@ -324,7 +324,7 @@ for campaign_id in unique_campaign_ids:
 # Convert to DataFrame
 df_campaigns = pd.DataFrame(campaigns)
 # Save to CSV (optional)
-df_campaigns.to_csv("../processed/campaigns.csv", index=False)
+df_campaigns.to_csv("data/processed/campaigns.csv", index=False)
 
 df_campaigns
 
@@ -361,6 +361,6 @@ plt.xlabel("Conversion Rate")
 plt.ylabel("Frequency")
 
 plt.tight_layout()
-plt.savefig("../visuals/campaign_distributions.png")
+plt.savefig("data/visuals/campaign_distributions.png")
 plt.close()
 
