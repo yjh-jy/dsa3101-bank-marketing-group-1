@@ -39,10 +39,10 @@ def get_boxplot(df, target_col):
     grouped by a binary target column.
     """
 
-    # Identify numeric columns with <= 5 unique values: treat as categorical-like
+    # Identify numeric columns with <= 10 unique values: treat as categorical-like
     cat_cols = [col for col in df.columns
-                   if df[col].dropna().nunique() <=5 and 
-                   df[col].dtype in ["int64", "float64"]]
+                   if df[col].dropna().nunique() <=10 and 
+                   df[col].dtype in ["int64", "float64", "int32"]]
     # Identify continuous numeric columns (exclude categorical-like ones)
     num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
     # Remove the target column from plotting
@@ -62,10 +62,10 @@ def get_ttest(df, target_col):
     Perform Welch's t-test for numeric features against a binary target column.
     """
 
-    # Identify numeric columns with <= 5 unique values: treat as categorical-like
+    # Identify numeric columns with <= 10 unique values: treat as categorical-like
     cat_cols = [col for col in df.columns
-                   if df[col].dropna().nunique() <=5 and 
-                   df[col].dtype in ["int64", "float64"]]
+                   if df[col].dropna().nunique() <=10 and 
+                   df[col].dtype in ["int64", "float64", "int32"]]
     # Identify continuous numeric columns (exclude categorical-like ones)
     num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
     # Remove the target column from plotting
@@ -93,10 +93,10 @@ def get_proportion_table(df, target_col):
 
     # Get object (str) columns
     cat_cols = df.select_dtypes(include="object").columns.tolist()
-    # Add numeric columns with <=5 unique values (treat as categorical)
+    # Add numeric columns with <=10 unique values (treat as categorical)
     cat_cols += [col for col in df.columns 
-             if df[col].dropna().nunique() <= 5 and 
-             df[col].dtype in ["int64", "float64"] and col != target_col]
+             if df[col].dropna().nunique() <= 10 and 
+             df[col].dtype in ["int64", "float64", "int32"] and col != target_col]
     # Ensure no duplicates and remove the target column
     cat_cols = list(set(cat_cols) - {target_col})
 
@@ -117,10 +117,10 @@ def get_chi_square(df, target_col):
     
     # Get object (str) columns
     cat_cols = df.select_dtypes(include="object").columns.tolist()
-    # Add numeric columns with <=5 unique values (treat as categorical)
+    # Add numeric columns with <=10 unique values (treat as categorical)
     cat_cols += [col for col in df.columns 
-             if df[col].dropna().nunique() <= 5 and 
-             df[col].dtype in ["int64", "float64"] and col != target_col]
+             if df[col].dropna().nunique() <= 10 and 
+             df[col].dtype in ["int64", "float64", "int32"] and col != target_col]
     # Ensure no duplicates and remove the target column
     cat_cols = list(set(cat_cols) - {target_col})
 
@@ -143,10 +143,10 @@ def get_barplot(df, target_col):
 
     # Get object (str) columns
     cat_cols = df.select_dtypes(include="object").columns.tolist()
-    # Add numeric columns with <=5 unique values (treat as categorical)
+    # Add numeric columns with <=10 unique values (treat as categorical)
     cat_cols += [col for col in df.columns 
-             if df[col].dropna().nunique() <= 5 and 
-             df[col].dtype in ["int64", "float64"] and col != target_col]
+             if df[col].dropna().nunique() <= 10 and 
+             df[col].dtype in ["int64", "float64", "int32"] and col != target_col]
     # Ensure no duplicates and remove the target column
     cat_cols = list(set(cat_cols) - {target_col})
 
@@ -169,10 +169,10 @@ def get_violin_plots_by_engagement_bin(df, target_col):
     of the engagement rate.
     """
 
-    # Identify numeric columns with <= 5 unique values: treat as categorical-like
+    # Identify numeric columns with <=10 unique values: treat as categorical-like
     cat_cols = [col for col in df.columns
-                   if df[col].dropna().nunique() <=5 and 
-                   df[col].dtype in ["int64", "float64"]]
+                   if df[col].dropna().nunique() <=10 and 
+                   df[col].dtype in ["int64", "float64", "int32"]]
     # Identify continuous numeric columns (exclude categorical-like ones)
     num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
     # Remove the target column from plotting
@@ -200,8 +200,8 @@ def plot_numeric_distributions(df, prefix, cols=None):
     """
     if cols is None:
         cat_cols = [col for col in df.columns
-                    if df[col].dropna().nunique() <= 5 and 
-                    df[col].dtype in ["int64", "float64"]]
+                    if df[col].dropna().nunique() <= 10 and 
+                    df[col].dtype in ["int64", "float64", "int32"]]
         num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
     else:
         num_cols = cols

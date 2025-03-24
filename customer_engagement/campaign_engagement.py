@@ -53,14 +53,15 @@ campaign_grouped = (
         quarter=("quarter", "first")
     ).reset_index()
 )
-# Drop ID column
-campaign_grouped = campaign_grouped.drop(columns="campaign_id")
 
 campaign_grouped["engagement_rate"] = ( campaign_grouped["num_engaged"] / campaign_grouped["num_targeted"])
 campaign_grouped["click_through_rate"] = ( campaign_grouped["clicks"] / campaign_grouped["impressions"])
 campaign_grouped["impressions_per_day"] = ( campaign_grouped["impressions"] / campaign_grouped["campaign_duration"])
 campaign_grouped["targets_per_day"] = ( campaign_grouped["num_targeted"] / campaign_grouped["campaign_duration"])
 campaign_grouped["clicks_per_day"] = ( campaign_grouped["clicks"] / campaign_grouped["campaign_duration"])
+
+# Drop extra columns
+campaign_grouped = campaign_grouped.drop(columns=["campaign_id", "num_engaged", "num_targeted"])
 
 # Summary statistics
 campaign_grouped.describe(include='all')
