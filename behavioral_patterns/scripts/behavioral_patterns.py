@@ -11,7 +11,7 @@ customers = pd.read_csv("r/../data/processed/customer.csv")
 digital_usage = pd.read_csv("r/../data/processed/digital_usage.csv")
 engagement = pd.read_csv("r/../data/processed/engagement_details.csv")
 loans = pd.read_csv("r/../data/processed/loans.csv")
-products = pd.read_csv("r/../data/processed/products_owned.csv")
+products = pd.read_csv("r/../data/processed/products_owned.csv") 
 transactions = pd.read_csv("r/../data/processed/transactions.csv")
 segments = pd.read_csv("r/../customer_segmentation/customer_segments.csv")
 
@@ -93,9 +93,7 @@ print(on_time)
 
 ## calculating the proportion of on-time payers in each segment
 on_time_counts = on_time.groupby('Segment').size()
-print(on_time_counts)
 total_counts = df.groupby('Segment').size()
-print(total_counts)
 on_time_proportion = (on_time_counts / total_counts) * 100
 print(on_time_proportion)
 
