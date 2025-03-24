@@ -112,3 +112,4 @@ for _ in range(200):
     lol.append(campaign_optimizer.select_campaign("Low Income", "25-34", "Email"))
     
 print(campaigns[campaigns['campaign_id'] == 2])
+print("Test")
