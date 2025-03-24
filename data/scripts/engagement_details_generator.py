@@ -5,6 +5,9 @@ from datetime import timedelta, datetime
 import random
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
+
+os.makedirs("../visuals", exist_ok=True)
 
 fake = Faker()
 

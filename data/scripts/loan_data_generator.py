@@ -7,6 +7,9 @@ import seaborn as sns
 from datetime import date, timedelta
 from random import choices
 import random
+import os
+
+os.makedirs("../visuals", exist_ok=True)
 
 pd.set_option('display.max_columns', None)
 # Set random seed for reproducibility
@@ -92,6 +95,8 @@ df.loan_purpose = loan_purpose
 
 sns.barplot(data=df, x='loan_purpose', y='loan_amount')
 plt.xticks(rotation=90)
+plt.savefig("../visuals/loan_purpose_vs_amount.png")
+plt.close()
 
 
 df.to_csv("../processed/loans.csv")
