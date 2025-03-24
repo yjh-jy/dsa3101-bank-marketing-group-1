@@ -160,11 +160,13 @@ robust_features = ["income", "balance", "debt", "customer_lifetime_value",  "avg
 # Heavily skewed → higher winsorization
 heavy_outliers = ["income", "balance", "debt"]
 for col in heavy_outliers:
-    df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.05, 0.15])).astype(float)
+    df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.05, 0.1])).astype(float)
 # Moderate outliers → light winsorization
 moderate_outliers = ["customer_lifetime_value", "avg_transaction_amt", "transaction_freq"]
 for col in moderate_outliers:
     df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.0, 0.01])).astype(float)
+
+
 # Features that need Standard scaling (normally distributed)
 standard_features = ["days_from_last_transaction", "digital_engagement_score", "total_products_owned"]
 # Apply RobustScaler
