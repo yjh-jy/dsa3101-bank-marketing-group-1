@@ -95,21 +95,25 @@ def simulate_engagement(campaign_id, income_category, target_audience, channel_u
 # Update initial alpha-beta values with prior data
 campaign_stats_concise = campaign_stats[["campaign_id", "income_category", "target_audience", "channel_used", "engagement_rate"]]
 
-
-for _ in range(50):
-    for index, row in campaign_stats_concise.iterrows():
-        campaign_id = row["campaign_id"]
-        income_category = row["income_category"]
-        target_audience = row["target_audience"]
-        channel_used = row["channel_used"]
-        engagement_rate = row["engagement_rate"]
-        engagement_results = simulate_engagement(campaign_id, income_category, target_audience, channel_used)
-        campaign_optimizer.update_campaign(campaign_id, income_category, target_audience, channel_used, engagement_results)
+print(campaign_stats_concise["income_category"].unique())
+print(campaign_stats_concise["target_audience"].unique())
+print(campaign_stats_concise["channel_used"].unique())
 
 
-lol = []
-for _ in range(200):
-    lol.append(campaign_optimizer.select_campaign("Low Income", "25-34", "Email"))
+# for _ in range(50):
+#     for index, row in campaign_stats_concise.iterrows():
+#         campaign_id = row["campaign_id"]
+#         income_category = row["income_category"]
+#         target_audience = row["target_audience"]
+#         channel_used = row["channel_used"]
+#         engagement_rate = row["engagement_rate"]
+#         engagement_results = simulate_engagement(campaign_id, income_category, target_audience, channel_used)
+#         campaign_optimizer.update_campaign(campaign_id, income_category, target_audience, channel_used, engagement_results)
+
+
+# lol = []
+# for _ in range(200):
+#     lol.append(campaign_optimizer.select_campaign("Low Income", "25-34", "Email"))
     
-print(campaigns[campaigns['campaign_id'] == 2])
-print("Test")
+# print(campaigns[campaigns['campaign_id'] == 2])
+# print("Test")

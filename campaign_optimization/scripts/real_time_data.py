@@ -4,13 +4,15 @@ import time
 import random
 import os
 # Retrieve Kafka broker address from environment variable (default to 'kafka:9092')
-KAFKA_BROKER = os.getenv('KAFKA_BROKER', 'kafka:9093')
+KAFKA_BROKER = os.getenv('KAFKA_BROKER', 'kafka:9092')
 
 # Initialize Kafka producer with JSON serialization for message values
 producer = KafkaProducer(
     bootstrap_servers=KAFKA_BROKER,
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
+
+print("HELLO")
 # Currently we don't have new datasets on engagements, so we create a synthetic one.
 def generate_event():
     """Simulates a new engagement event"""

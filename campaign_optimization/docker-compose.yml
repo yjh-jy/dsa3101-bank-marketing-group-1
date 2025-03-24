@@ -17,33 +17,21 @@ services:
     depends_on:
       - zookeeper
 
-  postgres:
-    image: postgres
-    container_name: postgres
-    restart: always
-    environment:
-      POSTGRES_NAME: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: dsa3101project
-      POSTGRES_HOST: localhost
-    ports:
-      - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
-
   real_time_data:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: segmentation_service
+    container_name: real_time_data
+    volumes:
+      - .:/app  # Ensures changes reflect inside the container
     ports:
       - "5001:5001"
     depends_on:
       - kafka
-      - postgres
     environment:
       - KAFKA_BROKER=kafka:9092
+    command: ["python", "scripts/real_time_data.py"]  # Overrides CMD in Dockerfile
+
 
 volumes:
   postgres_data:  
