@@ -8,13 +8,19 @@ from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
+import os
 
-# load datasets
-campaigns_df = pd.read_csv("../../data/processed/campaigns.csv")
-customer_df =  pd.read_csv("../../data/processed/customer.csv")
-engagement_details_df = pd.read_csv("../../data/processed/engagement_details.csv")
-engagement_details_df.head(), customer_df.head(), campaigns_df.head()
-campaigns_df
+## READING IN DATA
+project_root = os.getcwd()  # Assumes script runs from project root
+# Define the path to the processed data folder
+data_path = os.path.join(project_root, "data", "processed")
+# Load the CSV files
+customer_df = pd.read_csv(os.path.join(data_path, "customer.csv"))
+campaigns_df = pd.read_csv(os.path.join(data_path, "campaigns.csv"))
+engagement_details_df = pd.read_csv(os.path.join(data_path, "engagement_details.csv"))
+# Make visuals folder
+visuals_path = os.path.join(project_root, "measuring_campaign_roi", "visuals")
+os.makedirs(visuals_path, exist_ok=True)
 
 ############### Data Preprocessing ###############
 # Obtaining derived variables 
@@ -35,17 +41,18 @@ merged_campaigns = campaigns_df.merge(avg_clv_per_campaign, on='campaign_id', ho
 # Select and rearrange the required columns
 df = merged_campaigns[['campaign_id', 'campaign_type', 'target_audience', 'campaign_duration',
                        'campaign_language', 'conversion_rate', 'acquisition_cost', 'avg_clv', 'roi']]
-df
 
 ############### Exploratory Data Analysis ###############
 # Summary statistics and pairplot to explore relationships
 summary_stats = df.describe(include='all')
-summary_stats
 
 # Log-transform the acquisition_cost column due to high variance
-df['log_acquisition_cost'] = np.log(df.acquisition_cost)
+df.loc[:, 'log_acquisition_cost'] = np.log(df['acquisition_cost'])
 # Encode an order for target_audience
-df['target_audience'] = pd.Categorical(df.target_audience, ordered=True)
+df.loc[:, 'target_audience'] = pd.Categorical(
+    df['target_audience'], 
+    ordered=True
+)
 
 # Configure grid for categorical feature vs CLV, Cost, Conversion Rate
 fig, axes = plt.subplots(3, 3, figsize=(18, 14))
@@ -61,7 +68,8 @@ for i, cat in enumerate(categorical_vars):
         axes[i, j].tick_params(axis='x', rotation=45)
 
 plt.tight_layout()
-plt.show()
+plot_path = os.path.join(visuals_path, "EDA_boxplots_categorical_vs_targets.png")
+plt.savefig(plot_path)
 
 # Plot lineplots for campaign_duration vs each numerical target
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
@@ -72,8 +80,8 @@ for j, num in enumerate(numerical_targets):
     axes[j].set_ylabel(titles[j])
 
 plt.tight_layout()
-plt.show()
-
+plot_path = os.path.join(visuals_path, "EDA_lineplots_duration_vs_targets.png")
+plt.savefig(plot_path)
 
 ############### Acquisition Cost Sub-Model ###############
 def cost_model(X, y, categorical_features, numerical_features):
@@ -173,11 +181,15 @@ cat_feats = ['campaign_type', 'campaign_language']
 num_feats = ['campaign_duration']
 
 model, preds_cost, true_vals, coef_df = cost_model(X, y, cat_feats, num_feats)
+print("CONVERSION RATE MODEL COEFFICIENTS")
 coef_df
+print("\n")
 
 # Evaluate cost_model
 metrics = evaluate_model_performance(preds_cost, true_vals, num_features=coef_df.shape[0])
+print("CONVERSION RATE MODEL EVALUATION")
 metrics
+print("\n")
 
 ############### Conversion Rate Sub-Model ###############
 def conversion_model(X, y, categorical_features):
@@ -235,11 +247,16 @@ y_conv = df['conversion_rate']
 cat_features_conv = ['campaign_type', 'target_audience']
 
 model_conv, preds_conv, true_conv, coef_df_conv = conversion_model(X_conv, y_conv, cat_features_conv)
+print("ACQUISITION COST MODEL COEFFICIENTS")
 coef_df_conv
+print("\n")
+
 
 # Evaluate conversion rate model
 metrics_conv = evaluate_model_performance(preds_conv, true_conv, num_features=coef_df_conv.shape[0])
+print("ACQUISITION COST MODEL EVALUATION")
 metrics_conv
+print("\n")
 
 ############### ROI Model ###############
 from mpl_toolkits.mplot3d import Axes3D
@@ -267,7 +284,9 @@ ax2.set_title("Predicted: Conversion Rate & Acquisition Cost vs ROI")
 fig.colorbar(sc2, ax=ax2, shrink=0.5, aspect=10)
 
 plt.tight_layout()
-plt.show()
+plot_path = os.path.join(visuals_path, "scatterplot_conversion_cost_vs_roi.png")
+plt.savefig(plot_path)
+plt.close()
 
 def predict_roi(preds_conv, preds_cost, y_roi):
     """
@@ -303,9 +322,11 @@ feature_names = ['Conversion Rate', 'Cost']
 for name, coef in zip(feature_names, coefficients):
     print(f"{name} coefficient: {coef:.4f}")
 
-
-print("Conversion rate coefficient:", coefficients[0])
-print("Cost coefficient:", coefficients[1])
+print("ROI MODEL COEFFICIENTS")
+metrics_conv
+print("Conversion rate:", coefficients[0])
+print("Cost:", coefficients[1])
+print("\n")
 
 def evaluate_roi_model(preds_conv, preds_cost, y_roi):
     """
@@ -336,6 +357,9 @@ def evaluate_roi_model(preds_conv, preds_cost, y_roi):
     return mean_r2_roi, mean_mse, mean_rmse
 
 mean_r2_roi, mean_mse, mean_rmse = evaluate_roi_model(preds_conv, preds_cost, df['roi'])
+
+print("ROI MODEL EVALUATION")
 print(f"Mean R²: {mean_r2_roi:.4f}")
 print(f"Mean MSE: {mean_mse:.4f}")
 print(f"Mean RMSE: {mean_rmse:.4f}")
+print("\n")
