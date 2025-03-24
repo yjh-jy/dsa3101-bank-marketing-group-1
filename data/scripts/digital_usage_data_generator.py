@@ -12,7 +12,7 @@ pd.set_option('display.max_columns', None)
 # Set random seed for reproducibility
 np.random.seed(888)
 
-os.makedirs("../visuals", exist_ok=True)
+os.makedirs("data/visuals", exist_ok=True)
 
 # Initalising the DataFrame 
 df = pd.DataFrame( 
@@ -86,7 +86,7 @@ sns.kdeplot(df['mobile_logins_wk'], fill=True, bw_adjust=.8)
 plt.xlabel("Logins per Week")
 plt.ylabel("Density")
 plt.title("KDE Distribution of Average App Logins per Week")
-plt.savefig("../visuals/mobile_logins_kde.png")
+plt.savefig("data/visuals/mobile_logins_kde.png")
 plt.close()
 
 
@@ -116,7 +116,7 @@ sns.kdeplot(avg_web_logins, fill=True, bw_adjust=.8)
 plt.xlabel("Logins per Week")
 plt.ylabel("Density")
 plt.title("KDE Distribution of Average Web Logins per Week")
-plt.savefig("../visuals/web_logins_kde.png")
+plt.savefig("data/visuals/web_logins_kde.png")
 plt.close()
 
 
@@ -155,7 +155,7 @@ df["avg_mobile_time"] = df["avg_mobile_time"].apply(lambda x: np.round(x, 2) if 
 sns.lineplot(x=df.mobile_logins_wk, y=df.avg_mobile_time)
 plt.xlabel("Average mobile logins per week ")
 plt.ylabel("Average time spent in a single mobile session (mins)")
-plt.savefig("../visuals/mobile_logins_vs_time.png")
+plt.savefig("data/visuals/mobile_logins_vs_time.png")
 plt.close()
 
 
@@ -194,7 +194,7 @@ df["avg_web_time"] = df["avg_web_time"].apply(lambda x: np.round(x, 2) if pd.not
 sns.lineplot(x=df.web_logins_wk, y=df.avg_web_time)
 plt.xlabel("Average web logins per week ")
 plt.ylabel("Average time spent in a single web session (mins)")
-plt.savefig("../visuals/web_logins_vs_time.png")
+plt.savefig("data/visuals/web_logins_vs_time.png")
 plt.close()
 
 
@@ -202,7 +202,7 @@ plt.figure(figsize=(10, 5))
 sns.kdeplot(df.avg_web_time, fill=True, bw_adjust=.8)
 plt.xlabel("Average time spent in a single web session")
 plt.ylabel("Density")
-plt.savefig("../visuals/web_time_kde.png")
+plt.savefig("data/visuals/web_time_kde.png")
 plt.close()
 
 
@@ -286,10 +286,10 @@ df.loc[indicies, 'last_mobile_use'] = res
 sns.lineplot(x=df.last_web_use, y=df.web_logins_wk)
 plt.xticks(rotation=45)
 plt.ylabel("mobile_logins_wk")
-plt.savefig("../visuals/last_web_use_vs_logins.png")
+plt.savefig("data/visuals/last_web_use_vs_logins.png")
 plt.close()
 
 
 # convert to csv
-df.to_csv("../processed/digital_usage.csv", index=False)
+df.to_csv("data/processed/digital_usage.csv", index=False)
 
