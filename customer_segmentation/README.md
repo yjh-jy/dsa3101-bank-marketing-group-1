@@ -46,7 +46,7 @@ pwd
 
 3. **Dependencies: Install required Python packages**
 ```bash
-pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib seaborn scipy==1.9.0
+pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 matplotlib-inline==0.1.6 seaborn==0.13.2 scipy==1.9.0
 ```
 
 4. **Run the Python script**
