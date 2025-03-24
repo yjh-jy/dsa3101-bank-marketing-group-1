@@ -24,6 +24,9 @@ from scipy.stats import norm
 from datetime import datetime
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+
+os.makedirs("../visuals", exist_ok=True)
 
 fake = Faker()
 
@@ -135,8 +138,8 @@ plt.ylabel("Density")
 plt.title("Density Curve of Transaction Amount by Transaction Type")
 plt.legend(title="Transaction Type")
 plt.xlim(0,5000)
-# Show the plot
-plt.show()
+plt.savefig("../visuals/transaction_amount_density.png")
+plt.close()
 
 
 # # Campaign Table
@@ -358,5 +361,6 @@ plt.xlabel("Conversion Rate")
 plt.ylabel("Frequency")
 
 plt.tight_layout()
-plt.show()
+plt.savefig("../visuals/campaign_distributions.png")
+plt.close()
 
