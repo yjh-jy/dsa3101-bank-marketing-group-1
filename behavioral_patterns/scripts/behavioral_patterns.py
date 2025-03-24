@@ -67,6 +67,7 @@ transactions['money_flow'] = transactions['transaction_type'].apply(classify_mon
 
 digital_usage['last_mobile_use'] = pd.to_datetime(digital_usage['last_mobile_use'])
 digital_usage['last_web_use'] = pd.to_datetime(digital_usage['last_web_use'])
+digital_usage['mobile_web_ratio'] = digital_usage['mobile_logins_wk'] / (digital_usage['web_logins_wk'])
 
 df = df.merge(products, on = 'customer_id')
 df = df.merge(loans, on = 'customer_id')
