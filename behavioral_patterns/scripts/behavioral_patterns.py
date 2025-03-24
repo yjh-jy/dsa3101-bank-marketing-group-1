@@ -32,8 +32,6 @@ df['log_income'] = np.log1p(df['income'])
 df['debt_to_income'] = df['log_debt'] / df['log_income']
 df['balance_to_debt'] = df['log_balance'] / df['log_debt']
 
-df = df.merge(products, on = 'customer_id')
-
 loans['due_date'] = pd.to_datetime(loans['due_date'])
 loans['paid_off_date'] = pd.to_datetime(loans['paid_off_date'])
 loans['days_past_due'] = (loans['paid_off_date'] - loans['due_date']).dt.days
@@ -57,8 +55,6 @@ def categorize_loan_purpose(purpose):
         return 'Uncategorized'  
 loans['loan_category'] = loans['loan_purpose'].apply(categorize_loan_purpose)
 
-df = df.merge(loans, on = 'customer_id')
-
 transactions['transaction_type'] = transactions['transaction_type'].astype('category')
 transactions['transaction_date'] = pd.to_datetime(transactions['transaction_date'])
 transactions['transaction_date'] = transactions['transaction_date'].dt.date
@@ -71,11 +67,12 @@ def classify_money_flow(tx_type):
         return 'Money Out'
 transactions['money_flow'] = transactions['transaction_type'].apply(classify_money_flow)
 
-df = df.merge(transactions, on = 'customer_id')
-
 digital_usage['last_mobile_use'] = pd.to_datetime(digital_usage['last_mobile_use'])
 digital_usage['last_web_use'] = pd.to_datetime(digital_usage['last_web_use'])
 
+df = df.merge(products, on = 'customer_id')
+df = df.merge(loans, on = 'customer_id')
+df = df.merge(transactions, on = 'customer_id')
 df = df.merge(digital_usage, on = 'customer_id')
 
 # Analyzing NPS across customer segments
