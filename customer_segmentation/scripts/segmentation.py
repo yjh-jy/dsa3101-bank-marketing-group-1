@@ -47,10 +47,6 @@ for pkg, required_version in required_packages.items():
         print(f"Error checking package {pkg}: {e}")
         mismatched.append(f"{pkg}=={required_version}")
 
-if mismatched:
-    print("\nTo fix the packages, run:")
-    print(" pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 matplotlib-inline==0.1.6 seaborn==0.13.2 python-dateutil==2.9.0.post0 scipy==1.9.0")
-    print(" in terminal")
 
 
 ## READING IN DATA
@@ -272,3 +268,8 @@ print(segment_means)
 ## Creates csv table in under customer segmentation
 df_final.to_csv(os.path.join(project_root, "customer_segmentation", "customer_segments.csv"), index=False)
 print("Saved 'customer_segments.csv' with Customer ID & segment name")
+
+if mismatched:
+    print("\nThere are mismatches in the package version used and the package versions required. Required packages are stated in the Readme file. To fix the packages, run:")
+    print(" pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 matplotlib-inline==0.1.6 seaborn==0.13.2 python-dateutil==2.9.0.post0 scipy==1.9.0")
+    print(" in terminal")
