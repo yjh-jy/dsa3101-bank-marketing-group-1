@@ -4,7 +4,9 @@ from scipy.stats import norm
 from scipy.special import expit  
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
+os.makedirs("../visuals", exist_ok=True)
 
 np.random.seed(42)
 
@@ -101,5 +103,6 @@ plt.figure(figsize=(8, 5))
 sns.barplot(x=ownership_counts.index, hue=ownership_counts.index, y=ownership_counts.values, palette='viridis')
 plt.title('Product Ownership Distribution')
 plt.xticks(rotation=45)
-plt.show()
+plt.savefig("../visuals/product_ownership_distribution.png")
+plt.close()
 
