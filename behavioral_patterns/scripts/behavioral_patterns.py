@@ -49,10 +49,8 @@ def categorize_loan_purpose(purpose):
         return 'Business & Education'
     elif purpose in ['wedding', 'vacation', 'medical']:
         return 'Lifestyle & Personal'
-    elif purpose == 'other':
-        return 'Miscellaneous'
     else:
-        return 'Uncategorized'  
+        return 'Miscellaneous'  
 loans['loan_category'] = loans['loan_purpose'].apply(categorize_loan_purpose)
 
 transactions['transaction_type'] = transactions['transaction_type'].astype('category')
