@@ -13,6 +13,45 @@ from scipy.stats.mstats import winsorize
 from scipy.stats import zscore
 import os
 
+# Check if correct Packages installed
+
+required_packages = {
+    "pandas": "2.2.3",
+    "numpy": "1.23.1",
+    "scikit-learn": "1.2.2",
+    "matplotlib": "3.10.1",
+    "matplotlib-inline": "0.1.6",
+    "seaborn": "0.13.2",
+    "python-dateutil": "2.9.0.post0",
+    "scipy": "1.9.0"
+}
+
+mismatched = []
+
+for pkg, required_version in required_packages.items():
+    try:
+        # Use pip show to get version
+        version_info = os.popen(f"pip show {pkg}").read()
+        installed_version = None
+        for line in version_info.splitlines():
+            if line.startswith("Version:"):
+                installed_version = line.split(":")[1].strip()
+                break
+        if not installed_version:
+            print(f"Package not installed: {pkg}")
+            mismatched.append(f"{pkg}=={required_version}")
+        elif installed_version != required_version:
+            print(f"Package mismatch: {pkg} - required: {required_version}, installed: {installed_version}")
+            mismatched.append(f"{pkg}=={required_version}")
+    except Exception as e:
+        print(f"Error checking package {pkg}: {e}")
+        mismatched.append(f"{pkg}=={required_version}")
+
+if mismatched:
+    print("\nTo fix the packages, run:")
+    print(" pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 matplotlib-inline==0.1.6 seaborn==0.13.2 python-dateutil==2.9.0.post0 scipy==1.9.0")
+    print(" in terminal")
+
 
 ## READING IN DATA
 project_root = os.getcwd()  # Assumes script runs from project root
