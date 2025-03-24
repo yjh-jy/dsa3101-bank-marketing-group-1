@@ -38,10 +38,10 @@ def scale_to_0_1(prob):
 
 # Investment Product: High income, high balance, low DTI OR high CLV
 investment_prob = (
-    expit(customers_df['income'] / (customers_df['income'].median() *1.5)) * 0.4 +  
-    (customers_df['balance'] / (customers_df['balance'].median() *1.5)) * 0.4 +  
+    expit(customers_df['income'] / (customers_df['income'].median() *1.5)) * 0.3 +  
+    (customers_df['balance'] / (customers_df['balance'].median() *1.5)) * 0.3 +  
     norm.cdf(customers_df['age'], 40, 15) * 0.4 +
-    (1 - customers_df['dti']) * 0.5 +  
+    (1 - customers_df['dti']) * 0.7 +  
     (customers_df['customer_lifetime_value'] / customers_df['customer_lifetime_value'].median()) * 0.5  
 )
 df['has_investment_product'] = np.random.binomial(1, scale_to_0_1(investment_prob))
@@ -68,17 +68,17 @@ df['has_personal_loan'] = df['customer_id'].isin(unpaid_personal_loans['customer
 
 # Fixed Deposit: High balance, long tenure, older age, and low dti
 fixed_deposit_prob = (
-    (customers_df['balance'] / customers_df['balance'].median()) * 0.3 +
-    (customers_df['tenure'] / 240) * 0.3 +
+    (customers_df['balance'] / customers_df['balance'].median()) * 0.2 +
+    (customers_df['tenure'] / 240) * 0.5 +
     (customers_df['age'] / 70) * 0.3+
-    (1 - customers_df['dti']) * 0.6
+    (1 - customers_df['dti']) * 0.7
 )
 df['has_fixed_deposit'] = np.random.binomial(1, scale_to_0_1(fixed_deposit_prob))
 
 # Insurance: Age, dependents, or moderate income
 insurance_prob = (
     norm.cdf(customers_df['age'], 50, 15) * 0.3 +  
-    norm.cdf(customers_df['income'], 12000, 6000) * 0.2 +  
+    norm.cdf(customers_df['income'], 12000, 6000) * 0.3 +  
     (customers_df['dependents'] / 3) * 0.7  
 )
 df['has_insurance'] = np.random.binomial(1, scale_to_0_1(insurance_prob))
