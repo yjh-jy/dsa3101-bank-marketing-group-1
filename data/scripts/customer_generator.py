@@ -7,14 +7,17 @@ import sklearn
 from sklearn.linear_model import LinearRegression
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
+
+os.makedirs("data/visuals", exist_ok=True)
 
 
-bank_df = pd.read_csv("../raw/bank_full.csv", delimiter=";")
-loan_pred_df = pd.read_csv("../raw/loan_prediction_full.csv")
-churners_df = pd.read_csv("../raw/bank_churn.csv")
-nps_df = pd.read_csv("../raw/NPSTimeSeries.csv")
-ecommerce_df = pd.read_csv("../raw/ecommerce_customer_data.csv")
-loan_ir_df = pd.read_csv("../raw/loan_interest.csv")
+bank_df = pd.read_csv("data/raw/bank_full.csv", delimiter=";")
+loan_pred_df = pd.read_csv("data/raw/loan_prediction_full.csv")
+churners_df = pd.read_csv("data/raw/bank_churn.csv")
+nps_df = pd.read_csv("data/raw/NPSTimeSeries.csv")
+ecommerce_df = pd.read_csv("data/raw/ecommerce_customer_data.csv")
+loan_ir_df = pd.read_csv("data/raw/loan_interest.csv")
 fake = Faker()
 random.seed(3101)
 
@@ -117,7 +120,8 @@ for i, var in enumerate(variables_to_compare, 1):
     plt.legend()
 
 plt.tight_layout()
-plt.show()
+plt.savefig("data/visuals/kde_distribution_comparison.png")
+plt.close()
 
 
 # # Income
@@ -154,7 +158,8 @@ plt.xlabel("Income")
 plt.ylabel("Density")
 plt.legend()
 plt.title("Income Distribution: Original vs. Synthetic")
-plt.show()
+plt.savefig("data/visuals/income_distribution.png")
+plt.close()
 
 # Relationship Between Income and Balance
 plt.figure(figsize=(8, 5))
@@ -162,7 +167,8 @@ sns.scatterplot(x=synthetic_data['balance'], y=synthetic_data['income'], alpha=0
 plt.xlabel("Balance")
 plt.ylabel("Income")
 plt.title("Scatter Plot: Income vs. Balance (Synthetic Data)")
-plt.show()
+plt.savefig("data/visuals/income_vs_balance.png")
+plt.close()
 
 
 # # Job
@@ -264,7 +270,8 @@ sns.barplot(x=pd.Series(synthetic_data.marital).value_counts(normalize=True).ind
             y=pd.Series(synthetic_data.marital).value_counts(normalize=True).values, alpha=0.6, label="Synthetic")
 plt.legend()
 plt.title("Comparison of Original and Synthetic Marital Distributions")
-plt.show()
+plt.savefig("data/visuals/marital_distribution_comparison.png")
+plt.close()
 
 
 
@@ -286,7 +293,8 @@ sns.barplot(x=education_counts.index, y=education_counts.values, alpha=0.6, labe
 sns.barplot(x=education_synthetic_counts.index, y=education_synthetic_counts.values, alpha=0.6, label="Synthetic")
 plt.legend()
 plt.title("Comparison of Original and Synthetic Education Distributions")
-plt.show()
+plt.savefig("data/visuals/education_distribution_comparison.png")
+plt.close()
 
 
 
@@ -318,7 +326,8 @@ sns.histplot(churners_df_age_tenure['Months_on_book'], bins=30, kde=True, alpha=
 sns.histplot(synthetic_data.tenure, bins=30, kde=True, alpha=0.3, stat="density", label="Synthetic")
 plt.legend()
 plt.title("Comparison of Original and Synthetic Tenure Distributions")
-plt.show()
+plt.savefig("data/visuals/tenure_distribution_comparison.png")
+plt.close()
 
 # Plot relationship between age and tenure in synthetic data with original dataset points
 plt.figure(figsize=(8, 5))
@@ -328,7 +337,8 @@ plt.title("Relationship between Age and Tenure in Synthetic vs Original Data")
 plt.xlabel("Age")
 plt.ylabel("Tenure (Months on Book)")
 plt.legend()
-plt.show()
+plt.savefig("data/visuals/age_vs_tenure.png")
+plt.close()
 
 synthetic_data
 
@@ -354,7 +364,8 @@ plt.legend()
 plt.title("Comparison of Original and Synthetic NPS Distributions")
 plt.xlabel("NPS Score")
 plt.ylabel("Density")
-plt.show()
+plt.savefig("data/visuals/nps_distribution_comparison.png")
+plt.close()
 
 synthetic_data
 
@@ -376,7 +387,8 @@ plt.legend()
 plt.title("Comparison of Original and Synthetic Dependent Distributions")
 plt.xlabel("Number of Dependents")
 plt.ylabel("Density")
-plt.show()
+plt.savefig("data/visuals/dependents_distribution_comparison.png")
+plt.close()
 
 
 # # Customer Lifetime Value
@@ -457,7 +469,8 @@ plt.legend()
 plt.title("Comparison of Original and Synthetic Debt Distributions")
 plt.xlabel("Debt (Revolving Credit Balance)")
 plt.ylabel("Density")
-plt.show()
+plt.savefig("data/visuals/debt_distribution_comparison.png")
+plt.close()
 
 
 # Convert data types according to the schema
@@ -483,17 +496,18 @@ synthetic_data
 
 
 synthetic_data
-synthetic_data.to_csv("../processed/customer.csv", index=False)
+synthetic_data.to_csv("data/processed/customer.csv", index=False)
 
 
-customers = pd.read_csv("../processed/customer.csv")
+customers = pd.read_csv("data/processed/customer.csv")
 
 plt.figure(figsize=(8, 5))
 sns.scatterplot(x=customers['balance'], y=customers['income'], alpha=0.5, color="purple")
 plt.xlabel("Balance")
 plt.ylabel("Income")
 plt.title("Scatter Plot: Income vs. Balance (Synthetic Data)")
-plt.show()
+plt.savefig("data/visuals/income_vs_balance_customers.png")
+plt.close()
 
 # Plot the distribution of 'job' in the new dataset
 plt.figure(figsize=(10, 5))
@@ -501,5 +515,6 @@ sns.histplot(customers["job"], stat="density", alpha=0.6, color="green", label="
 plt.xticks(rotation=45)
 plt.legend()
 plt.title("Job Distribution in Synthetic Dataset")
-plt.show()
+plt.savefig("data/visuals/job_distribution.png")
+plt.close()
 
