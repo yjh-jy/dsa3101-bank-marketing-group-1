@@ -10,9 +10,8 @@ CREATE TABLE IF NOT EXISTS customer_segments (
     avg_transaction_amt FLOAT,
     num_transactions FLOAT,
     digital_engagement_score FLOAT, 
-    loan_repayment_time FLOAT,
     total_products_owned INT,
-    has_loan INT,  
+    transaction_freq FLOAT,
     segment VARCHAR(50),
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -41,8 +40,8 @@ EXECUTE FUNCTION update_last_updated_column();
 COPY customer_segments (
     customer_id, income, balance, customer_lifetime_value, debt, tenure, 
     credit_default, days_from_last_transaction, avg_transaction_amt, num_transactions, 
-    digital_engagement_score, loan_repayment_time, total_products_owned, 
-    has_loan, segment
+    digital_engagement_score, total_products_owned, 
+    transaction_freq, segment
 )
 FROM '/csv_files/customer_segments_initial_data.csv'  
 DELIMITER ',' 
