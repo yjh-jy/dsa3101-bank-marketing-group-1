@@ -98,14 +98,16 @@ df = df.merge(transactions, on = 'customer_id')
 df = df.merge(digital_usage, on = 'customer_id')
 
 # Analyzing NPS across customer segments
-## Calculating the percentage distribution each NPS category within each segment
+## Calculating the percentage distribution NPS categories within each segment
 nps_segment_dist = pd.crosstab(df['Segment'], df['nps_category'], normalize='index') * 100
+print('Percentage distribution of NPS categories within each segment:')
 print(nps_segment_dist)
 
 # Analyzing financial health across customer segments
 ## Computing the correlation matrix for the selected variables to assess relationships between them
 variables = ['log_balance', 'log_debt', 'log_income', 'debt_to_income', 'balance_to_debt']
 correlation_matrix = df[variables].corr()
+print('\nCorrelation matrix for financial variables:')
 print(correlation_matrix)
 
 ## Filtering data for customers with days_past_due = 0
@@ -116,10 +118,12 @@ print(on_time)
 on_time_counts = on_time.groupby('Segment').size()
 total_counts = df.groupby('Segment').size()
 on_time_proportion = (on_time_counts / total_counts) * 100
+print('\nProportion of on-time payers (%) in each segment:')
 print(on_time_proportion)
 
 ## Calculating the percentage distribution of loan categories within each segment
 loan_cat_percent = pd.crosstab(df['Segment'], df['loan_category'], normalize='index') * 100
+print('\nPercentage distribution of loan categories within each segment:')
 print(loan_cat_percent)
 
 # Analyzing product usage across customer segments
@@ -127,11 +131,12 @@ print(loan_cat_percent)
 product_columns = ['has_investment_product', 'has_credit_card', 
                    'has_personal_loan', 'has_fixed_deposit', 'has_insurance']
 usage_summary = df.groupby('Segment')[product_columns].mean()
+print('\nAverage product ownership (%) for each segment:')
 print(usage_summary)
 
 ## Performing Chi-square test for statistical significance in product usage differences across segments
 for product in product_columns:
-    print(f"Chi-Square Test for {product}")
+    print(f"\nChi-Square Test for {product}:")
     
     ct = pd.crosstab(df['Segment'], df[product])
     print("Contingency Table:")
@@ -153,42 +158,49 @@ for product in product_columns:
 # Analyzing transaction history across customer segments
 ## Calculating the count of transactions for each segment
 tx_counts = df.groupby('Segment').size().reset_index(name='tx_count')
+print('\nTransaction count for each segment:')
 print(tx_counts)
 
 ## Calculating the count of transactions for each customer in each segment
 customer_tx = df.groupby(['customer_id', 'Segment']).size().reset_index(name='tx_count')
+print('\nTransaction count for each customer in each segment:')
 print(customer_tx)
 
 ## Calculating the average transaction count per segment
 avg_tx_count_by_segment = customer_tx.groupby('Segment')['tx_count'].mean().reset_index()
+print('\nAverage transaction count per segment:')
 print(avg_tx_count_by_segment)
 
 ## Calculating the distribution of transaction types across segments
 tx_type_distribution = pd.crosstab(df['Segment'], df['transaction_type'])
+print('\nDistribution of transaction types across segments:')
 print(tx_type_distribution)
 
 ## Calculating the percentage of each transaction type within each segment
 tx_type_percent = pd.crosstab(df['Segment'], df['transaction_type'], normalize='index') * 100
+print('\nPercentage of each transaction type within each segment:')
 print(tx_type_percent)
 
 ## Calculating the distribution of money flow across segments
 flow_distribution = pd.crosstab(df['Segment'], df['money_flow'])
+print('\nDistribution of money flow across segments:')
 print(flow_distribution)
 
 ## Calculating the percentage of money flow within each segment
 flow_percent = pd.crosstab(df['Segment'], df['money_flow'], normalize='index') * 100
+print('\nPercentage of money flow within each segment:')
 print(flow_percent)
 
-## Grouping by segment and money flow, and summing the transaction amount within each combination
+## Grouping by segment and money flow, summing the transaction amount, and calculating percentage
 money_summary = df.groupby(['Segment', 'money_flow'])['transaction_amt'].sum().reset_index()
-print(money_summary)
-
-## Calculating the percentage of each money flow type within each segment based on transaction amount
 money_summary['percentage'] = money_summary.groupby('Segment')['transaction_amt'].transform(lambda x: x / x.sum() * 100)
+print('\nTransaction amounts and their respective percentages by segment and money flow:')
+print(money_summary)
 
 ## Transforming the money flow percentage data to a long format for easier comparison across segments
 flow_percent.reset_index(inplace=True)
 flow_percent_melted = flow_percent.melt(id_vars='Segment', var_name='money_flow', value_name='percentage')
+print('\nMelted money flow percentage data:')
 print(flow_percent_melted)
 
 # Analyzing digital engagement across customer segments
@@ -197,8 +209,11 @@ recency_metrics = df.groupby('Segment').agg({
     'last_mobile_use': 'max',
     'last_web_use': 'max'
 })
+print('\nMost recent mobile and web usage dates by segment:')
+print(recency_metrics)
 
 ## Identifying inactive users (those with no mobile or web logins)
 inactive_users = df[(df['mobile_logins_wk'] == 0) & (df['web_logins_wk'] == 0)]
 inactive_by_segment = inactive_users.groupby('Segment').size()
+print('\nNumber of inactive users in each segment:')
 print(inactive_by_segment)
