@@ -15,7 +15,8 @@ import os
 
 
 ## READING IN DATA
-project_root = os.getcwd()  # Assumes script runs from project root
+project_root = "/Users/teresaliau/Desktop/y3s2/dsa3101/dsa project/helps"
+# project_root = os.getcwd()  # Assumes script runs from project root
 # Define the path to the processed data folder
 data_path = os.path.join(project_root, "data", "processed")
 # Load the CSV files
@@ -85,6 +86,7 @@ print(df.isnull().sum())
 features_to_scale = [ "income", "balance", "debt", "customer_lifetime_value","days_from_last_transaction", "avg_transaction_amt","digital_engagement_score", "total_products_owned", "transaction_freq"]
 # Check for outliers
 # Create 3x3 grid
+project_root = os.getcwd()
 fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(15, 12))
 fig.suptitle("Feature-Wise Outlier Visualization", fontsize=16)
 axes = axes.flatten()
@@ -233,6 +235,7 @@ print("Mean of original features per segment:")
 print(segment_means)
 
 ## Creates csv table in under customer segmentation
+project_root = os.getcwd() 
 df_final.to_csv(os.path.join(project_root, "customer_segmentation", "customer_segments.csv"), index=False)
 print("Saved 'customer_segments.csv' with Customer ID & segment name")
 
