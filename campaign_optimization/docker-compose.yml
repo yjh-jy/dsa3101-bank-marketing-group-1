@@ -42,6 +42,7 @@ services:
       - "5001:5001"
     depends_on:
       - kafka
+      - postgres
     environment:
       - KAFKA_BROKER=kafka:9092
     command: ["python", "scripts/real_time_data_generation.py"]  # Overrides CMD in Dockerfile

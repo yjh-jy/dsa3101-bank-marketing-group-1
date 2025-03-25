@@ -59,6 +59,7 @@ customers["income_category"] = customers["income"].apply(categorize_income)
 # Merge Engagements with Campaigns
 engagements = engagements.merge(campaigns, on="campaign_id")
 engagements = engagements.merge(customers, on='customer_id') 
+engagements = engagements[["campaign_id", "income_category", "target_audience", "channel_used, has_engaged"]]
 
 # Group by campaign and calculate engagement success rate
 campaign_stats = engagements.groupby(["campaign_id", "income_category", "target_audience", "channel_used"]).agg(

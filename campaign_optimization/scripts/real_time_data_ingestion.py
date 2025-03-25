@@ -1,5 +1,7 @@
-# main.py or any other file
-from campaign_optimization import campaign_optimizer
+from kafka import KafkaConsumer
+import json
+import os
+from campaign_optimization import optimizer_instance
 
 # Use the optimizer
 campaign = campaign_optimizer.select_campaign("Low Income", "25-34", "Email")

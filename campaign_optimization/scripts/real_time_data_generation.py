@@ -3,6 +3,11 @@ import json
 import time
 import random
 import os
+
+import time
+print("Waiting for Kafka to be ready...")
+time.sleep(10)  # Wait 10 seconds before connecting
+
 # Retrieve Kafka broker address from environment variable (default to 'kafka:9092')
 KAFKA_BROKER = os.getenv('KAFKA_BROKER', 'kafka:9092')
 
