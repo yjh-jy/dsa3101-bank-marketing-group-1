@@ -15,8 +15,7 @@ import os
 
 
 ## READING IN DATA
-project_root = "/Users/teresaliau/Desktop/y3s2/dsa3101/dsa project/helps"
-# project_root = os.getcwd()  # Assumes script runs from project root
+project_root = os.getcwd()  # Assumes script runs from project root
 # Define the path to the processed data folder
 data_path = os.path.join(project_root, "data", "processed")
 # Load the CSV files
