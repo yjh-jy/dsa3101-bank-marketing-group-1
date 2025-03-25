@@ -13,6 +13,41 @@ from scipy.stats.mstats import winsorize
 from scipy.stats import zscore
 import os
 
+# Check if correct Packages installed
+
+required_packages = {
+    "pandas": "2.2.3",
+    "numpy": "1.23.1",
+    "scikit-learn": "1.2.2",
+    "matplotlib": "3.10.1",
+    "matplotlib-inline": "0.1.6",
+    "seaborn": "0.13.2",
+    "python-dateutil": "2.9.0.post0",
+    "scipy": "1.9.0"
+}
+
+mismatched = []
+
+for pkg, required_version in required_packages.items():
+    try:
+        # Use pip show to get version
+        version_info = os.popen(f"pip show {pkg}").read()
+        installed_version = None
+        for line in version_info.splitlines():
+            if line.startswith("Version:"):
+                installed_version = line.split(":")[1].strip()
+                break
+        if not installed_version:
+            print(f"Package not installed: {pkg}")
+            mismatched.append(f"{pkg}=={required_version}")
+        elif installed_version != required_version:
+            print(f"Package mismatch: {pkg} - required: {required_version}, installed: {installed_version}")
+            mismatched.append(f"{pkg}=={required_version}")
+    except Exception as e:
+        print(f"Error checking package {pkg}: {e}")
+        mismatched.append(f"{pkg}=={required_version}")
+
+
 
 ## READING IN DATA
 project_root = os.getcwd()  # Assumes script runs from project root
@@ -100,7 +135,6 @@ for i, feature in enumerate(features_to_scale):
 plt.tight_layout(rect=[0, 0, 1, 0.95])
 plot_path = os.path.join(visuals_path, "boxplots_for_outliers.png")
 plt.savefig(plot_path)
-plt.show()  
 
 
 # Define function to count outliers using Z-score method
@@ -126,11 +160,13 @@ robust_features = ["income", "balance", "debt", "customer_lifetime_value",  "avg
 # Heavily skewed → higher winsorization
 heavy_outliers = ["income", "balance", "debt"]
 for col in heavy_outliers:
-    df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.05, 0.15])).astype(float)
+    df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.05, 0.1])).astype(float)
 # Moderate outliers → light winsorization
 moderate_outliers = ["customer_lifetime_value", "avg_transaction_amt", "transaction_freq"]
 for col in moderate_outliers:
     df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.0, 0.01])).astype(float)
+
+
 # Features that need Standard scaling (normally distributed)
 standard_features = ["days_from_last_transaction", "digital_engagement_score", "total_products_owned"]
 # Apply RobustScaler
@@ -157,7 +193,6 @@ for i, feature in enumerate(features_to_scale):
 plt.tight_layout(rect=[0, 0, 1, 0.95])
 plot_path = os.path.join(visuals_path, "post_winsorize_boxplots_for_outliers.png")
 plt.savefig(plot_path)
-plt.show()
 plt.close()
 
 # Apply PCA
@@ -235,3 +270,8 @@ print(segment_means)
 ## Creates csv table in under customer segmentation
 df_final.to_csv(os.path.join(project_root, "customer_segmentation", "customer_segments.csv"), index=False)
 print("Saved 'customer_segments.csv' with Customer ID & segment name")
+
+if mismatched:
+    print("\nThere are mismatches in the package version used and the package versions required. Required packages are stated in the Readme file. To fix the packages, run:")
+    print(" pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 matplotlib-inline==0.1.6 seaborn==0.13.2 python-dateutil==2.9.0.post0 scipy==1.9.0")
+    print(" in terminal")
