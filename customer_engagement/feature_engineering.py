@@ -1,9 +1,19 @@
 import pandas as pd
 
 def create_customer_engagement_flag(df):
+    """
+    Returns a dataframe with the max engagement status per customer.
+    Assumes 'has_engaged' is binary (0 or 1).
+    """
     return df.groupby("customer_id")["has_engaged"].max().reset_index()
 
 def summarize_transactions(df):
+    """
+    Aggregates transaction data per customer:
+    - Total amount
+    - Number of transactions
+    - Date of last transaction
+    """
     return df.groupby("customer_id").agg(
         total_transaction_amt=("transaction_amt", "sum"),
         transaction_count=("transaction_id", "count"),
@@ -11,6 +21,13 @@ def summarize_transactions(df):
     ).reset_index()
 
 def engineer_digital_usage(df, reference_date="2025-01-01"):
+    """
+    Engineers digital usage features:
+    - Days since last mobile/web use
+    - Total logins per week
+    - Average session time
+    Drops raw login/time columns and fills missing usage values with 999.
+    """
     ref = pd.to_datetime(reference_date)
     df["last_mobile_use"] = pd.to_datetime(df["last_mobile_use"], format="%Y-%m-%d")
     df["last_web_use"] = pd.to_datetime(df["last_web_use"], format="%Y-%m-%d")
@@ -29,10 +46,19 @@ def engineer_digital_usage(df, reference_date="2025-01-01"):
     return df
 
 def count_products_owned(df):
+    """
+    Adds a `num_products_owned` column by summing binary product ownership flags across columns,
+    excluding 'customer_id'.
+    """
     df["num_products_owned"] = df.drop(columns="customer_id").sum(axis=1)
     return df
 
 def prepare_campaign_features(merged_df):
+    """
+    Aggregates campaign-level features by campaign ID and channel.
+    Adds metrics like engagement rate, CTR, impressions/clicks per day.
+    Maps months to quarters and drops duration column if present.
+    """
     month_to_quarter = {
         "January": "Q1", "February": "Q1", "March": "Q1",
         "April": "Q2", "May": "Q2", "June": "Q2",
@@ -61,5 +87,5 @@ def prepare_campaign_features(merged_df):
     grouped["targets_per_day"] = grouped["num_targeted"] / grouped["campaign_duration"]
     grouped["clicks_per_day"] = grouped["clicks"] / grouped["campaign_duration"]
 
-    grouped.drop(columns=["campaign_id", "num_engaged", "num_targeted"], inplace=True)
+    grouped = grouped.drop(columns=["campaign_id", "num_engaged", "num_targeted"])
     return grouped

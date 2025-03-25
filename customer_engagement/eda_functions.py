@@ -69,7 +69,7 @@ def plot_product_ownership_barplot(df, id_col):
 
 def check_missing_correlation(df, col_to_check, target_col):
     """
-    Analyze the relationship between missing values in a column and a target variable.
+    Analyse the relationship between missing values in a column and a target variable.
     """
     # Filter rows where col_to_check is missing
     filtered_df = df[df[col_to_check].isnull()]

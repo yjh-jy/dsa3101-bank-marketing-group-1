@@ -11,7 +11,8 @@ def define_high_value_user(df):
 
 def is_recently_active(df, days=30, reference_date="2025-01-01"):
     """
-    Flags customers as recently active if they transacted or used digital services within the past `days`.
+    Flags customers as recently active if they transacted or 
+    used digital services within the past `days`.
     """
     ref_date = pd.to_datetime(reference_date)
     recent_mobile = df["days_since_mobile_use"] <= days
