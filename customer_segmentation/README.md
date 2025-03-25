@@ -31,7 +31,7 @@ customer_segmentation/
 
 ---
 
-##  How to Run
+##  How to Run the python script/ notebook
 
 1. **Clone the repository**
 ```bash
@@ -53,7 +53,11 @@ pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 m
 ```bash
 python customer_segmentation/scripts/segmentation.py
 ```
-
+5. **Run the Python notebook**
+```bash
+# Run this in terminal
+python customer_segmentation/notebooks/segmentation.ipynb
+```
 ---
 
 ## How to Check If It Ran Correctly
