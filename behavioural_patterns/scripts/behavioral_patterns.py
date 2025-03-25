@@ -1,3 +1,5 @@
+# Key insights and targeted marketing approaches for each customer segment are included in the notebook
+
 # Importing packages
 import pandas as pd
 import numpy as np
