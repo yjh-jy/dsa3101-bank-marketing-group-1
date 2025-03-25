@@ -3,13 +3,11 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler
 import scipy.stats as stats
 
 # Reading in datasets
 customers = pd.read_csv("r/../data/processed/customer.csv")
 digital_usage = pd.read_csv("r/../data/processed/digital_usage.csv")
-engagement = pd.read_csv("r/../data/processed/engagement_details.csv")
 loans = pd.read_csv("r/../data/processed/loans.csv")
 products = pd.read_csv("r/../data/processed/products_owned.csv") 
 transactions = pd.read_csv("r/../data/processed/transactions.csv")
