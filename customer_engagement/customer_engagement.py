@@ -6,12 +6,13 @@ from feature_engineering import (create_customer_engagement_flag,
                                  engineer_digital_usage,
                                  count_products_owned
                                  )
-from business_rules import define_high_value_user
+from business_rules import define_high_value_user, is_recently_active, is_multichannel_user
 from data_quality import print_null_summary, print_shape_and_preview, check_post_merge_nulls, impute_missing_values
 
 # Load data
 engagement_details, customers, digital_usage, products_owned, transactions = load_customer_data()
 target_col = "has_engaged"
+
 # EDA plots
 eda.plot_numeric_distributions(customers, prefix="customers")
 eda.plot_numeric_distributions(digital_usage, prefix="customers")
@@ -50,6 +51,10 @@ combined_df = (
 
 # High-value user flag
 combined_df["is_high_value_user"] = define_high_value_user(combined_df)
+# Active in the last 30 days flag
+combined_df["is_recently_active"] = is_recently_active(combined_df, days=30)
+# Customers with both mobile and web usage flag
+combined_df["is_multichannel_user"] = is_multichannel_user(combined_df)
 
 # Transaction frequency
 combined_df["transaction_frequency"] = combined_df["transaction_count"] / combined_df["tenure"]
