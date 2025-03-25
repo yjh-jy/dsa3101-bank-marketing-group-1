@@ -1,8 +1,10 @@
-# Behavioral Patterns
+# Behavioural Patterns
 
 ## Overview
 
-This project aims to analyze customer behaviours across different segments. By examining product usage, transaction history, and digital engagement, the analysis identifies key behavioural patterns that inform targeted marketing strategies. The insights will help tailor approaches to specific customer segments, increasing the effectiveness of marketing efforts.
+This module aims to analyze customer behaviours across different segments. By examining product usage, transaction history, and digital engagement, the analysis identifies key behavioural patterns that inform targeted marketing strategies. The insights will help tailor approaches to specific customer segments, increasing the effectiveness of marketing efforts.
+
+---
 
 ## Objectives
 
@@ -26,67 +28,104 @@ This project aims to analyze customer behaviours across different segments. By e
 - **Data Visualization:**  
   Charts and graphs that visually represent the differences in customer behaviour across segments.
 
-## Data Description
+## Description of Datasets Used
 
-- **Product Usage:**  
-  Data capturing how customers utilize various banking products.
+- **customers**
+  Contains demographic, financial, and account information for each customer.
 
-- **Transaction History:**  
-  Records of customer transactions to identify frequency, volume, and type of activity.
+- **loans:**  
+  Details of loans taken by customers, including loan amounts, purposes, and repayment dates.
 
-- **Digital Engagement:**  
-  Metrics related to customers' interaction with digital channels (e.g., mobile app usage, online banking activities).
+- **products:**  
+  Information about the products each customer holds, such as investment products, credit cards, personal loans, fixed deposits, and insurance.
+
+- **transactions:**  
+  Transactional data, capturing transaction type, amount, and date for each customer.
+
+- **digital_usage**
+  Tracks customers' usage of digital platforms, including mobile app and web account activity, login frequency, and time spent on these platforms.
 
 ## Methodology
 
-1. **Data Collection & Cleaning:**  
-   Gather data from internal sources and perform necessary cleaning to ensure accuracy.
+1. **Data Preparation:**  
+   Merge data from internal sources and perform data cleaning and transformation.
 
 2. **Segmentation:**  
-   Group customers based on demographic, behavioural, or transactional attributes.
+   Use the customer_segments.csv file, generated from the customer_segmentation folder, for customer segmentation analysis.
 
 3. **Exploratory Data Analysis (EDA):**  
-   Use statistical and visualization techniques to explore data patterns across segments.
+   Apply statistical tests, such as the chi-square test, and visualization techniques, including bar plots, heatmaps, and boxplots, to identify data patterns across customer segments.
 
 4. **Pattern Identification:**  
-   Analyze key behaviours, such as product usage trends, spending habits, and engagement levels.
+   Analyze key behaviors, including on-time loan payments, product usage trends, transactional habits, and digital engagement levels, to uncover significant patterns within the data.
 
 5. **Recommendation Development:**  
    Translate the insights into targeted marketing recommendations for each customer segment.
 
-## How to Run
+---
 
-1. **Environment Setup:**
-   - Ensure you have Python 3.7 or higher installed.
-   - Create a virtual environment and activate it.
-     ```bash
-     python -m venv env
-     source env/bin/activate  # On Windows use `env\Scripts\activate`
-     ```
-
-2. **Install Dependencies:**
-   - Install required libraries (e.g., pandas, numpy, matplotlib, seaborn, scikit-learn) using pip.
-     ```bash
-     pip install -r requirements.txt
-     ```
-   - If using a Jupyter Notebook, install Jupyter:
-     ```bash
-     pip install jupyter
-     ```
-
-3. **Run the Analysis:**
-   - Open the notebook:
-     ```bash
-     jupyter notebook behavioral_patterns.ipynb
-     ```
-   - Follow the notebook cells to run the analysis and generate insights.
-
-## Project Structure
+## Folder Structure
 
 ```
-├── behavioral_patterns.ipynb   # Main analysis notebook
-├── data/                       # Folder containing raw/processed data files
-├── requirements.txt            # List of required packages
-├── README.md                   # Project overview and instructions
-└── output/                     # Folder for saving output reports, charts, etc.
+behvioural_patterns/
+├── notebooks/
+│   └── behvioural_patterns.ipynb   # Main analysis notebook
+├── scripts/
+│   └── behavioural_patterns.py     # Main analysis logic     
+├── visualizations/                 # Folder for saving output visualizations
+└── README.md                       # Project overview and instructions
 ```
+
+---
+
+## File Descriptions
+
+| Path | Description |
+|------|-------------|
+| `behavioural_patterns/notebooks/behavioural_patterns.ipynb` | Notebook containing the main analysis, including exploratory data analysis (EDA), data visualizations, key insights from the analysis, and targeted marketing approaches for each customer segment. |
+| `behavioural_patterns/notescripts/behavioural_patterns.py` | Python script containing the core analysis logic, including data preprocessing and key behavioral pattern identification. Does not include data visualizations, insights, or targeted marketing strategies. |
+| `behavioural_patterns/visualizations/` | Directory where all generated charts and plots are saved after running the analysis notebook or script. |
+| `behavioural_patterns/README.md` | Documentation file for the behavioural patterns module, including an overview of the project, setup instructions, and details of the analysis methodology. |
+
+---
+
+## Prerequisite
+
+Ensure that the following environment is set up:
+- **Python 3.10.6**: [Install Python](https://www.python.org/downloads/)
+
+---
+
+##  How to Run the python notebook and script
+
+1. **Clone the repository**
+```bash
+git clone <repository-url>
+```
+
+2. **Check current working directory**
+```bash
+pwd
+# should end in dsa3101-bank-marketing-group-1
+```
+
+3. **Dependencies: Install required Python packages**
+```bash
+pip install pandas==2.2.3 numpy==1.23.1 seaborn==0.13.2 matplotlib==3.10.1 scipy==1.9.0 jupyter
+```
+
+4. **Run the Python notebook**
+```bash
+- If Jupyter is installed and recognized:
+# Run this in terminal
+python behavioural_patterns/notebooks/behavioural_patterns.ipynb
+
+- If not recognized, try:
+python -m notebook behavioural_patterns/notebooks/behavioural_patterns.ipynb
+```
+5. **Run the Python script**
+```bash
+# Run this in terminal
+python behavioural_patterns/scripts/behavioural_patterns.py
+```
+---
