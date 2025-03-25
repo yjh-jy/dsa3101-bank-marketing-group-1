@@ -42,8 +42,8 @@ def fetch_customer_data(conn):
     query = """
         SELECT customer_id, income, balance, customer_lifetime_value, debt, tenure, 
                credit_default, days_from_last_transaction, avg_transaction_amt, 
-               num_transactions, digital_engagement_score, loan_repayment_time, 
-               total_products_owned, has_loan 
+               num_transactions, digital_engagement_score, 
+               total_products_owned, transaction_freq 
         FROM customer_segments
     """
     df = pd.read_sql(query, conn)
@@ -60,46 +60,61 @@ def recalculate_clusters(df):
         pd.DataFrame: DataFrame with customer_id and assigned segment.
     """
     features_to_scale = [
-        "income", "balance", "debt", "customer_lifetime_value", "days_from_last_transaction",
-        "avg_transaction_amt", "digital_engagement_score", "total_products_owned", 
-        "loan_repayment_time", "num_transactions"
-    ]
-    robust_features = ["income", "balance", "debt", "customer_lifetime_value", "avg_transaction_amt"]
-    # Apply winsorization to reduce the impact of outliers; modifies df in-place.
-    for col in robust_features:
-        df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.05, 0.05]))
+        "income", 
+        "balance", 
+        "debt", 
+        "customer_lifetime_value",
+        "days_from_last_transaction", 
+        "avg_transaction_amt",
+        "digital_engagement_score", 
+        "total_products_owned", 
+        "transaction_freq"
+        ]
 
-    standard_features = [
-        "days_from_last_transaction", "digital_engagement_score", 
-        "total_products_owned", "loan_repayment_time", "num_transactions"
-    ]
+    robust_features = [
+        "income", 
+        "balance", 
+        "debt", 
+        "customer_lifetime_value",  
+        "avg_transaction_amt", 
+        "transaction_freq"
+        ]
+    # Heavily skewed → higher winsorization
+    heavy_outliers = ["income", "balance", "debt"]
+    
+    for col in heavy_outliers:
+        df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.05, 0.15])).astype(float)
+    # Moderate outliers → light winsorization
+    moderate_outliers = ["customer_lifetime_value", "avg_transaction_amt", "transaction_freq"]
+    for col in moderate_outliers:
+        df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.0, 0.01])).astype(float)
 
-    # Create a scaled copy of the data
-    scalerrobust = RobustScaler()
+    standard_features = ["days_from_last_transaction", "digital_engagement_score", "total_products_owned"]
+
+    # Apply RobustScaler
+    scalerrobust =  RobustScaler()
     df_scaled = df.copy()
     df_scaled[robust_features] = scalerrobust.fit_transform(df[robust_features])
-
+    # Apply StandardScaler
     scaler_standard = StandardScaler()
     df_scaled[standard_features] = scaler_standard.fit_transform(df[standard_features])
 
     # Perform KMeans clustering
     optimal_k = 3
-    df_scaled["Cluster"] = KMeans(n_clusters=optimal_k, init="k-means++", n_init=20, random_state=42)\
-        .fit_predict(df_scaled[features_to_scale])
+    df_scaled["Cluster"] = KMeans(n_clusters= optimal_k,  init="k-means++", n_init=20, random_state=42).fit_predict(df_scaled[features_to_scale])
     df["Cluster"] = df_scaled["Cluster"]
 
     # Calculate cluster means for ranking
     cluster_means = df_scaled.groupby("Cluster")[features_to_scale].mean()
     cluster_means["score"] = (
-        cluster_means["income"] * 0.1 +
-        cluster_means["balance"] * 0.1 +
-        cluster_means["debt"] * (-0.05) +  # Negative weight for financial distress
-        cluster_means["customer_lifetime_value"] * 0.15 +  # CLV predicts revenue
-        cluster_means["days_from_last_transaction"] * (-0.20) +  # Penalty for inactivity
-        cluster_means["avg_transaction_amt"] * 0.20 +  # High-value customers spend more
-        cluster_means["digital_engagement_score"] * 0.20 +  # More engagement means higher retention
-        cluster_means["total_products_owned"] * 0.20 +  # More products indicate a stronger relationship
-        cluster_means["num_transactions"] * 0.20  # Frequent usage matters
+    cluster_means["balance"] * 0.2 + 
+    cluster_means["debt"] * (-0.05) +  # Negative weight for financial distress
+    cluster_means["customer_lifetime_value"] * 0.15 +  # Increased because CLV predicts revenue
+    cluster_means["days_from_last_transaction"] * (-0.20) +  # Increased penalty for inactivity
+    cluster_means["avg_transaction_amt"] * 0.20 +  # High-value customers spend more per transaction
+    cluster_means["digital_engagement_score"] * 0.20 +  # More engagement means higher retention
+    cluster_means["total_products_owned"] * 0.20 +  # Owning more products = stronger banking relationship
+    cluster_means["transaction_freq"] * 0.20  # Higher impact because frequent usage matters
     )
 
     # Rank clusters based on score (descending)
