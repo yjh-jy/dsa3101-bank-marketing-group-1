@@ -11,6 +11,61 @@ os.makedirs("figures/barplots", exist_ok=True)
 os.makedirs("figures/violinplots", exist_ok=True)
 os.makedirs("figures/histograms", exist_ok=True)
 
+def get_categorical_columns(df, exclude_col=None, max_unique=10):
+    """ 
+    Identify categorical columns by by type object or low-cardinality numerical columns
+    """
+    cat_cols = df.select_dtypes(include="object").columns.tolist()
+    cat_cols += [col for col in df.columns
+                 if df[col].dropna().nunique() <= max_unique and
+                 df[col].dtype in ["int64", "float64", "int32"] and col != exclude_col]
+    if exclude_col in cat_cols:
+        cat_cols = cat_cols.drop(exclude_col)
+    return list(set(cat_cols))
+
+def get_numerical_columns(df, exclude_col=None, max_unique=10):
+    """
+    Identify continuous numerical features, excluding categorical-like numerical columns
+    """
+    cat_cols = get_categorical_columns(df, exclude_col=exclude_col, max_unique=max_unique)
+    num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
+    if exclude_col in num_cols:
+        num_cols = num_cols.drop(exclude_col)
+    return list(num_cols)
+
+def plot_numeric_distributions(df, prefix, cols=None):
+    """
+    Plots histograms with KDE for selected or auto-detected numeric columns.
+    Saves plots in figures/histograms/<prefix>_colname_hist.png.
+    """
+    if cols is None:
+        num_cols = get_numerical_columns(df)
+    else:
+        num_cols = cols
+
+    for col in num_cols:
+        plt.figure(figsize=(6, 4))
+        sns.histplot(df[col].dropna(), bins=30, kde=True)
+        plt.title(f"Distribution of {col}")
+        plt.tight_layout()
+        plt.savefig(f"figures/histograms/{prefix}_{col}_hist.png")
+        plt.close()
+
+
+def plot_product_ownership_barplot(df, id_col):
+    """
+    Plots bar chart showing average product ownership proportions.
+    Saves the plot as figures/barplots/product_ownership_barplot.png.
+    """
+    product_cols = [col for col in df.columns if col != id_col]
+
+    df[product_cols].mean().sort_values(ascending=False).plot(kind="bar")
+    plt.title("Proportion of Customers Owning Each Product")
+    plt.ylabel("Proportion")
+    plt.tight_layout()
+    plt.savefig("figures/barplots/product_ownership_barplot.png")
+    plt.close()
+
 
 def check_missing_correlation(df, col_to_check, target_col):
     """
@@ -38,15 +93,8 @@ def get_boxplot(df, target_col):
     Generate and save boxplots of numeric features (excluding categorical-like ones), 
     grouped by a binary target column.
     """
-
-    # Identify numeric columns with <= 10 unique values: treat as categorical-like
-    cat_cols = [col for col in df.columns
-                   if df[col].dropna().nunique() <=10 and 
-                   df[col].dtype in ["int64", "float64", "int32"]]
-    # Identify continuous numeric columns (exclude categorical-like ones)
-    num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
-    # Remove the target column from plotting
-    num_cols = [col for col in num_cols if col != target_col]  
+    # Identify continuous numeric columns (exclude categorical-like ones and target column)
+    num_cols = get_numerical_columns(df, exclude_col=target_col)
 
     # Loop through each numeric column to create boxplots
     for col in num_cols:
@@ -61,15 +109,8 @@ def get_ttest(df, target_col):
     """
     Perform Welch's t-test for numeric features against a binary target column.
     """
-
-    # Identify numeric columns with <= 10 unique values: treat as categorical-like
-    cat_cols = [col for col in df.columns
-                   if df[col].dropna().nunique() <=10 and 
-                   df[col].dtype in ["int64", "float64", "int32"]]
-    # Identify continuous numeric columns (exclude categorical-like ones)
-    num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
-    # Remove the target column from plotting
-    num_cols = [col for col in num_cols if col != target_col]  
+    # Identify continuous numeric columns (exclude categorical-like ones and target column)
+    num_cols = get_numerical_columns(df, exclude_col=target_col)
 
     results = []
     # Loop through each numeric column
@@ -90,15 +131,8 @@ def get_proportion_table(df, target_col):
     Print and return normalized crosstab tables for all categorical features 
     vs the target column.
     """
-
-    # Get object (str) columns
-    cat_cols = df.select_dtypes(include="object").columns.tolist()
-    # Add numeric columns with <=10 unique values (treat as categorical)
-    cat_cols += [col for col in df.columns 
-             if df[col].dropna().nunique() <= 10 and 
-             df[col].dtype in ["int64", "float64", "int32"] and col != target_col]
-    # Ensure no duplicates and remove the target column
-    cat_cols = list(set(cat_cols) - {target_col})
+    # Get categorical columns excluding target column
+    cat_cols = get_categorical_columns(df, exclude_col=target_col)
 
     proportion_tables = {}
     # Loop through each categorical column to generate cross-tab
@@ -114,15 +148,8 @@ def get_chi_square(df, target_col):
     """
     Perform chi-square test of independence between categorical features and the target column.
     """
-    
-    # Get object (str) columns
-    cat_cols = df.select_dtypes(include="object").columns.tolist()
-    # Add numeric columns with <=10 unique values (treat as categorical)
-    cat_cols += [col for col in df.columns 
-             if df[col].dropna().nunique() <= 10 and 
-             df[col].dtype in ["int64", "float64", "int32"] and col != target_col]
-    # Ensure no duplicates and remove the target column
-    cat_cols = list(set(cat_cols) - {target_col})
+    # Get categorical columns excluding target column
+    cat_cols = get_categorical_columns(df, exclude_col=target_col)
 
     results = []
     # Loop through each categorical column and create contingency table
@@ -140,15 +167,8 @@ def get_barplot(df, target_col):
     Generate and save barplots showing the mean proportion of the target variable
     for each level of categorical features.
     """
-
-    # Get object (str) columns
-    cat_cols = df.select_dtypes(include="object").columns.tolist()
-    # Add numeric columns with <=10 unique values (treat as categorical)
-    cat_cols += [col for col in df.columns 
-             if df[col].dropna().nunique() <= 10 and 
-             df[col].dtype in ["int64", "float64", "int32"] and col != target_col]
-    # Ensure no duplicates and remove the target column
-    cat_cols = list(set(cat_cols) - {target_col})
+    # Get categorical columns excluding target column
+    cat_cols = get_categorical_columns(df, exclude_col=target_col)
 
     # Loop through each categorical column and create barplot
     for col in cat_cols:
@@ -168,15 +188,8 @@ def get_violin_plots_by_engagement_bin(df, target_col):
     Generate and save violin plots of continuous numeric features across quantile bins 
     of the engagement rate.
     """
-
-    # Identify numeric columns with <=10 unique values: treat as categorical-like
-    cat_cols = [col for col in df.columns
-                   if df[col].dropna().nunique() <=10 and 
-                   df[col].dtype in ["int64", "float64", "int32"]]
-    # Identify continuous numeric columns (exclude categorical-like ones)
-    num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
-    # Remove the target column from plotting
-    num_cols = [col for col in num_cols if col != target_col] 
+    # Identify continuous numeric columns (exclude categorical-like ones and target column)
+    num_cols = get_numerical_columns(df, exclude_col=target_col)
 
     # Bin the engagement rate into 3 equal-sized groups
     df["bin"] = pd.qcut(df[target_col], q=3, labels=["Low", "Medium", "High"])
@@ -192,39 +205,3 @@ def get_violin_plots_by_engagement_bin(df, target_col):
         plt.close()
 
     df.drop(columns="bin", inplace=True)
-
-def plot_numeric_distributions(df, prefix, cols=None):
-    """
-    Plots histograms with KDE for selected or auto-detected numeric columns.
-    Saves plots in figures/histograms/<prefix>_colname_hist.png.
-    """
-    if cols is None:
-        cat_cols = [col for col in df.columns
-                    if df[col].dropna().nunique() <= 10 and 
-                    df[col].dtype in ["int64", "float64", "int32"]]
-        num_cols = df.select_dtypes(include=["number"]).columns.difference(cat_cols)
-    else:
-        num_cols = cols
-
-    for col in num_cols:
-        plt.figure(figsize=(6, 4))
-        sns.histplot(df[col].dropna(), bins=30, kde=True)
-        plt.title(f"Distribution of {col}")
-        plt.tight_layout()
-        plt.savefig(f"figures/histograms/{prefix}_{col}_hist.png")
-        plt.close()
-
-
-def plot_product_ownership_barplot(df, id_col):
-    """
-    Plots bar chart showing average product ownership proportions.
-    Saves the plot as figures/barplots/product_ownership_barplot.png.
-    """
-    product_cols = [col for col in df.columns if col != id_col]
-
-    df[product_cols].mean().sort_values(ascending=False).plot(kind="bar")
-    plt.title("Proportion of Customers Owning Each Product")
-    plt.ylabel("Proportion")
-    plt.tight_layout()
-    plt.savefig("figures/barplots/product_ownership_barplot.png")
-    plt.close()

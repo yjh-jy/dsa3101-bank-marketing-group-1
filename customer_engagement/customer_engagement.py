@@ -1,98 +1,45 @@
-# Load packages
 import pandas as pd
 import eda_functions as eda
+from load_data import load_customer_data
+from feature_engineering import (create_customer_engagement_flag,
+                                 summarize_transactions,
+                                 engineer_digital_usage,
+                                 count_products_owned
+                                 )
+from business_rules import define_high_value_user
+from data_quality import print_null_summary, print_shape_and_preview, check_post_merge_nulls, impute_missing_values
 
-# Load datasets
-engagement_details = pd.read_csv("../data/processed/engagement_details.csv")
-customers = pd.read_csv("../data/processed/customer.csv")
-digital_usage = pd.read_csv("../data/processed/digital_usage.csv")
-products_owned = pd.read_csv("../data/processed/products_owned.csv")
-transactions = pd.read_csv("../data/processed/transactions.csv")
-
-# Plot numeric distributions for customer demographics
+# Load data
+engagement_details, customers, digital_usage, products_owned, transactions = load_customer_data()
+target_col = "has_engaged"
+# EDA plots
 eda.plot_numeric_distributions(customers, prefix="customers")
-
-# Plot numeric distributions for digital usage
 eda.plot_numeric_distributions(digital_usage, prefix="customers")
-
-# Product ownership (bar plot per product)
 eda.plot_product_ownership_barplot(products_owned, "customer_id")
 
-# Create customer-level has_engaged flag (1 if engaged in any campaign)
-customer_engagement = (
-    engagement_details
-    .groupby("customer_id")["has_engaged"]
-    .max()
-    .reset_index()
-)
+# Feature Engineering
+customer_engagement = create_customer_engagement_flag(engagement_details)
+print_null_summary(customer_engagement, "customer_engagement")
+print_shape_and_preview(customer_engagement, "customer_engagement")
 
-# Check for nulls in 'has_engaged' as well as customer_engagement dataframe details
-null_count = customer_engagement["has_engaged"].isnull().sum()
-print(f"Number of nulls in 'has_engaged': {null_count}")
-print(f"\nShape of customer_engagement: {customer_engagement.shape}")
-print(f"\nFirst few rows of customer_engagement:\n{customer_engagement.head()}")
-
-# Aggregate transactions 
-transaction_summary = (
-    transactions
-    .groupby("customer_id")
-    .agg(
-        total_transaction_amt=("transaction_amt", "sum"),
-        transaction_count=("transaction_id", "count"),
-        last_transaction_date=("transaction_date", "max")
-    )
-    .reset_index()
-)
-# Get percentage of null values in column last_transaction_date
+transaction_summary = summarize_transactions(transactions)
 test_df = customer_engagement.merge(transaction_summary, on='customer_id', how='left')
-null_percentages_test= test_df.isnull().mean().round(4) * 100
-null_percentages_test = null_percentages_test.sort_values(ascending=False)
-print(f"Percentage of nulls in transaction columns after merge:\n{null_percentages_test}")
-#~54% of customers have never transacted
-#This may include inactive, new, or digitally engaged but not monetized customers
+check_post_merge_nulls(test_df, ["last_transaction_date"], "Engagement + Transactions")
 
-# Feature engineering on digital usage
+# Digital usage transformation
+digital_usage = engineer_digital_usage(digital_usage)
+print_null_summary(digital_usage, "digital_usage")
+print_shape_and_preview(digital_usage, "digital_usage")
 
-# Convert to datetime format
-digital_usage['last_mobile_use'] = pd.to_datetime( digital_usage['last_mobile_use'], format="%Y-%m-%d")
-digital_usage['last_web_use'] = pd.to_datetime( digital_usage['last_web_use'], format="%Y-%m-%d")
-# Convert date fields to days since xxx format
-reference_date = pd.to_datetime('2025-01-01')
-# Create new features
-digital_usage['days_since_mobile_use'] = (reference_date - digital_usage['last_mobile_use']).dt.days
-digital_usage['days_since_web_use'] = (reference_date - digital_usage['last_web_use']).dt.days
-digital_usage["total_logins_per_week"] = digital_usage[["mobile_logins_wk", "web_logins_wk"]].sum(axis=1)
-digital_usage["avg_total_time_per_session"] = digital_usage[["avg_mobile_time", "avg_web_time"]].sum(axis=1)
+eda.check_missing_correlation(digital_usage, "days_since_mobile_use", "has_mobile_app")
+eda.check_missing_correlation(digital_usage, "days_since_web_use", "has_web_account")
 
-# Drop original columns
-digital_usage = digital_usage.drop(columns=["last_mobile_use", "last_web_use",
-                                            "mobile_logins_wk", "web_logins_wk",
-                                            "avg_mobile_time", "avg_web_time"])
-print(f"Null counts per column: \n {digital_usage.isnull().sum()}")
-print(f"\nShape of digital_usage: {digital_usage.shape}")
-print(f"\nFirst few rows of digital_usage:\n{digital_usage.head()}")
+# Products owned
+products_owned = count_products_owned(products_owned)
+print_null_summary(products_owned, "products_owned")
+print_shape_and_preview(products_owned, "products_owned")
 
-# Check missing days_since_mobile_use correlation with has_mobile_app
-check = eda.check_missing_correlation(digital_usage, "days_since_mobile_use", "has_mobile_app")
-
-# Check missing days_since_web_use correlation with has_web_account
-check = eda.check_missing_correlation(digital_usage, "days_since_web_use", "has_web_account")
-
-# Results interpretation: The customers who are missing days_since_mobile_use or days_since_web_use are those who never had access to the respective platforms
-# Fill the missing values by assigning a large number to indicate extreme inactivity
-digital_usage["days_since_mobile_use"] = digital_usage["days_since_mobile_use"].fillna(999)
-digital_usage["days_since_web_use"] = digital_usage["days_since_web_use"].fillna(999)
-
-# Feature engineering on products owned
-products_owned["num_products_owned"] = products_owned.drop(columns="customer_id").sum(axis=1)
-
-# Check for nulls in 'num_products_owned' as well as details of products_owned dataframe
-null_count = products_owned["num_products_owned"].isnull().sum()
-print(f"Number of nulls in 'num_products_owned': {null_count}")
-print(f"\nShape of products_owned: {products_owned.shape}")
-print(f"\nFirst few rows of products_owned:\n{products_owned.head()}")
-
-# Merge all features into combined_df
+# Merge all features
 combined_df = (
     customers
     .merge(customer_engagement, on="customer_id", how="left")
@@ -101,53 +48,38 @@ combined_df = (
     .merge(products_owned[["customer_id", "num_products_owned"]], on="customer_id", how="left")
 )
 
-# Create high-value user flag based on median thresholds
-login_median = combined_df["total_logins_per_week"].median()
-spend_median = combined_df["total_transaction_amt"].median()
-combined_df["is_high_value_user"] = (
-    (combined_df["total_logins_per_week"] > login_median) &
-    (combined_df["total_transaction_amt"] > spend_median)
-).astype(int)
+# High-value user flag
+combined_df["is_high_value_user"] = define_high_value_user(combined_df)
 
-# Feature: transaction frequency
+# Transaction frequency
 combined_df["transaction_frequency"] = combined_df["transaction_count"] / combined_df["tenure"]
 combined_df[["total_transaction_amt", "transaction_count", "transaction_frequency"]] = combined_df[[
     "total_transaction_amt", "transaction_count", "transaction_frequency"]].fillna(0)
+combined_df.drop(columns=["last_transaction_date"], inplace=True)
 
-combined_df = combined_df.drop(columns=["last_transaction_date"])
+# Final checks
+print_null_summary(combined_df, "combined_df")
+print_shape_and_preview(combined_df, "combined_df")
 
-# Check nulls
-null_counts = combined_df.isnull().sum()
-null_percentages = (combined_df.isnull().mean() * 100).round(2)
-null_summary = pd.DataFrame({
-    "Null Count": null_counts,
-    "Null %": null_percentages}).sort_values("Null %", ascending=False)
-print("Null summary:\n", null_summary)
-print(f"\nFirst few rows:\n {combined_df.head()}")
-print("\nShape of combined_df:", combined_df.shape)
-# Drop rows with null values in any column in combined_df
-before = combined_df.shape[0]
-combined_df = combined_df.dropna()
-after = combined_df.shape[0]
-print(f"Dropped {before - after} rows with nulls. Remaining rows: {after}")
+# Value counts for categorical variables
+categorical_cols = eda.get_categorical_columns(combined_df)
+for col in categorical_cols:
+    print(f"Value counts for {col}:\n{combined_df[col].value_counts()}")
 
-# Relationship analysis with target variable `has_engaged`
+# Impute missing values
+combined_df = impute_missing_values(combined_df)
 
-# Set df and target column
+# Relationship Analysis
 df = combined_df.copy()
-target_col = 'has_engaged'
+target_col = "has_engaged"
 
-# 1. Boxplots for numerical variables by engagement
 eda.get_boxplot(df, target_col)
+print("T-test Results:\n", eda.get_ttest(df, target_col))
+eda.get_proportion_table(df, target_col)
+eda.get_barplot(df, target_col)
+print("\nChi-Square Test Results:\n", eda.get_chi_square(df, target_col))
 
-# 2. T-tests for numerical variables
-ttest_results = eda.get_ttest(df, target_col)
-print("T-test Results:\n", ttest_results)
 
-# 3. Proportion tables & bar plots for categorical columns against `has_engaged`
-tables = eda.get_proportion_table(df, target_col)
-barplots = eda.get_barplot(df, target_col)
 
-# 4. Chi-square test results
-chi2_results = eda.get_chi_square(df, target_col)
-print("\nChi-Square Test Results:\n", chi2_results)
+#~54% of customers have never transacted
+#This may include inactive, new, or digitally engaged but not monetized customers
