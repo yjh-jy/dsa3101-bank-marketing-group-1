@@ -26,7 +26,7 @@ customer_segmentation/
 | Path | Description |
 |------|-------------|
 | `customer_segmentation/scripts/segmentation.py` | Main script that performs customer segmentation using input features (e.g., balance, transaction amount). Also generates boxplots and outputs a CSV file. |
-| `customer_segmentation/customer_segments.csv` | Input data file containing customer features for segmentation. |
+| `customer_segmentation/customer_segments.csv` | Input data file containing customer features for segmentation. When running the script, the csv saves as `customer_segments_rerun.csv`. However, for our analysis we will work on `customer_segments.csv` as segmentations might differ slightly when script runs on different OS|
 | `customer_segmentation/markdown/segmentation.md` | Includes business logic and explanation of code in segmentation.py. Markdown for version for cleanerexploration of segmentation logic and data characteristics. |
 | `customer_segmentation/visuals/` | Folder where generated boxplots will be saved after running the script. |
 | `customer_segmentation/README.md` | Documentation for the customer segmentation module. |
