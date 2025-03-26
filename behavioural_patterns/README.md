@@ -30,20 +30,15 @@ This module aims to analyze customer behaviours across different segments. By ex
 
 ## Description of Datasets Used
 
-- **customers**
-  Contains demographic, financial, and account information for each customer.
+- **customers:** Contains demographic, financial, and account information for each customer.
 
-- **loans:**  
-  Details of loans taken by customers, including loan amounts, purposes, and repayment dates.
+- **loans:** Details of loans taken by customers, including loan amounts, purposes, and repayment dates.
 
-- **products:**  
-  Information about the products each customer holds, such as investment products, credit cards, personal loans, fixed deposits, and insurance.
+- **products:** Information about the products each customer holds, such as investment products, credit cards, personal loans, fixed deposits, and insurance.
 
-- **transactions:**  
-  Transactional data, capturing transaction type, amount, and date for each customer.
+- **transactions:** Transactional data, capturing transaction type, amount, and date for each customer.
 
-- **digital_usage**
-  Tracks customers' usage of digital platforms, including mobile app and web account activity, login frequency, and time spent on these platforms.
+- **digital_usage:** Tracks customers' usage of digital platforms, including mobile app and web account activity, login frequency, and time spent on these platforms.
 
 ## Methodology
 
@@ -68,11 +63,11 @@ This module aims to analyze customer behaviours across different segments. By ex
 
 ```
 behvioural_patterns/
-├── notebooks/
-│   └── behvioural_patterns.ipynb   # Main analysis notebook
+├── insights/
+│   └── visualizations/             # Folder containing output visualizations
+│   └── behavioural_patterns.md     # Markdown file containing key insights and targeted marketing approaches
 ├── scripts/
 │   └── behavioural_patterns.py     # Main analysis logic     
-├── visualizations/                 # Folder for saving output visualizations
 └── README.md                       # Project overview and instructions
 ```
 
@@ -82,10 +77,10 @@ behvioural_patterns/
 
 | Path | Description |
 |------|-------------|
-| `behavioural_patterns/notebooks/behavioural_patterns.ipynb` | Notebook containing the main analysis, including exploratory data analysis (EDA), data visualizations, key insights from the analysis, and targeted marketing approaches for each customer segment. |
-| `behavioural_patterns/notescripts/behavioural_patterns.py` | Python script containing the core analysis logic, including data preprocessing and key behavioral pattern identification. Does not include data visualizations, insights, or targeted marketing strategies. |
-| `behavioural_patterns/visualizations/` | Directory where all generated charts and plots are saved after running the analysis notebook or script. |
-| `behavioural_patterns/README.md` | Documentation file for the behavioural patterns module, including an overview of the project, setup instructions, and details of the analysis methodology. |
+| `behavioural_patterns/insights/visualizations/` | Directory where all generated charts and plots are saved after running the script. |
+| `behavioural_patterns/insights/behavioural_patterns.md` | Markdown file containing key insights from the analysis, including targeted marketing approaches for each customer segment. It also includes visualizations. |
+| `behavioural_patterns/scripts/behavioural_patterns.py` | Python script containing the core analysis logic, including data preprocessing, identification of key behavioral patterns, and the creation of visualizations. Visualizations are generated but do not appear as popups, as they are closed automatically using plt.close(). |
+| `behavioural_patterns/README.md` | Documentation file for the behavioural patterns module, including an overview of the project, details of the analysis methodology, and setup instructions. |
 
 ---
 
@@ -96,7 +91,7 @@ Ensure that the following environment is set up:
 
 ---
 
-##  How to Run the python notebook and script
+##  How to Run the Python Script
 
 1. **Clone the repository**
 ```bash
@@ -111,21 +106,24 @@ pwd
 
 3. **Dependencies: Install required Python packages**
 ```bash
-pip install pandas==2.2.3 numpy==1.23.1 seaborn==0.13.2 matplotlib==3.10.1 scipy==1.9.0 jupyter
+pip install pandas==2.2.3 numpy==1.23.1 seaborn==0.13.2 matplotlib==3.10.1 scipy==1.9.0 
 ```
 
-4. **Run the Python notebook**
-```bash
-- If Jupyter is installed and recognized:
-# Run this in terminal
-python behavioural_patterns/notebooks/behavioural_patterns.ipynb
-
-- If not recognized, try:
-python -m notebook behavioural_patterns/notebooks/behavioural_patterns.ipynb
-```
-5. **Run the Python script**
+4. **Run the Python script**
 ```bash
 # Run this in terminal
 python behavioural_patterns/scripts/behavioural_patterns.py
 ```
 ---
+
+## Generating Visualizations
+
+To generate and display visualizations from the analysis script, follow these steps:
+
+1. Add the following lines after each chunk of the visualization code in behavioural_patterns.py to display the visualizations interactively:
+```bash
+plt.tight_layout()
+plt.show()
+```
+
+2. Comment out or remove plt.close() to allow the visualizations to pop up interactively. This will ensure that the generated plots are displayed during script execution.
