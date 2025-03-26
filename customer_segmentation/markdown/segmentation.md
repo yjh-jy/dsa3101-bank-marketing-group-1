@@ -187,9 +187,9 @@ We designed a weighted scoring system using normalized cluster means:
 ## Segment Insights (Aggregated Means)
 
 Segment-wise behavior patterns were confirmed post-clustering:
-- **High-value**: High engagement, high CLV and income, frequent digital usage, and broad product ownership
-- **Budget-conscious**: Moderate income and activity, fewer products, digital presence
-- **At risk**: Low engagement, high recency, few products, low digital usage
+- **High-value**: High transaction amounts, high CLV, balance and income, and broad product ownership
+- **Budget-conscious**: Moderate activity, fewer products owned, lower income and balance
+- **At risk**: Lowest average transaction amount and frequence, most days since last transaction suggesting low engagement, lowest digital usage and engagement
   ### Segment-wise Mean of Key Features
 
 | Segment                     | Income   | Balance | Debt     | CLV    | Days Since Last Txn | Avg Txn Amt | Digital Engagement  | Products Owned | Txn Frequency  |
