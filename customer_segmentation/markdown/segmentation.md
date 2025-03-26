@@ -190,5 +190,16 @@ Segment-wise behavior patterns were confirmed post-clustering:
 - **High-value**: High engagement, high CLV and income, frequent digital usage, and broad product ownership
 - **Budget-conscious**: Moderate income and activity, fewer products, digital presence
 - **At risk**: Low engagement, high recency, few products, low digital usage
+  ### Segment-wise Mean of Key Features
+
+| Segment                     | Income   | Balance | Debt     | CLV    | Days Since Last Txn | Avg Txn Amt | Digital Engagement  | Products Owned | Txn Frequency  |
+|----------------------------|----------|---------|----------|---------|---------------------|-------------|---------------------|----------------|----------------|
+| **At risk / inactive**     | 3794.34  | 443.85  | 23332.20 | 680.92  | 744.61              | 13.01       | 0.3191              | 2.33           | 0.0043         |
+| **Budget-conscious**       | 3730.14  | 391.18  | 21980.71 | 691.96  | 167.05              | 281.22      | 0.3410              | 2.30           | 0.1521         |
+| **High-value**             | 8530.00  | 3575.02 | 22009.61 | 940.17  | 440.61              | 393.41      | 0.3373              | 2.90           | 0.1003         |
 
 ---
+
+## Business Application
+
+Segmenting customers this way allows straightforward analysis of behaviour within groups where customers exhibit similar behavioural patterns. It enables us to effectively detect segment-specific behavioural trends and allows us to make informed decision-making regarding interventions targeted at each segment.
