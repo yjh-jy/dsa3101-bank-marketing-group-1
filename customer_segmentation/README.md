@@ -10,11 +10,13 @@ This module performs customer segmentation based on transaction data and custome
 customer_segmentation/
 ├── scripts/
 │   ├── segmentation.py                # Main segmentation logic
-│   └── customer_segments.csv          # Input data file
 ├── notebook/
 │   └── segmentation.ipynb             # For visual EDA and exploratory segmentation
 ├── visuals/                           # Output boxplots auto-saved here
+│   └── boxplots_for_outliers.png
+│   └── post_winsorize_boxplots_for_outliers.png
 └── README.md
+└── customer_segments.csv              # Input data file
 ```
 
 ---
@@ -81,13 +83,14 @@ python customer_segmentation/notebooks/segmentation.ipynb
 
 ## Output Summary
 
-### 1. `customer_segments.csv`
+### 1. `customer_segments_rerun.csv`
 
 This CSV file contains:
 - `Customer_ID`: The unique customer identifier
 - `Segment`: Assigned segment label for each customer
 
 Segmentation is done using the **KMeans algorithm**, based on customer behavioural features such as balance and transaction frequency.
+The random_state parameter produces deterministic results on a specific OS, but does not produce the same results on different OSes. Hence, any further analysis will be ran on the `customer_segments.csv` instead of the `customer_segments_rerun.csv` obtained from further reruns. 
 
 Segment labels and meanings:
 

@@ -172,7 +172,7 @@ customer_id,Segment
 140,At risk / inactive customers
 500,At risk / inactive customers
 631,Budget-conscious
-527,At risk / inactive customers
+527,Budget-conscious
 73,Budget-conscious
 563,At risk / inactive customers
 38,At risk / inactive customers
@@ -586,7 +586,7 @@ customer_id,Segment
 68,At risk / inactive customers
 209,At risk / inactive customers
 277,Budget-conscious
-379,At risk / inactive customers
+379,Budget-conscious
 437,At risk / inactive customers
 261,Budget-conscious
 456,At risk / inactive customers
@@ -2175,7 +2175,7 @@ customer_id,Segment
 3855,At risk / inactive customers
 2419,At risk / inactive customers
 3632,At risk / inactive customers
-1203,At risk / inactive customers
+1203,Budget-conscious
 3331,Budget-conscious
 1318,Budget-conscious
 2978,Budget-conscious
@@ -2867,7 +2867,7 @@ customer_id,Segment
 2181,At risk / inactive customers
 680,At risk / inactive customers
 2729,At risk / inactive customers
-2090,Budget-conscious
+2090,High-value
 2065,High-value
 2515,At risk / inactive customers
 2185,At risk / inactive customers
@@ -3020,7 +3020,7 @@ customer_id,Segment
 2116,At risk / inactive customers
 717,At risk / inactive customers
 1753,At risk / inactive customers
-1353,Budget-conscious
+1353,High-value
 3518,Budget-conscious
 3908,At risk / inactive customers
 2876,Budget-conscious
@@ -3072,14 +3072,14 @@ customer_id,Segment
 3744,Budget-conscious
 1762,At risk / inactive customers
 3548,High-value
-3712,Budget-conscious
+3712,High-value
 1163,At risk / inactive customers
 1008,At risk / inactive customers
 671,Budget-conscious
 3383,Budget-conscious
 2897,At risk / inactive customers
 1798,Budget-conscious
-1389,Budget-conscious
+1389,High-value
 948,Budget-conscious
 1853,At risk / inactive customers
 3066,Budget-conscious
@@ -3102,7 +3102,7 @@ customer_id,Segment
 2485,At risk / inactive customers
 1238,At risk / inactive customers
 2566,Budget-conscious
-2956,Budget-conscious
+2956,High-value
 3529,At risk / inactive customers
 951,Budget-conscious
 3520,At risk / inactive customers
@@ -3111,7 +3111,7 @@ customer_id,Segment
 2218,At risk / inactive customers
 3743,At risk / inactive customers
 1641,At risk / inactive customers
-868,Budget-conscious
+868,High-value
 844,High-value
 968,At risk / inactive customers
 928,At risk / inactive customers
@@ -3119,13 +3119,13 @@ customer_id,Segment
 2764,At risk / inactive customers
 3413,At risk / inactive customers
 1480,Budget-conscious
-1343,Budget-conscious
+1343,High-value
 2777,High-value
 1119,At risk / inactive customers
 730,At risk / inactive customers
 2865,At risk / inactive customers
 3791,High-value
-1250,Budget-conscious
+1250,High-value
 2998,At risk / inactive customers
 3254,At risk / inactive customers
 3148,At risk / inactive customers
@@ -3137,7 +3137,7 @@ customer_id,Segment
 1929,At risk / inactive customers
 3274,At risk / inactive customers
 3150,At risk / inactive customers
-3158,Budget-conscious
+3158,High-value
 3726,Budget-conscious
 3792,Budget-conscious
 2666,At risk / inactive customers
@@ -3145,7 +3145,7 @@ customer_id,Segment
 3537,Budget-conscious
 2263,At risk / inactive customers
 1808,At risk / inactive customers
-2379,At risk / inactive customers
+2379,High-value
 2604,At risk / inactive customers
 810,Budget-conscious
 1900,Budget-conscious
@@ -3192,7 +3192,7 @@ customer_id,Segment
 2438,At risk / inactive customers
 1636,High-value
 3719,Budget-conscious
-3947,Budget-conscious
+3947,High-value
 2917,At risk / inactive customers
 3604,High-value
 2701,Budget-conscious
@@ -3209,7 +3209,7 @@ customer_id,Segment
 3587,At risk / inactive customers
 1790,High-value
 2258,High-value
-2015,High-value
+2015,At risk / inactive customers
 3195,High-value
 807,At risk / inactive customers
 2939,At risk / inactive customers
@@ -3255,10 +3255,10 @@ customer_id,Segment
 2765,At risk / inactive customers
 2675,High-value
 2999,High-value
-2935,Budget-conscious
+2935,High-value
 1652,High-value
 3134,High-value
-1319,Budget-conscious
+1319,High-value
 931,High-value
 1382,High-value
 2027,At risk / inactive customers
@@ -3283,7 +3283,7 @@ customer_id,Segment
 1299,Budget-conscious
 1197,At risk / inactive customers
 1566,Budget-conscious
-1136,High-value
+1136,Budget-conscious
 3911,At risk / inactive customers
 1204,High-value
 3660,Budget-conscious
@@ -3303,7 +3303,7 @@ customer_id,Segment
 1149,At risk / inactive customers
 2609,High-value
 2838,At risk / inactive customers
-3959,At risk / inactive customers
+3959,High-value
 3543,Budget-conscious
 761,At risk / inactive customers
 1158,At risk / inactive customers
@@ -3311,7 +3311,7 @@ customer_id,Segment
 2062,High-value
 1280,High-value
 2431,High-value
-1714,High-value
+1714,At risk / inactive customers
 3555,At risk / inactive customers
 3624,High-value
 2751,High-value
@@ -3321,7 +3321,7 @@ customer_id,Segment
 1983,At risk / inactive customers
 1642,At risk / inactive customers
 1738,At risk / inactive customers
-1613,High-value
+1613,At risk / inactive customers
 1326,High-value
 1687,High-value
 2616,At risk / inactive customers
@@ -3330,7 +3330,7 @@ customer_id,Segment
 1059,At risk / inactive customers
 3890,At risk / inactive customers
 3440,High-value
-1185,High-value
+1185,At risk / inactive customers
 3510,At risk / inactive customers
 3322,High-value
 2611,At risk / inactive customers
@@ -3353,7 +3353,7 @@ customer_id,Segment
 2180,High-value
 2385,High-value
 647,High-value
-1236,High-value
+1236,At risk / inactive customers
 1639,High-value
 2964,At risk / inactive customers
 2542,High-value
@@ -3381,20 +3381,20 @@ customer_id,Segment
 3572,At risk / inactive customers
 1350,High-value
 2374,High-value
-2796,High-value
+2796,At risk / inactive customers
 1955,High-value
 1783,High-value
-2461,High-value
+2461,At risk / inactive customers
 2862,At risk / inactive customers
 1154,At risk / inactive customers
-1115,High-value
+1115,At risk / inactive customers
 2792,High-value
 3124,High-value
 1912,High-value
 2790,High-value
 2630,At risk / inactive customers
 2115,At risk / inactive customers
-3814,High-value
+3814,At risk / inactive customers
 1633,High-value
 3957,High-value
 2523,High-value
@@ -3403,7 +3403,7 @@ customer_id,Segment
 1020,High-value
 648,At risk / inactive customers
 1024,High-value
-3488,High-value
+3488,Budget-conscious
 3545,High-value
 1589,High-value
 886,High-value
@@ -3434,12 +3434,12 @@ customer_id,Segment
 3327,High-value
 3474,High-value
 3928,At risk / inactive customers
-890,High-value
+890,At risk / inactive customers
 1046,High-value
-732,High-value
+732,At risk / inactive customers
 2284,High-value
 3366,At risk / inactive customers
-1658,High-value
+1658,At risk / inactive customers
 3715,High-value
 1477,High-value
 2347,High-value
@@ -3458,7 +3458,7 @@ customer_id,Segment
 1914,High-value
 1034,High-value
 3380,High-value
-1171,High-value
+1171,At risk / inactive customers
 3364,High-value
 1678,High-value
 1468,High-value
@@ -3491,7 +3491,7 @@ customer_id,Segment
 1906,High-value
 1980,High-value
 896,High-value
-3963,High-value
+3963,At risk / inactive customers
 2619,High-value
 2658,High-value
 1895,High-value
