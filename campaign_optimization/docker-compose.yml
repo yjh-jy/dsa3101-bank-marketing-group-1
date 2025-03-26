@@ -29,7 +29,7 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql  # Init script
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   real_time_data:
     build:
@@ -37,7 +37,8 @@ services:
       dockerfile: Dockerfile
     container_name: real_time_data
     volumes:
-      - .:/app  # Ensures changes reflect inside the container
+      - .:/app
+      - ../data:/app/data   # Ensures changes reflect inside the container
     ports:
       - "5001:5001"
     depends_on:

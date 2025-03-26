@@ -3,13 +3,16 @@ import json
 import time
 import random
 import os
-
+import psycopg2
 import time
-print("Waiting for Kafka to be ready...")
+
+
+print("Waiting for Kafka and postgres to be ready...")
 time.sleep(10)  # Wait 10 seconds before connecting
 
 # Retrieve Kafka broker address from environment variable (default to 'kafka:9092')
 KAFKA_BROKER = os.getenv('KAFKA_BROKER', 'kafka:9092')
+
 
 # Initialize Kafka producer with JSON serialization for message values
 producer = KafkaProducer(
@@ -17,7 +20,7 @@ producer = KafkaProducer(
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
-print("HELLO")
+
 # Currently we don't have new datasets on engagements, so we create a synthetic one.
 def generate_event():
     """Simulates a new engagement event"""
