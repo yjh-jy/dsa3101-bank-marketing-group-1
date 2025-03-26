@@ -10,8 +10,8 @@ This module performs customer segmentation based on transaction data and custome
 customer_segmentation/
 ├── scripts/
 │   ├── segmentation.py                # Main segmentation logic
-├── notebook/
-│   └── segmentation.ipynb             # For visual EDA and exploratory segmentation
+├── markdown/
+│   └── segmentation.md                # For project documentation and to summarize insights
 ├── visuals/                           # Output boxplots auto-saved here
 │   └── boxplots_for_outliers.png
 │   └── post_winsorize_boxplots_for_outliers.png
@@ -26,8 +26,8 @@ customer_segmentation/
 | Path | Description |
 |------|-------------|
 | `customer_segmentation/scripts/segmentation.py` | Main script that performs customer segmentation using input features (e.g., balance, transaction amount). Also generates boxplots and outputs a CSV file. |
-| `customer_segmentation/scripts/customer_segments.csv` | Input data file containing customer features for segmentation. |
-| `customer_segmentation/notebook/segmentation.ipynb` | Includes business logic and explanation of code in segmentation.py. Jupyter Notebook version for cleaner, visual exploration of segmentation logic and data characteristics (for presentation / EDA). |
+| `customer_segmentation/customer_segments.csv` | Input data file containing customer features for segmentation. |
+| `customer_segmentation/markdown/segmentation.md` | Includes business logic and explanation of code in segmentation.py. Markdown for version for cleanerexploration of segmentation logic and data characteristics. |
 | `customer_segmentation/visuals/` | Folder where generated boxplots will be saved after running the script. |
 | `customer_segmentation/README.md` | Documentation for the customer segmentation module. |
 
@@ -55,11 +55,7 @@ pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 m
 ```bash
 python customer_segmentation/scripts/segmentation.py
 ```
-5. **Run the Python notebook**
-```bash
-# Run this in terminal
-python customer_segmentation/notebooks/segmentation.ipynb
-```
+
 ---
 
 ## How to Check If It Ran Correctly
@@ -74,7 +70,7 @@ python customer_segmentation/notebooks/segmentation.ipynb
    Saved 'customer_segments.csv' with Customer ID & segment name
    ```
 
-3. A file named `customer_segments.csv` should be saved under:
+3. A file named `customer_segments_rerun.csv` should be saved under:
    ```
    /customer_segmentation/
    ```
