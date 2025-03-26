@@ -67,9 +67,10 @@ Here's the revised section with the Dash frontend integration:
    ```
     run docker exec real_time_data python scripts/data_ingestion_initial.py
     run docker exec real_time_data python scripts/campaign_optimization.py
-    run docker exec real_time_data python campaign_suggestion.py
+    run docker exec real_time_data python campaign_suggestion.py 
    ```
    
+   run docker exec real_time_data python campaign_suggestion.py  is the main script to test which campaigns to recommend for a particular segment group. All you need to do is to adjust the global variables (INCOME_LEVEL, AGE_RANGE, MEDIA_TYPE)
 
 #### Why Run the Services in This Order?  
 

@@ -3,10 +3,6 @@ import numpy as np
 import os
 import psycopg2
 
-engagements = pd.read_csv("data/processed/engagement_details.csv")
-
-print(engagements["channel_used"].unique())
-
 # Kafka and database configurations
 KAFKA_BROKER = os.getenv('KAFKA_BROKER', 'kafka:9092')
 DB_NAME = "postgres"
@@ -20,8 +16,6 @@ print("Script Path:", os.path.abspath(__file__))
 customers = pd.read_csv("../app/data/processed/customer.csv")
 engagements = pd.read_csv("../app/data/processed/engagement_details.csv")
 campaigns = pd.read_csv("../app/data/processed/campaigns.csv")
-
-print(engagements["channel_used"].unique())
 
 def categorize_income(income):
     if income < 3000:
