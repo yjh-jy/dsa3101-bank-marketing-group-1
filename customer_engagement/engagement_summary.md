@@ -112,126 +112,97 @@ This section uses `customer_engagement.ipynb`, which aggregates user data to cus
 | **tenure** | Slight trend toward shorter tenure among engaged customers, suggesting newer users might be more responsive. |
 | **customer_lifetime_value**, **nps**, **income**, **debt**, **balance**, **age** | No strong separation between engagement groups observed. |
 
-### T-Test (Continuous Variables by Engagement)
+### B. T-Test (Continuous Variables by Engagement)
 
-| Feature                     | P-Value | Insight |
-|-----------------------------|---------|---------|
-| **income**                  | 0.189  | Statistically higher among engaged users. |
-| **transaction_count**       | 0.225  | Not significant. |
-| **transaction_frequency**   | 0.293  | No meaningful difference. |
-| **debt**                    | 0.616  | No clear separation. |
-| **nps**                     | 0.744  | Minimal difference between groups. |
-| **days_since_web_use**      | 0.757  | Weak pattern. |
-| **total_logins_per_week**   | 0.770  | Weak pattern. |
-| **customer_lifetime_value** | 0.778  | Overlaps in distribution. |
-| **age**                     | 0.829  | Minimal difference between groups. |
+None of the numerical features showed statistically significant differences (p < 0.05). All p-values were greater than 0.24.
+
+| Feature | P-Value |
+|--------|---------|
+| `transaction_frequency`, `total_transaction_amt`, `transaction_count` | > 0.24 |
+| `income`, `tenure`, `debt`, `customer_lifetime_value`, `balance`, `age` | > 0.5 |
+| `total_logins_per_week`, `avg_total_time_per_session`, `days_since_mobile_use`, `days_since_web_use` | > 0.63 |
+| `nps` | ~0.63 |
+
+These results confirm weak individual predictive power for engagement based solely on continuous variables.
+
+### C. Barplots & Proportion Tables (Categorical Features)
+
+Engagement rates were compared across different category levels:
+
+- Users with more products owned (3 or more) showed slightly higher engagement rates.
+- Users flagged as recently active or high-value had marginally better engagement, though not statistically significant.
+- Job, education, marital status, default status showed weak patterns visually.
 
 ### C. Chi-Square Tests (Categorical & Binary Variables)
 
-| Feature              | P-Value | Interpretation |
-|----------------------|--------|----------------|
-| **job**              | < 0.065 | Statistically meaningful |
-| **dependents**       | 0.171   | Not statistically significant. |
-| **education**        | 0.200   | Not statistically significant. |
-| **marital**          | 0.250   | Weak association. |
-| **default**          | 0.321   | Weak but statistically meaningful. |
-| **num_products_owned**| 0.410   | Weak but statistically meaningful. |
-| **has_web_account**   | 0.464   | Weak signal. |
-| **is_high_value_user**| 0.495   | Not statistically significant. |
-| has_credit_card, has_mobile_app | 1.0 | Not statistically significant. |
+No categorical feature showed a significant association with engagement (p < 0.05), but some showed weak-to-moderate trends:
 
-### D. Proportion Table (Categorical Features by Engagement)
-
-These show the proportion of customers who engaged (`has_engaged = 1`) within each category group.
-
-| Feature               | Highest Engaging Group | Engagement Rate |
-|------------------------|------------------------|------------------|
-| **job**               | unemployed             | 0.691            |
-| **dependents**        | 0                      | 0.635            |
-| **education**         | primary                | 0.619            |
-| **num_products_owned**| 4                      | 0.608            |
-| **default**           | 1                      | 0.604            |
-| **is_high_value_user** | 1                      | 0.602            |
-| **marital**           | single                 | 0.599            |
-| **has_web_account**   | 1                      | 0.588            |
-| **has_mobile_app**    | 1                      | 0.585            |
-
-### E. Barplots (Categorical Features by Engagement Rate)
-
-Barplots visually depict the proportion of engaged customers across different category levels.
-
-| Feature               | Insight |
-|------------------------|---------|
-| **job**               | Unemployed and students show highest engagement rates. |
-| **dependents**        | Customers without dependents are more likely to engage. |
-| **education**         | Primary-educated users engage more often; tertiary users show lower rates. |
-| **num_products_owned**| Customers with higher number of products they already own have higher engagement. |
-| **default**           | Surprisingly, customers who defaulted previously show higher engagement. |
-| **is_high_value_user** | Users with higher than medians logins per week and total transaction amounts show higher engagement.
-| **marital**           | Single customers are more likely to engage. |
-| **has_web_account**   | Engagement is slightly higher among users.
-| **has_mobile_app**    | Engagement is slightly higher among users. |
+| Feature | P-Value |
+|--------|---------|
+| `dependents` | 0.13 |
+| `is_recently_active` | 0.20 |
+| `default`, `education`, `is_high_value_user` | 0.32 – 0.42 |
 
 ## 3. Actionable Insights for Stakeholders
 
 ### A. Campaign Optimization
-- Affliate marketing is the top-performing campaign type, outperforming others in engagement by a significant margin.
-- TikTok and Instagram are the most effective channels. These findings, reinforced by chi-square tests and barplots, support increased budget allocation toward affiliate campaigns run on social platforms.
-- Campaigns lasting around 30 days yield the highest engagement. Longer campaigns tend to suffer diminishing returns.
-- Seasonal patterns suggest Q1 and Q3 as the most effective quarters for campaign deployment.
-- CTR is one of the strongest differentiators of engagement. Design creatives and call-to-actions that improve CTR.
-- Daily metrics such as `clicks_per_day` and `impressions_per_day` provide more granular insights into pacing and momentum.
-- Targets per day, however, suggests diminishing returns at high outreach volumes.
+
+- Click-through rate (CTR) remains the most effective indicator of engagement. Campaigns with higher CTRs consistently outperform others.
+- Clicks per day and impressions per day are strong pacing metrics. These features help identify high-momentum campaigns that sustain engagement over time.
+- Campaign type and channel show significant associations:
+  - Affiliate marketing and social media platforms (e.g., TikTok, Instagram) continue to yield higher engagement.
+  - These findings are visually supported by barplots and statistically reinforced by chi-square results.
+- Campaign duration shows an optimal range around 30 days. Campaigns longer than this tend to experience diminishing engagement returns.
+- Seasonal trends (e.g., Q1 and Q3) showed no statistically significant effect in updated data, suggesting prior assumptions of seasonal impact may be overstated.
+- Targets per day appears to be a weaker or even slightly negative signal, suggesting that oversaturation may reduce effectiveness.
 
 ### B. Targeting Strategy
-- **Digital Activity**:
-  - More frequent web and mobile interactions, as well as higher average time per session, are moderately predictive of engagement.
-  - App ownership by itself does not strongly correlate with engagement; active usage is more important than access.
-  - High click and impression counts are strong indicators of potential engagement.
-- **Demographics**:
-  - Age, job type, and marital status show moderate to weak influence but may still support segmentation.
-  - Unemployed individuals, students and singles show the highest engagement rates. These could represent underutilised high-potential segments.
-  - Primary-educated users engage more than tertiary-educated ones, possibly due to differing content or financial needs. Avoid over-segmenting based on assumed affluence.
-  - Customers without dependents engage more, possibly due to more flexible financial or lifestyle priorities. 
-  - Counterintuitively, those with prior defaults show higher engagement. As such, these users may be seeking support or new financial solutions, and thus be more receptive to new offers.
-  - Customers with more financial products (e.g., loans, investments) tend to engage more. They may already be more involved or attentive to financial updates.
-  - Features overall offer limited predictive power individually but could help in profiling.
-  - Note that high-value users (based on transactions and logins) do not always engage more, reinforcing the need for behaviour-based segmentation instead of purely financial metrics.
+
+- Digital Activity:
+  - Contrary to initial assumptions, metrics such as logins, session time, and days since digital use did not show statistically significant separation between engaged and non-engaged groups.
+  - App and web account ownership alone is not predictive — actual behavioral usage matters more than access.
+- Financial Behavior:
+  - Transaction volume and frequency, while higher on average for engaged customers, were not statistically significant.
+  - Number of products owned shows more promise: users with more bundled products tend to engage more frequently.
+- Demographics:
+  - Features like age, income, education, and marital status were not meaningfully associated with engagement.
+  - Contrary to earlier assumptions, job type and dependents showed weak or non-significant associations.
+- Behavioral Segments:
+  - Flags like `is_high_value_user`, `is_recently_active`, and `is_multichannel_user` provide practical segment definitions but were not statistically strong on their own.
+  - This reinforces the need for interaction-based modeling rather than relying on individual variables.
+
 ---
 
 ## 4. Suggestions for Modelling
 
-| Task | Recommendation |
-|------|----------------|
-| **Feature Selection** | Include more campaign-level metrics like `clicks`, `click_through_rate`, `clicks_per_day`, `channel_used`, `campaign_type`. On the customer side, can consider including `job`, `education`, `dependents` and `num_products_owned`. |
-| **Preprocessing** | One-hot encode categorical variables such as `channel_used`, `campaign_type`, `job`, `education`, `marital`. |
-| **Feature Pruning** | Consider removing `nps`, `age`, and `customer_lifetime_value` if they degrade model performance. |
+| Task | Updated Recommendation |
+|------|-------------------------|
+| **Feature Selection** | Prioritize campaign-level metrics like `click_through_rate`, `clicks_per_day`, `channel_used`, and `campaign_type`. On the customer side, include `num_products_owned`, `is_recently_active`, and possibly interaction terms involving digital usage. |
+| **Preprocessing** | One-hot encode categorical variables such as `channel_used`, `campaign_type`, `job`, `education`, `marital`. Consider binning continuous variables with weak trends. |
+| **Feature Pruning** | Features like `nps`, `age`, `income`, and `customer_lifetime_value` did not show meaningful association and may be excluded if they reduce model clarity or performance. |
 
 ---
 
 ## Visual Aids
 
-Figures used in this EDA are saved under:
-- `figures/boxplots/` for continuous variable distributions
-- `figures/barplots/` for engagement rates across categories
-- `figures/violinplots/` for spread and density of features across engagement tiers
-- `figures/histograms/` for overall distributions of numeric features
+Figures used in this EDA are stored under:
+
+- `figures/boxplots/`: continuous variable distributions by engagement
+- `figures/barplots/`: category-level engagement patterns
+- `figures/violinplots/`: campaign features split across engagement tiers
+- `figures/histograms/`: baseline distributions
 
 ---
 
 ## Expected Outcome: Key Metrics for Tracking Customer Engagement
-Based on the updated campaign-level and customer-level analyses, the following metrics are recommended for tracking customer engagement over time. These are grounded in both statistical significance and consistent visual patterns observed during exploratory analysis:
 
-- Engagement rate: The primary metric for measuring campaign performance, defined as the proportion of engaged users over those targeted. This should be tracked consistently across time and campaign segments.
+Based on current analysis, the following metrics are most useful for monitoring campaign and customer responsiveness:
 
-- Click-through rate: One of the strongest indicators of engagement. Campaigns with higher CTRs consistently exhibit better overall engagement outcomes.
+- Engagement rate: The primary outcome metric for campaigns.
+- Click-through rate (CTR): The most reliable campaign-level predictor of engagement.
+- Clicks per day and Impressions per day: Effective pacing metrics to assess campaign momentum.
+- Campaign duration: Track engagement decay beyond the 30-day mark.
+- Campaign type and channel used: These remain important categorical drivers with actionable insight.
+- Product bundling: Monitor `num_products_owned` as a proxy for engagement readiness on the customer side.
 
-- Clicks per day: Reflects daily interaction momentum. Higher values are associated with campaigns in the high engagement tier.
-
-- Impressions per day: A pacing metric that correlates positively with engagement. Useful for monitoring how exposure volume influences responsiveness.
-
-- Campaign type and channel used: Certain campaign types (e.g., affiliate marketing) and channels (e.g., TikTok, Instagram) have statistically significant associations with engagement. These categorical features can guide future campaign design and targeting strategy.
-
-- Campaign duration: Engagement tends to peak for campaigns lasting around 30 days, with diminishing returns observed for longer durations.
-
-These metrics provide a focused and evidence-based foundation for tracking engagement performance over time and supporting campaign decision-making.
+These metrics can support real-time performance monitoring, segmentation logic, and more accurate forecasting of future campaign outcomes.
