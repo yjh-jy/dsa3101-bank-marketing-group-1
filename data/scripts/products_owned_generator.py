@@ -59,15 +59,6 @@ df['has_credit_card'] = np.random.binomial(1, scale_to_0_1(credit_card_prob))
 # Ensure that if loan_purpose is 'credit card', has_credit_card is forced to 1
 df.loc[loans_df['loan_purpose'] == 'credit_card', 'has_credit_card'] = 1
 
-# Personal Loan
-# Identify customers with UNPAID personal loans
-personal_purposes = ["debt_consolidation", "major_purchase", "credit_card", "educational", "vacation", "wedding", "medical"]
-unpaid_personal_loans = loans_df[
-    loans_df['loan_purpose'].isin(personal_purposes) & loans_df['paid_off_date'].isnull()
-]
-df['has_personal_loan'] = df['customer_id'].isin(unpaid_personal_loans['customer_id']).astype(int)
-
-
 # Fixed Deposit: High balance, long tenure, older age, and low dti
 fixed_deposit_prob = (
     (customers_df['balance'] / customers_df['balance'].median()) * 0.2 +
