@@ -114,6 +114,10 @@ pip install pandas==2.2.3 numpy==1.23.1 seaborn==0.13.2 matplotlib==3.10.1 scipy
 # Run this in terminal
 python behavioural_patterns/scripts/behavioural_patterns.py
 ```
+```bash
+# if above code does not work in macbook terminal:
+python3 behavioural_patterns/scripts/behavioural_patterns.py
+```
 ---
 
 ## Generating Visualizations

@@ -6,14 +6,17 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import scipy.stats as stats
+import os
 
 # Reading in datasets
-customers = pd.read_csv("r/../data/processed/customer.csv")
-digital_usage = pd.read_csv("r/../data/processed/digital_usage.csv")
-loans = pd.read_csv("r/../data/processed/loans.csv")
-products = pd.read_csv("r/../data/processed/products_owned.csv") 
-transactions = pd.read_csv("r/../data/processed/transactions.csv")
-segments = pd.read_csv("r/../customer_segmentation/customer_segments.csv")
+project_root = os.getcwd()  
+data_path = os.path.join(project_root, "data", "processed")
+customers = pd.read_csv(os.path.join(data_path, "customer.csv"))
+digital_usage = pd.read_csv(os.path.join(data_path, "digital_usage.csv"))
+loans = pd.read_csv(os.path.join(data_path, "loans.csv"))
+products = pd.read_csv(os.path.join(data_path, "products_owned.csv"))
+transactions = pd.read_csv(os.path.join(data_path, "transactions.csv"))
+segments = pd.read_csv(os.path.join(data_path, "..", ".." , "customer_segmentation", "customer_segments.csv"))
 
 # Data preparation
 
