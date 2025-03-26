@@ -54,6 +54,8 @@ pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 m
 4. **Run the Python script**
 ```bash
 python customer_segmentation/scripts/segmentation.py
+```
+```bash
 # if running on macbook terminal:
 python3 customer_segmentation/scripts/segmentation.py
 ```
