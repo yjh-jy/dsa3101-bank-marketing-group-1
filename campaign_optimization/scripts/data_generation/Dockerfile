@@ -11,4 +11,4 @@ COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Default command (this runs the producer by default)
-CMD ["python", "scripts/real_time_data_generation.py"]
+CMD ["python", "scripts/data_generation/real_time_data_generation.py"]

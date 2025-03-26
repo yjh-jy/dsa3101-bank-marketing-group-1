@@ -2,6 +2,10 @@ from kafka import KafkaConsumer
 import json
 import os
 import psycopg2
+import time
+
+print("Waiting for Kafka and postgres to be ready...")
+time.sleep(10)  # Wait 10 seconds before connecting
 
 # Retrieve Kafka broker address
 KAFKA_BROKER = os.getenv('KAFKA_BROKER', 'kafka:9092')
@@ -43,6 +47,8 @@ for message in consumer:
         INSERT INTO Engagements (campaign_id, income_category, target_audience, channel_used, has_engaged)
         VALUES (%s, %s, %s, %s, %s)
     """, (event["campaign_id"], event["income_category"], event["target_audience"], event["channel_used"], event["has_engaged"]))
+
+    print(f"Successfully inserted {event} into Engagements Table")
     
     conn.commit()
 

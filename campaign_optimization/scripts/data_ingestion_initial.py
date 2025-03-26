@@ -50,8 +50,7 @@ cur = conn.cursor()
 for _, row in engagements.iterrows():
     insert_query = """
     INSERT INTO engagements (campaign_id, income_category, target_audience, channel_used, has_engaged)
-    VALUES (%s, %s, %s, %s, %s)
-    ON CONFLICT (campaign_id) DO NOTHING;
+    VALUES (%s, %s, %s, %s, %s);
     """  # Prevents duplicate primary key errors
     cur.execute(insert_query, tuple(row))
 

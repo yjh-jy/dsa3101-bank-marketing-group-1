@@ -34,7 +34,7 @@ services:
   real_time_data:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: scripts/data_generation/Dockerfile
     container_name: real_time_data
     volumes:
       - .:/app
@@ -46,8 +46,21 @@ services:
       - postgres
     environment:
       - KAFKA_BROKER=kafka:9092
-    command: ["python", "scripts/real_time_data_generation.py"]  # Overrides CMD in Dockerfile
+    command: ["python", "scripts/data_generation/real_time_data_generation.py"]  # Overrides CMD in Dockerfile
 
+  real_time_data_ingestion:
+    build:
+      context: .
+      dockerfile: scripts/data_ingestion/Dockerfile
+    container_name: real_time_data_ingestion
+    volumes:
+      - .:/app
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      - KAFKA_BROKER=kafka:9092
+    command: ["python", "scripts/data_ingestion/real_time_data_ingestion.py"]  # Runs consumer
 
 volumes:
   postgres_data:  

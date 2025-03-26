@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS engagements (
-    campaign_id INT PRIMARY KEY,
+    campaign_id INT,
     income_category VARCHAR(50),
     target_audience VARCHAR(50),
     channel_used VARCHAR(50),
