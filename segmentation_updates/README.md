@@ -1,8 +1,6 @@
 # Segmentation Updates
 
-This repository is part of an **industry-focused student project**, designed to provide hands-on experience with real-time customer segmentation using modern data engineering tools. The system leverages **Kafka, PostgreSQL, and KMeans++** to process live transaction data, dynamically clustering customers based on their financial behavior and engagement patterns. Additionally, it includes a **Dash frontend** for real-time visualization of segmentation results.
-
-This project simulates real-world data streaming, allowing students to develop and deploy scalable data pipelines while gaining exposure to industry best practices in event-driven architectures and machine learning-based customer analytics.
+This module is designed to provide hands-on experience with real-time customer segmentation using modern data engineering tools. The system leverages **Kafka, PostgreSQL, and KMeans++** to process live transaction data, dynamically clustering customers based on their financial behavior and engagement patterns. Additionally, it includes a **Dash frontend** for real-time visualization of segmentation results.
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
@@ -117,17 +115,16 @@ Stores the aggregated customer from `customer_segmentation` sub-project and upda
 | `income`                     | `FLOAT` | Annual income |
 | `balance`                    | `FLOAT` | Current account balance |
 | `customer_lifetime_value`     | `FLOAT` | Predicted value of the customer |
-| `debt`                       | `FLOAT` | Outstanding liabilities |
-| `tenure`                     | `INT` | Relationship duration (years) |
-| `credit_default`             | `INT` | Credit risk indicator |
+| `debt`                       | `FLOAT` | Outstanding debts |
+| `tenure`                     | `INT` | Relationship duration (months) |
+| `credit_default`             | `INT` | Whether the customer is in default or not (Boolean) |
 | `days_from_last_transaction` | `INT` | Recency of last transaction |
 | `avg_transaction_amt`        | `FLOAT` | Average transaction value |
 | `num_transactions`           | `INT` | Total number of transactions |
 | `digital_engagement_score`   | `FLOAT` | Engagement level metric |
-| `loan_repayment_time`        | `FLOAT` | Estimated repayment period |
 | `total_products_owned`       | `INT` | Number of financial products owned |
-| `has_loan`                   | `INT` | Active loan status (Boolean) |
-| `segment`                    | `VARCHAR(50)` | Customer segmentation label |
+| `transaction_freq`           | `FLOAT` | Transaction Frequency |
+| `segment`                    | `VARCHAR(50)` | Customer segmentation label (Split into: High-Value, Budget-Conscious, At Risk / Inactive) |
 | `last_updated`               | `TIMESTAMP` | Timestamp of last update |
 
 ### `live_transaction_data` Table
