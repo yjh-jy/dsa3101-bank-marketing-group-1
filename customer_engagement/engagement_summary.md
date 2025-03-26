@@ -3,45 +3,47 @@
 This report summarizes findings from separate exploratory analyses at the campaign and customer levels, based on the use of `campaign_engagement.ipynb` and `customer_engagement.ipynb`. The goal is to identify which variables are most associated with user engagement in the bank’s marketing efforts.
 
 ---
-## 1. Campaign-Level Analysis
+# Campaign-Level Analysis
 
-This section uses `campaign_engagement.ipynb`, which performs aggregation at the `campaign_id` level. The key engagement variable is `engagement_rate`, which is derived from dividing `num_engaged` by `num_targeted`.
+This section uses `campaign_engagement.ipynb`, which performs aggregation at the `campaign_id` level. The key engagement variable is `engagement_rate`, which is derived from dividing `num_engaged` by `num_targeted` to get the proportion of users who engaged among those targeted by a campaign.
 
-### A. Derived Metrics
+## 1. Summary of Derived Metrics
 
 | Feature | Description |
 |--------|-------------|
-| `quarter` | Mapping of months to the four quarters in a year |
+| `quarter` | Calendar quarter derived from campaign month |
 | `engagement_rate` | Proportion of targeted users who engaged |
 | `click_through_rate` | Clicks divided by impressions |
-| `impressions_per_day` | Mean impressions normalized by campaign duration |
+| `impressions_per_day` | Average impressions per day based on campaign duration |
 | `targets_per_day` | Number of targets per day |
 | `clicks_per_day` | Number of clicks per day |
 
-### B. Barplots (Categorical Features by Engagement Rate)
+## 2. Key Insights by Plot Type
+
+### A. Barplots (Categorical Features by Engagement Rate)
 
 | Feature | Insight |
 |--------|---------|
 | **channel_used** | Channels like TikTok and Instagram are associated with significantly higher engagement rates. |
 | **campaign_type** | Affliate Marketing shows much stronger performance than other types, about 10 percentage points more than Display Advertising, which comes in second at about one-third more than Email Marketing, and Search Engine Optimisation and Telemarketing bringing up the rear. |
-| **campaign_language** | Variation observed across languages; French and English appear to yield better engagement in some cases. |
-| **target_audience** | Engagement varies by audience; certain age segments show higher responsiveness. |
+| **campaign_language** | English and French campaigns often perform better; Mandarin and Spanish show more variable outcomes. |
+| **target_audience** |  Certain age segments (e.g., 25-34) exhibit higher responsiveness. |
 | **quarter** | Seasonal effects are visible; quarters Q3 and Q1 show better engagement outcomes than Q2 and Q4, the latter of which showing the lowest engagement. |
-| **campaign_duration** | Engagement rate peaks at 30 days, but trends downwards as campaign duration increases thereafter |
+| **campaign_duration** | Engagement rate peaks at 30-day durations, but trends downwards as campaign duration increases thereafter. |
 
-### C. Boxplots (Continuous Features by Engagement Rate)
+### B. Boxplots (Continuous Features by Engagement Rate)
 
-| Feature | Insight |
-|--------|---------|
-| **clicks** | Higher click averages are associated with higher engagement rates. |
-| **impressions** | Campaigns with more impressions tend to perform better, though effect may be nonlinear. |
-| **campaign_duration** | Medium-length campaigns show higher engagement; very long campaigns drop off. |
-| **click_through_rate** | Strongly differentiates campaigns; higher CTR correlates with high engagement. |
-| **clicks_per_day** | Daily click volume is an effective signal of engagement success. |
-| **impressions_per_day** | Effective for evaluating campaign pacing; higher values generally support engagement. |
-| **targets_per_day** | Moderate signal; reflects campaign intensity. |
+| Feature               | Insight |
+|-----------------------|---------|
+| **clicks**            | High engagement campaigns have higher medians and broader upper tails. |
+| **impressions**       | Higher distributions align with high engagement, though some outliers persist. |
+| **click_through_rate**| Most visibly separates high vs low engagement tiers. |
+| **clicks_per_day**    | Consistently stronger in high engagement tier. |
+| **impressions_per_day** | High values correspond with better outcomes. |
+| **targets_per_day**   | Higher bins show modest improvements. |
+| **campaign_duration** | Short to medium durations dominate higher engagement bins. |
 
-### D. Violin Plots (Continuous Features by Engagement Bin)
+### C. Violin Plots (Continuous Features by Engagement Bin)
 
 The violin plots visualize how the distribution of key campaign metrics varies across low, medium, and high engagement tiers.
 
@@ -55,7 +57,7 @@ The violin plots visualize how the distribution of key campaign metrics varies a
 | **targets_per_day**   | Targeting intensity has a modest but visible impact on engagement outcomes. |
 |###### **campaign_duration** | Very long campaigns trend toward lower engagement; short to medium durations perform better. |
 
-### E. Correlation Matrix
+### D. Correlation Matrix
 
 Pairwise Pearson correlations among continuous campaign metrics are shown.
 
@@ -76,26 +78,39 @@ Pairwise Pearson correlations among continuous campaign metrics are shown.
 | quarter           | 0.62    | No significant association |
 
 ---
-## 2. Customer-Level Analysis
+# 2. Customer-Level Analysis
 
-This section uses `customer_engagement.ipynb`, which aggregates user data to customer level. The key variable is `has_engaged` (1 if the customer engaged in any campaign).
+This section uses `customer_engagement.ipynb`, which aggregates user data to customer level. The key variable is `has_engaged`, a binary variable indicating whether a customer responded to any campaign.
 
-### A. Boxplots (Continuous Variables by Engagement)
+## 1. Summary of Derived Features
+
+| Feature | Description |
+|--------|-------------|
+| `is_high_value_user` | Binary flag for users with above-median login activity and transaction volume |
+| `is_recently_active` | Indicates if the user used web/mobile or transacted in past 30 days |
+| `is_multichannel_user` | True if both mobile and web channels were used |
+| `transaction_frequency` | Transactions normalized by tenure |
+| `num_products_owned` | Count of financial products held by the user |
+| `days_since_mobile_use` / `days_since_web_use` | Recency of last digital interaction |
+| `avg_total_time_per_session` | Combined average time per digital session |
+| `total_logins_per_week` | Weekly digital login volume |
+| `total_transaction_amt` / `transaction_count` | Overall transaction activity metrics |
+
+## 2. Key Insights by Plot Type
+
+### A. Boxplots (Continuous Features by Engagement)
 
 | Feature                  | Insight |
 |--------------------------|---------|
-| **age**                  | No clear separation between groups. Age has limited predictive value. |
-| **tenure**               | Slightly lower median for engaged users, but not strongly differentiated. |
-| **days_since_web_use**   | No strong pattern. |
-| **days_since_mobile_use**   | No strong pattern. |
-| **debt**                 | No strong pattern. |
-| **avg_web_time**         | Slightly higher in engaged group. |
-| **total_logins_per_week**        | Slightly higher for engaged users. |
-| **avg_total_time_per_session**      | Slightly higher for engaged users. |
-| **income**               | No meaningful difference. |
-| **customer_lifetime_value** | Slight trend toward higher values among engaged users. |
-| **nps**                  | No strong visual trend. |
-| **balance**              | Largely overlapping distributions. |
+| **total_logins_per_week** | Strong separation between engaged and non-engaged customers; frequent login behavior is a key indicator. |
+| **transaction_count** | Higher transaction counts correlate with engagement. |
+| **transaction_frequency** | Higher normalized transaction activity is seen among engaged users. |
+| **avg_total_time_per_session** | Engaged customers tend to spend more time per session. |
+| **days_since_mobile_use** | Recency of mobile use is lower (i.e., more recent) among engaged users. |
+| **days_since_web_use** | Same trend as mobile use but slightly weaker. |
+| **total_transaction_amt** | Spending volume is generally higher for engaged customers. |
+| **tenure** | Slight trend toward shorter tenure among engaged customers, suggesting newer users might be more responsive. |
+| **customer_lifetime_value**, **nps**, **income**, **debt**, **balance**, **age** | No strong separation between engagement groups observed. |
 
 ### T-Test (Continuous Variables by Engagement)
 
