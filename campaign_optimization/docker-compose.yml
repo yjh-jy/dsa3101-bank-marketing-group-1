@@ -4,6 +4,12 @@ services:
     container_name: zookeeper
     ports:
       - "2181:2181"
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "2181"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
 
   kafka:
     image: wurstmeister/kafka
@@ -15,7 +21,14 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     depends_on:
-      - zookeeper
+      zookeeper:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9092"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
 
   postgres:
     image: postgres
@@ -28,8 +41,14 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
+      - postgres_data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 5s
 
   real_time_data:
     build:
@@ -38,15 +57,17 @@ services:
     container_name: real_time_data
     volumes:
       - .:/app
-      - ../data:/app/data   # Ensures changes reflect inside the container
+      - ../data:/app/data
     ports:
       - "5001:5001"
     depends_on:
-      - kafka
-      - postgres
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
     environment:
       - KAFKA_BROKER=kafka:9092
-    command: ["python", "scripts/data_generation/real_time_data_generation.py"]  # Overrides CMD in Dockerfile
+    command: ["python", "scripts/data_generation/real_time_data_generation.py"]
 
   real_time_data_ingestion:
     build:
@@ -56,11 +77,15 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - kafka
-      - postgres
+      kafka:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      real_time_data:
+        condition: service_started
     environment:
       - KAFKA_BROKER=kafka:9092
-    command: ["python", "scripts/data_ingestion/real_time_data_ingestion.py"]  # Runs consumer
+    command: ["python", "scripts/data_ingestion/real_time_data_ingestion.py"]
 
 volumes:
   postgres_data:  

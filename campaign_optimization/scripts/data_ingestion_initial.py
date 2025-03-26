@@ -13,9 +13,9 @@ DB_PORT = "5432"
 
 print("Script Path:", os.path.abspath(__file__))
 # Load Relevant Data
-customers = pd.read_csv("/app/data/processed/customer.csv")
-engagements = pd.read_csv("/app/data/processed/engagement_details.csv")
-campaigns = pd.read_csv("/app/data/processed/campaigns.csv")
+customers = pd.read_csv("../app/data/processed/customer.csv")
+engagements = pd.read_csv("../app/data/processed/engagement_details.csv")
+campaigns = pd.read_csv("../app/data/processed/campaigns.csv")
 
 def categorize_income(income):
     if income < 3000:
