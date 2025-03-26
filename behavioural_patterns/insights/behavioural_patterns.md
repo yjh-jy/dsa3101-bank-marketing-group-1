@@ -2,7 +2,9 @@
 
 ## **Distribution of NPS categories across customer segments**
 
-![alt text](image.png)
+![alt text](visualizations/nps_categories_distribution.png)
+
+**Key insights:**
 
 - **High-value** customers have the highest proportion of promoters, indicating strong brand loyalty and satisfaction. However, some customers may have unmet expectations or issues that need addressing.
 
@@ -14,13 +16,17 @@
 
 ### **Correlation matrix for financial health metrics**
 
-![alt text](image-1.png)
+![alt text](visualizations/financial_health_metrics.png)
+
+**Key insights:**
 
 Higher income and savings (**log_income** and **log_balance**) strongly correlate with improved financial health metrics like **balance_to_debt**, while rising debt (**log_debt**) increases **debt_to_income** ratios. Notably, income growth and savings accumulation counteract debt burdens, suggesting that boosting income and reducing debt are critical for financial stability. The near-perfect correlation between **log_balance** and **balance_to_debt** underscores savings as a key lever for debt management.
 
 ### **Boxplots of 'debt-to-income' ratio and 'balance-to-debt' ratio by customer segment**
 
-![alt text](image-2.png)
+![alt text](visualizations/balance_debt_income.png)
+
+**Key insights:**
 
 - **High-value** customers have a generally lower and more stable debt-to-income (DTI) ratio, indicating better financial management and lower reliance on debt. The positive balance-to-debt ratio with minimal variation suggests strong financial health and likely savings.
 
@@ -30,7 +36,9 @@ Higher income and savings (**log_income** and **log_balance**) strongly correlat
 
 ### **Barplot of the proportion of customers with on-time loan payments for each segment**
 
-![alt text](image-3.png)
+![alt text](visualizations/loan_payments.png)
+
+**Key insights:**
 
 - **High-value** customers exhibit the highest on-time payment rate, indicating strong financial reliability and stability. This suggests they are ideal candidates for premium offers (e.g. lower interest rates, exclusive credit lines) to reinforce loyalty.
 
@@ -40,7 +48,9 @@ Higher income and savings (**log_income** and **log_balance**) strongly correlat
 
 ### **Stacked bar chart for the percentage distribution of loan categories within each segment**
 
-![alt text](image-4.png)
+![alt text](visualizations/loan_categories_distribution.png)
+
+**Key insights:**
 
 - **High-value customers** have the highest asset acquisition, business and education loans, and the lowest debt management loans, indicating a focus on investments and aligning with their financial stability.
 
@@ -52,7 +62,9 @@ Higher income and savings (**log_income** and **log_balance**) strongly correlat
 
 ### **Barplot of product usage proportions by customer segment**
 
-![alt text](image-5.png)
+![alt text](visualizations/product_usage_proportions.png)
+
+**Key insights:**
 
 - **High-value** customers show dominance in premium products with the highest adoption of investment products, credit cards, fixed deposits, and insurance. 
 
@@ -64,9 +76,15 @@ The chi-square tests validate that customer segments exhibit distinct financial 
 
 ## **Transaction history across customer segments**
 
-![alt text](image-6.png)
+### **Barplot of the average transaction count and value by customer segment**
 
-![alt text](image-7.png)
+![alt text](visualizations/transaction_activity.png)
+
+### **Barplot of transaction amount and count for money flow across segments**
+
+![alt text](visualizations/money_flow.png)
+
+### **Summary of key insights:**
 
 - **High-value** customers lead in transaction frequency and value, indicating frequent and high-value financial activities (e.g. investments, large purchases). Combined with their net depositor status (strong cash inflow) and premium product dominance, this reflects wealth-building behavior.
 
@@ -76,9 +94,15 @@ The chi-square tests validate that customer segments exhibit distinct financial 
 
 ## **Digital engagement across customer segments**
 
-![alt text](image-8.png)
+### **Barplot of the mobile and web engagement rate for each customer segment**
 
-![alt text](image-9.png)
+![alt text](visualizations/digital_usage.png)
+
+### **Boxplot of mobile and web engagement ratio across customer segments**
+
+![alt text](visualizations/mobile_web_engagement_ratio.png)
+
+### **Summary of key insights:**
 
 - **High-value** customers have the highest mobile app adoption and mobile-web ratio, indicating a strong preference for mobile platforms. 
 
