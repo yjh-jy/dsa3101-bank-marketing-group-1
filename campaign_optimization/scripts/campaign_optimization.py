@@ -124,8 +124,12 @@ for _ in range(2):
         campaign_optimizer.update_campaign(campaign_id, income_category, target_audience, channel_used, engagement_results)
 
 
-lol = []
+campaign_selection = []
 for _ in range(200):
-    lol.append(campaign_optimizer.select_campaign("Low Income", "25-34", "Email"))
+    campaign_selection.append(campaign_optimizer.select_campaign("Low Income", "25-34", "Email"))
 most_common_campaign = mode(lol, keepdims=False).mode  # Get the mode
 print("Most Selected Campaign:", most_common_campaign)    
+
+
+campaign_details = campaigns[campaigns["campaign_id"] == most_common_campaign]
+print(campaign_details)

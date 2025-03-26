@@ -24,7 +24,7 @@ producer = KafkaProducer(
 # Currently we don't have new datasets on engagements, so we create a synthetic one.
 def generate_event():
     """Simulates a new engagement event"""
-    campaign_id = random.randint(101, 200)
+    campaign_id = random.randint(1,100)
     income_category = random.choice(["Low Income", "Medium Income", "High Income"])
     target_audience = random.choice(["18-24", "25-34", "35-44", "45-54", "55+"])
     channel_used = random.choice(["Email", "Google Ads", "Instagram", "TikTok", "Website", "Landline", "Telephone"])
