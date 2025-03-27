@@ -43,7 +43,7 @@ If you haven't already, clone the repository to your local machine:
 
 ```bash
 git clone <repository-url>
-cd segmentation_updates
+cd campaign_optimization
 ```
 Here's the revised section with the Dash frontend integration:  
 
@@ -71,23 +71,7 @@ Here's the revised section with the Dash frontend integration:
    ```
    
    run docker exec real_time_data python campaign_suggestion.py  is the main script to test which campaigns to recommend for a particular segment group. All you need to do is to adjust the global variables (INCOME_LEVEL, AGE_RANGE, MEDIA_TYPE)
-
-#### Why Run the Services in This Order?  
-
-- **Zookeeper** must be up and running before **Kafka** because Kafka relies on Zookeeper for managing cluster metadata and coordination. If Kafka starts before Zookeeper is ready, it will fail to initialize correctly.  
-- Once **Kafka** is running, the **Producer** can start sending data to Kafka, and the **Consumer** can begin consuming messages from Kafka.  
-- **PostgreSQL** must be fully initialized before the **Consumer** starts inserting/updating customer segmentation data.  
-- The **Dash frontend** should be started last, ensuring that the database and clustering updates are active before visualization.  
-
-#### Expected Outcome  
-
-- **Zookeeper** starts first, followed by **Kafka** once Zookeeper is ready.  
-- **PostgreSQL** starts before **Consumer**, ensuring the database is ready before processing data.  
-- **Producer** starts once Kafka is operational, and it begins producing simulated transaction data.  
-- **Consumer** starts last, processing transactions and updating segmentation data in real-time.  
-- **Dash** frontend displays customer segmentation data, with updates reflecting real-time changes in customer clusters.  
-
-By following this order, all services are started correctly, allowing seamless real-time segmentation and visualization.
+ 
 
 ### 3. PostgreSQL Integration  
 
@@ -148,5 +132,3 @@ If you encounter any issues, try the following steps:
    ```
 
 3. Make sure Kafka and Zookeeper are running correctly by verifying their logs.
-
-4. Before starting a new instance, run `docker volume rm segmentation_updates_postgres_data` to remove persisted Postgres data. In production, this is not an issue because the producer runs continuously and does not restart, preventing conflicting transaction_id inserts. However, in our local setup, frequent restarts can lead to such conflicts. 
