@@ -108,7 +108,7 @@ All tables were merged on `customer_id` to form a unified DataFrame for analysis
 To prepare features for clustering, we first applied **winsorization** to cap extreme outliers.
 
 - Features like `customer_lifetime_value`, `avg_transaction_amt`, and `transaction_freq` were less skewed, so we applied **1% winsorization** (limits = `[0.0, 0.01]`).
-- Wealth-related features like `income`, `balance`, and `debt` were more skewed, so we applied a stronger **10% winsorization** to reduce the influence of extreme values (limits = `[0.05, 0.15]`).
+- Wealth-related features like `income`, `balance`, and `debt` were more skewed, so we applied a stronger **10% winsorization** to reduce the influence of extreme values (limits = `[0.05, 0.1]`).
 
 After capping outliers, we applied two types of scaling:
 
