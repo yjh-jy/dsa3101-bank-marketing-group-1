@@ -9,7 +9,8 @@ This module performs customer segmentation based on transaction data and custome
 ```
 customer_segmentation/
 ├── scripts/
-│   ├── segmentation.py                # Main segmentation logic
+│   ├── utils.py                       # Contains functions with segmentation logic
+│   ├── segmentation.py                # Contains main functions
 ├── markdown/
 │   └── segmentation.md                # For project documentation and to summarize insights
 ├── visuals/                           # Output boxplots auto-saved here
@@ -17,6 +18,7 @@ customer_segmentation/
 │   └── post_winsorize_boxplots_for_outliers.png
 └── README.md
 └── customer_segments.csv              # Input data file
+└── requirements.txt                   # Import required packages
 ```
 
 ---
@@ -25,11 +27,13 @@ customer_segmentation/
 
 | Path | Description |
 |------|-------------|
-| `customer_segmentation/scripts/segmentation.py` | Main script that performs customer segmentation using input features (e.g., balance, transaction amount). Also generates boxplots and outputs a CSV file. |
-| `customer_segmentation/customer_segments.csv` | Input data file containing customer features for segmentation. When running the script, the csv saves as `customer_segments_rerun.csv`. However, for our analysis we will work on `customer_segments.csv` as segmentations might differ slightly when script runs on different OS|
-| `customer_segmentation/markdown/segmentation.md` | Includes business logic and explanation of code in segmentation.py. Markdown for version for cleanerexploration of segmentation logic and data characteristics. |
-| `customer_segmentation/visuals/` | Folder where generated boxplots will be saved after running the script. |
-| `customer_segmentation/README.md` | Documentation for the customer segmentation module. |
+| `customer_segmentation/scripts/segmentation.py` | **Main execution script.** Calls the functions from `utils.py` to perform customer segmentation, handle missing values, outlier treatment, clustering, and labeling. Also generates boxplots and outputs a processed CSV file with customer segments (`customer_segments_rerun.csv`). |
+| `customer_segmentation/scripts/utils.py` | **Contains all reusable functions** for data loading, preprocessing, handling missing values, feature engineering, outlier detection and treatment, scaling, clustering, labeling, and saving outputs. This file organizes the segmentation logic into modular functions. |
+| `customer_segmentation/customer_segments.csv` | **Input data file** containing raw customer data with features required for segmentation. This is the version used for analysis and exploration. The output CSV file generated after running `segmentation.py` will be named `customer_segments_rerun.csv`, but analysis will refer to `customer_segments.csv` to ensure consistency across different environments. |
+| `customer_segmentation/markdown/segmentation.md` | **Project documentation** and business logic explanation. Summarizes the methodology used in `segmentation.py`, key data characteristics, assumptions, and insights derived from customer segmentation. Meant for clean and structured explanation. |
+| `customer_segmentation/visuals/` | **Folder to store visual outputs** such as boxplots generated during the segmentation process. Example files include `boxplots_for_outliers.png` and `post_winsorize_boxplots_for_outliers.png` to compare data distributions before and after outlier treatment. |
+| `customer_segmentation/README.md` | **Project-level documentation.** Provides an overview of the customer segmentation module, instructions to run the scripts, dependencies, and folder structure. Meant for onboarding or for others to quickly understand how to use the module. |
+| `customer_segmentation/requirements.txt` | Lists all the Python packages and their versions required to run the segmentation pipeline. This ensures a consistent development environment across different systems. |
 
 ---
 
@@ -48,7 +52,7 @@ pwd
 
 3. **Dependencies: Install required Python packages**
 ```bash
-pip install pandas==2.2.3 numpy==1.23.1 scikit-learn==1.2.2 matplotlib==3.10.1 matplotlib-inline==0.1.6 seaborn==0.13.2 python-dateutil==2.9.0.post0 scipy==1.9.0
+pip install -r requirements.txt
 ```
 
 4. **Run the Python script**
