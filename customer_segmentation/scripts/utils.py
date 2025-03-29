@@ -16,6 +16,15 @@ import os
 
 ## READING IN DATA
 def load_data(project_root):
+    """
+    Loads processed customer data CSV files.
+
+    Parameters:
+    - project_root (str): Path to the project root directory.
+
+    Returns:
+    - customer_df, digital_usage_df, transactions_df, products_df (pd.DataFrame): Loaded datasets.
+    """
     data_path = os.path.join(project_root, "data", "processed")
     # Load the CSV files
     customer_df = pd.read_csv(os.path.join(data_path, "customer.csv"))
@@ -25,6 +34,12 @@ def load_data(project_root):
     return customer_df, digital_usage_df, transactions_df, products_df
 
 def preprocess_data(customer_df, digital_usage_df, transactions_df, products_df):
+    """
+    Preprocesses customer and transaction data by cleaning and creating new features.
+
+    Returns:
+    - Processed data components for merging.
+    """
     # Ensure transaction dates are in datetime format
     transactions_df["transaction_date"] = pd.to_datetime(transactions_df["transaction_date"])
     # Days from last transaction
@@ -55,6 +70,12 @@ def preprocess_data(customer_df, digital_usage_df, transactions_df, products_df)
     return customer_subset_df, latest_transaction, transaction_summary, digital_engagement, products_df
 
 def merge_data(customer_subset_df, latest_transaction, transaction_summary, digital_engagement, products_df): 
+    """
+    Merges all the preprocessed data into a single dataframe.
+
+    Returns:
+    - Merged dataframe.
+    """
     ## MERGE DATASETS
     df = customer_subset_df.merge(latest_transaction, on="customer_id", how="left")
     df = df.merge(transaction_summary[["customer_id", "avg_transaction_amt", "num_transactions"]], on="customer_id", how="left")
@@ -70,6 +91,12 @@ def merge_data(customer_subset_df, latest_transaction, transaction_summary, digi
 
 # Takes in df with missing value and returns df with no missing values
 def handle_missing_val(df):
+    """
+    Handles missing values in the merged dataframe.
+
+    Returns:
+    - Cleaned dataframe.
+    """
     ### engagement score only has 19 missing values -> fill with mean
     df["digital_engagement_score"].fillna(df["digital_engagement_score"].mean(), inplace=True)
     ### no transaction record (we set transactions to be 0)
@@ -81,6 +108,9 @@ def handle_missing_val(df):
     return df
 
 def save_boxplot(df, features_to_scale, name, visuals_path):
+    """
+    Generates and saves boxplots for feature-wise outlier visualization.
+    """
     fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(15, 12))
     fig.suptitle("Feature-Wise Outlier Visualization", fontsize=16)
     axes = axes.flatten()
@@ -97,6 +127,12 @@ def save_boxplot(df, features_to_scale, name, visuals_path):
     return
 
 def count_outliers_zscore(df, threshold=3):
+    """
+    Counts outliers in numeric columns based on Z-score threshold.
+
+    Returns:
+    - DataFrame with count of outliers per column.
+    """
     outlier_counts = {}
     for col in df.select_dtypes(include=[np.number]): 
         z_scores = np.abs(zscore(df[col])) 
@@ -106,6 +142,12 @@ def count_outliers_zscore(df, threshold=3):
 
 
 def handling_outliers(df,heavy_outliers, moderate_outliers):
+    """
+    Applies winsorization to limit extreme outlier values.
+
+    Returns:
+    - DataFrame with treated outliers.
+    """
     for col in heavy_outliers:
         df[col] = pd.Series(winsorize(df[col].to_numpy(), limits=[0.05, 0.1])).astype(float)
     for col in moderate_outliers:
@@ -113,6 +155,12 @@ def handling_outliers(df,heavy_outliers, moderate_outliers):
     return df
 
 def feature_scaling(df, robust_features, standard_features):
+    """
+    Applies RobustScaler and StandardScaler to specified features.
+
+    Returns:
+    - Scaled dataframe.
+    """
     # Features that need Standard scaling (normally distributed)
     standard_features = ["days_from_last_transaction", "digital_engagement_score", "total_products_owned"]
     # Apply RobustScaler
@@ -125,6 +173,9 @@ def feature_scaling(df, robust_features, standard_features):
     return df_scaled
 
 def pca_explanined_variance(df_scaled, features_to_scale):
+    """
+    Prints PCA explained variance for each feature.
+    """
     # Apply PCA
     pca = PCA(n_components=len(features_to_scale))  # Keep all components
     df_pca = pca.fit_transform(df_scaled[features_to_scale])
@@ -135,21 +186,27 @@ def pca_explanined_variance(df_scaled, features_to_scale):
     return
 
 def KMeans_model(df, df_scaled, features_to_scale, optimal_k=3):
+    """
+    Applies KMeans clustering and assigns clusters.
+
+    Returns:
+    - Updated df and df_scaled with 'Cluster' column.
+    """
     ## K-MEANS CLUSTERING
     df_scaled["Cluster"] = KMeans(n_clusters= optimal_k,  init="k-means++", n_init=20, random_state=42).fit_predict(df_scaled[features_to_scale])
     df["Cluster"] = df_scaled["Cluster"]
     return df, df_scaled
 
-def label_cluster(df, cluster_means): 
-    cluster_means["score"] = (
-        cluster_means["balance"] * 0.2 + 
-        cluster_means["debt"] * (-0.05) +  # Negative weight for financial distress
-        cluster_means["customer_lifetime_value"] * 0.15 +  # Increased because CLV predicts revenue
-        cluster_means["days_from_last_transaction"] * (-0.20) +  # Increased penalty for inactivity
-        cluster_means["avg_transaction_amt"] * 0.20 +  # High-value customers spend more per transaction
-        cluster_means["digital_engagement_score"] * 0.20 +  # More engagement means higher retention
-        cluster_means["total_products_owned"] * 0.20 +  # Owning more products = stronger banking relationship
-        cluster_means["transaction_freq"] * 0.20  # Higher impact because frequent usage matters
+def label_cluster(df, cluster_means, weights): 
+    """
+    Assigns customer segments to clusters based on weighted scoring.
+
+    Returns:
+    - Updated df with 'Segment' column.
+    """
+    cluster_means["score"] = sum(
+        cluster_means[feature] * weight 
+        for feature, weight in weights.items()
     )
     # Rank Clusters Based on Score (Descending)
     sorted_clusters = cluster_means["score"].sort_values(ascending=False).index.tolist()
@@ -166,6 +223,9 @@ def label_cluster(df, cluster_means):
     return df
 
 def save_segmentation_csv(df_final):
+    """
+    Saves the final customer segments to a CSV file.
+    """
     ## Creates csv table in under customer segmentation
     project_root = os.getcwd() 
     df_final.to_csv(os.path.join(project_root, "customer_segmentation", "customer_segments_rerun.csv"), index=False)
@@ -174,6 +234,9 @@ def save_segmentation_csv(df_final):
 # Check if correct Packages installed
 
 def check_packages():
+    """
+    Checks installed package versions against required versions.
+    """
     required_packages = {
         "pandas": "2.2.3",
         "numpy": "1.23.1",
