@@ -11,6 +11,21 @@ from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
 from scipy.stats.mstats import winsorize
 from scipy.stats import zscore
+from utils import (
+    load_data,
+    preprocess_data,
+    merge_data,
+    handle_missing_val,
+    save_boxplot,
+    count_outliers_zscore,
+    handling_outliers,
+    feature_scaling,
+    pca_explanined_variance,
+    KMeans_model,
+    label_cluster,
+    save_segmentation_csv,
+    check_packages
+)
 import os
 
 def main():
