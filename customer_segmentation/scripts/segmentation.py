@@ -69,7 +69,8 @@ def main():
     print(cluster_means)
 
     weights = {
-    "balance": 0.2,
+    "income": 0.1,
+    "balance": 0.1,
     "debt": -0.05,
     "customer_lifetime_value": 0.15,
     "days_from_last_transaction": -0.20,
