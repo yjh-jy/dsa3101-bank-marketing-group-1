@@ -67,7 +67,20 @@ def main():
     ### Get information about each cluster
     cluster_means = df_scaled.groupby("Cluster")[features_to_scale].mean()
     print(cluster_means)
-    df =label_cluster(df, cluster_means)
+
+    weights = {
+    "balance": 0.2,
+    "debt": -0.05,
+    "customer_lifetime_value": 0.15,
+    "days_from_last_transaction": -0.20,
+    "avg_transaction_amt": 0.20,
+    "digital_engagement_score": 0.20,
+    "total_products_owned": 0.20,
+    "transaction_freq": 0.20
+    }
+
+
+    df =label_cluster(df, cluster_means, weights)
     print(df["Segment"].value_counts())
 
     df_final = df[["customer_id", "Segment"]]
