@@ -25,9 +25,10 @@ campaign_impact_analysis/
 ├── scripts/
 │   └── campaign_impact_analysis.py # Main analysis logic
 ├── visuals/                        # Folder containing output visualizations
+├── requirements.txt                # Python dependencies
 └── README.md                       # Document for campaign impact analysis module
 ```
-TODO: Add `requirements.txt`, remove `notebooks/`
+TODO: Remove `notebooks/`
 
 ## Methodology
 
@@ -43,30 +44,27 @@ TODO: Add `requirements.txt`, remove `notebooks/`
 4. **Insights and Recommendations:**  
    Derive actionable insights, such as optimizing campaign scheduling, improving alignment with target audiences, and focusing on specific customer segments. Propose strategies to enhance marketing effectiveness based on data-driven findings.
 
-## Prerequisite
+## Usage
 
-Ensure that the following environment is set up:
-- **Python 3.10.6**: [Install Python](https://www.python.org/downloads/)
+### Prerequisites
 
-## How to Run the Python Script
+Ensure you have the following installed:
+- **Python 3.10.6** or higher: [Install Python](https://www.python.org/downloads/)
+
+### Running the Analysis
 
 1. **Clone the repository**
-```bash
-git clone <repository-url>
-```
+    ```bash
+    git clone <repository-url>
+    cd dsa3101-bank-marketing-group-1
+    ```
 
-2. **Check current working directory**
-```bash
-pwd
-# should end in dsa3101-bank-marketing-group-1
-```
+2. **Install dependencies**
+    ```bash
+    pip install -r campaign_impact_analysis/requirements.txt
+    ```
 
-3. **Dependencies: Install required Python packages**
-```bash
-pip install pandas==2.2.3 numpy==1.23.1 seaborn==0.13.2 matplotlib==3.10.1 scipy==1.9.0 
-```
-
-4. **Run the Python script**
-```bash
-python campaign_impact_analysis/scripts/campaign_impact_analysis.py
-```
+3. **Execute the analysis script**
+    ```bash
+    python campaign_impact_analysis/scripts/campaign_impact_analysis.py
+    ```
