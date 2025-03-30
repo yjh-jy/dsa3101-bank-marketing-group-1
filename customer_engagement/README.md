@@ -66,9 +66,10 @@ All output plots will be saved automatically in the `figures/` folder.
 ---
 
 ## Dependencies
-- pandas
-- matplotlib
-- seaborn
-- scipy
 
-Install them using: pip install pandas matplotlib seaborn scipy
+All required Python packages are listed in `customer_engagement/requirements.txt`.
+
+To install required packages, run the following in your virtual environment:
+    ```bash
+    pip install -r customer_engagement/requirements.txt
+    ```
