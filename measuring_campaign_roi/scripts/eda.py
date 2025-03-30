@@ -4,10 +4,9 @@ import seaborn as sns
 from mpl_toolkits.mplot3d import Axes3D  # Required for 3D plotting
 
 
-def generate_eda_plots(df, save_path):
+def plot_boxplots(df, save_path):
     """
-    Generates and saves standard EDA plots (boxplots and lineplots) 
-    showing relationships between campaign features and target variables.
+    Saves boxplots of categorical features vs key numeric targets.
     """
     os.makedirs(save_path, exist_ok=True)
 
@@ -15,7 +14,6 @@ def generate_eda_plots(df, save_path):
     numerical_targets = ['avg_clv', 'log_acquisition_cost', 'conversion_rate']
     titles = ['Customer Lifetime Value (CLV)', 'Log Acquisition Cost', 'Conversion Rate']
 
-    # ---- Boxplots ----
     fig, axes = plt.subplots(3, 3, figsize=(18, 14))
     for i, cat in enumerate(categorical_vars):
         for j, num in enumerate(numerical_targets):
@@ -24,10 +22,18 @@ def generate_eda_plots(df, save_path):
             axes[i, j].tick_params(axis='x', rotation=45)
 
     plt.tight_layout()
-    plt.savefig(os.path.join(save_path, "EDA_boxplots_categorical_vs_targets.png"))
+    plot_path = os.path.join(save_path, "boxplots_categorical_vs_targets.png")
+    plt.savefig(plot_path)
     plt.close()
 
-    # ---- Lineplots: Campaign Duration vs numerical targets ----
+
+def plot_lineplots(df, save_path):
+    """
+    Saves lineplots of campaign_duration vs key numeric targets.
+    """
+    numerical_targets = ['avg_clv', 'log_acquisition_cost', 'conversion_rate']
+    titles = ['Customer Lifetime Value (CLV)', 'Log Acquisition Cost', 'Conversion Rate']
+
     fig, axes = plt.subplots(1, 3, figsize=(18, 5))
     for j, num in enumerate(numerical_targets):
         sns.lineplot(data=df, x="campaign_duration", y=num, ax=axes[j])
@@ -36,23 +42,15 @@ def generate_eda_plots(df, save_path):
         axes[j].set_ylabel(titles[j])
 
     plt.tight_layout()
-    plt.savefig(os.path.join(save_path, "EDA_lineplots_duration_vs_targets.png"))
+    plot_path = os.path.join(save_path, "lineplots_duration_vs_targets.png")
+    plt.savefig(plot_path)
     plt.close()
 
 
-def generate_3d_roi_scatterplots(df, preds_conv, preds_cost, save_path):
+def plot_3d_roi(df, preds_conv, preds_cost, save_path):
     """
-    Generates 3D scatterplots of:
-    1. Actual conversion rate vs acquisition cost vs ROI
-    2. Predicted conversion rate vs predicted acquisition cost vs ROI
-
-    Parameters:
-    - df (DataFrame): Original data containing 'conversion_rate', 'acquisition_cost', and 'roi'
-    - preds_conv (array-like): Predicted conversion rates
-    - preds_cost (array-like): Predicted acquisition costs
-    - save_path (str): Directory to save the plot
+    Saves 3D scatterplots for ROI vs actual and predicted features.
     """
-    os.makedirs(save_path, exist_ok=True)
     fig = plt.figure(figsize=(18, 8))
 
     # Actual data
@@ -76,6 +74,6 @@ def generate_3d_roi_scatterplots(df, preds_conv, preds_cost, save_path):
     fig.colorbar(sc2, ax=ax2, shrink=0.5, aspect=10)
 
     plt.tight_layout()
-    plot_path = os.path.join(save_path, "scatterplot_conversion_cost_vs_roi.png")
+    plot_path = os.path.join(save_path, "3d_roi_scatterplots.png")
     plt.savefig(plot_path)
     plt.close()

@@ -1,11 +1,11 @@
 import os
-from measuring_campaign_roi.scripts.load_data import load_data
-from measuring_campaign_roi.scripts.data_preprocessing import preprocess_data
-from measuring_campaign_roi.scripts.eda import generate_eda_plots, generate_3d_roi_scatterplots
-from measuring_campaign_roi.scripts.acquisition_cost_model import train_acquisition_cost_model
-from measuring_campaign_roi.scripts.conversion_rate_model import train_conversion_rate_model
-from measuring_campaign_roi.scripts.roi_model import train_roi_model
-from measuring_campaign_roi.scripts.model_evaluation import evaluate_model_performance, evaluate_roi_model
+from load_data import load_data
+from data_preprocessing import preprocess_data
+from eda import plot_boxplots, plot_lineplots, plot_3d_roi
+from acquisition_cost_model import train_acquisition_cost_model
+from conversion_rate_model import train_conversion_rate_model
+from roi_model import train_roi_model
+from model_evaluation import evaluate_model_performance, evaluate_roi_model
 
 
 def main():
@@ -15,11 +15,12 @@ def main():
     visuals_path = os.path.join(project_root, "measuring_campaign_roi", "visuals")
 
     # ---- Load and preprocess data ----
-    customer_df, campaigns_df, engagement_df = load_data()
+    customer_df, campaigns_df, engagement_df = load_data(data_path)
     df = preprocess_data(customer_df, campaigns_df, engagement_df)
 
     # ---- Exploratory Data Analysis ----
-    generate_eda_plots(df, visuals_path)
+    plot_boxplots(df, visuals_path)
+    plot_lineplots(df, visuals_path)
 
     # ---- Acquisition Cost Model ----
     X_cost = df[['campaign_type', 'campaign_duration', 'campaign_language']]
@@ -60,7 +61,7 @@ def main():
     print(f"Mean RMSE: {mean_rmse:.4f}")
 
     # ---- ROI 3D Visualization ----
-    generate_3d_roi_scatterplots(df, preds_conv, preds_cost, visuals_path)
+    plot_3d_roi(df, preds_conv, preds_cost, visuals_path)
 
 
 if __name__ == '__main__':
