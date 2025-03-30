@@ -18,6 +18,8 @@ This section uses `campaign_engagement.ipynb`, which performs aggregation at the
 | `targets_per_day` | Number of targets per day |
 | `clicks_per_day` | Number of clicks per day |
 
+Note: All missing values in the click data-related columns correspond with Telemarketing campaigns, which is expected as these campaigns do not have digital click events. This missingness is structural rather than data quality-related. To enable calculation of campaign-level metrics, missing clicks values were imputed as 0 for Telemarketing campaigns.
+
 ## 2. Key Insights by Plot Type
 
 ### A. Barplots (Categorical Features by Engagement Rate)
@@ -29,7 +31,7 @@ This section uses `campaign_engagement.ipynb`, which performs aggregation at the
 | **campaign_language** | English and French campaigns often perform better; Mandarin and Spanish show more variable outcomes. |
 | **target_audience** |  Certain age segments (e.g., 25-34) exhibit higher responsiveness. |
 | **quarter** | Seasonal effects are visible; quarters Q3 and Q1 show better engagement outcomes than Q2 and Q4, the latter of which showing the lowest engagement. |
-| **campaign_duration** | Engagement rate peaks at 30-day durations, but trends downwards as campaign duration increases thereafter. |
+| **campaign_duration** | Engagement rate peaks at 30-day durations, but trends downwards as campaign duration increases thereafter. While the chi-square test did not show a statistically significant association (p = 0.0826), the visual trend remains meaningful and can inform business decisions. |
 
 ### B. Boxplots (Continuous Features by Engagement Rate)
 
@@ -152,7 +154,7 @@ No categorical feature showed a significant association with engagement (p < 0.0
 - Campaign type and channel show significant associations:
   - Affiliate marketing and social media platforms (e.g., TikTok, Instagram) continue to yield higher engagement.
   - These findings are visually supported by barplots and statistically reinforced by chi-square results.
-- Campaign duration shows an optimal range around 30 days. Campaigns longer than this tend to experience diminishing engagement returns.
+- Campaign duration appears to peak around 30 days based on visual trends, indicating that shorter, focused campaigns may perform better. While the chi-square test did not show a statistically significant association (p = 0.0826), the observed pattern is still meaningful from a business perspective and can inform campaign planning, especially when combined with other engagement indicators.
 - Seasonal trends (e.g., Q1 and Q3) showed no statistically significant effect in updated data, suggesting prior assumptions of seasonal impact may be overstated.
 - Targets per day appears to be a weaker or even slightly negative signal, suggesting that oversaturation may reduce effectiveness.
 
