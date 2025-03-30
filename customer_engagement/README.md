@@ -52,27 +52,16 @@ customer_engagement/
 
 ## How to Run
 
-Navigate to the `scripts/` folder and run the analysis scripts:
+Once the Docker environment is set up, you can run all analysis scripts with:
 
 ```bash
-cd customer_engagement/scripts
-
-# For customer-level analysis
-python customer_engagement.py
-
-# For campaign-level analysis
-python campaign_engagement.py
+./run_scripts.sh
 ```
 
 All output plots will be saved automatically in the `figures/` folder.
 
 ---
 
-## Dependencies
+## Documentation and Standards
 
-All required Python packages are listed in `customer_engagement/requirements.txt`.
-
-To install required packages, run the following in your virtual environment:
-    ```bash
-    pip install -r customer_engagement/requirements.txt
-    ```
+All script dependencies will be managed automatically via Docker.
