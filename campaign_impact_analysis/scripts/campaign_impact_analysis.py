@@ -203,7 +203,7 @@ def analyze_engagement_conversion_correlation(engagement_details_df, campaigns_d
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
 
-    sns.regplot(data=df, x="has_engaged", y="conversion_rate", ax=ax1)
+    sns.regplot(data=df, x="has_engaged", y="conversion_rate", ax=ax1, seed=42)
     ax1.set_title("Engagement Rate vs Conversion Rate")
     ax1.set_xlabel("Engagement Rate (%)")
     ax1.set_ylabel("Conversion Rate (%)")
