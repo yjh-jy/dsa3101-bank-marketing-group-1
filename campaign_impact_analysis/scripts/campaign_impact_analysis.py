@@ -9,7 +9,7 @@ import seaborn as sns
 import os
 sns.set_theme(style="whitegrid")
 
-visuals_path = "campaign_impact_analysis/visuals"
+visuals_path = "campaign_impact_analysis/insights/visuals"
 os.makedirs(visuals_path, exist_ok=True)
 
 campaigns_df = pd.read_csv("data/processed/campaigns.csv")

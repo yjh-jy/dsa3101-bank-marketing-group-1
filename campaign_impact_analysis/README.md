@@ -24,7 +24,9 @@ campaign_impact_analysis/
 ├── notebooks/                      # Notebooks used during analysis, to be deleted
 ├── scripts/
 │   └── campaign_impact_analysis.py # Main analysis logic
-├── visuals/                        # Folder containing output visualizations
+├── insights/
+│   ├── visuals/                    # Folder containing output visualizations
+│   └── campaign_impact_analysis.md # Key insights of the module
 ├── requirements.txt                # Python dependencies
 └── README.md                       # Document for campaign impact analysis module
 ```
