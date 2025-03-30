@@ -23,7 +23,7 @@ PROJECT_ROOT = os.path.abspath(f"{SCRIPT_DIR}/../../")
 # Folder path to processed data
 DATA_DIR = f"{PROJECT_ROOT}/data/processed"
 # Folder path to output figures
-FIGURES_DIR = f"{PROJECT_ROOT}/figures"
+FIGURES_DIR = f"{PROJECT_ROOT}/customer_engagement/figures"
 
 
 # Ensure output folders exist
