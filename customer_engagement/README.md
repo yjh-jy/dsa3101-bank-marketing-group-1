@@ -62,6 +62,7 @@ python customer_engagement.py
 
 # For campaign-level analysis
 python campaign_engagement.py
+```
 
 All output plots will be saved automatically in the `figures/` folder.
 
