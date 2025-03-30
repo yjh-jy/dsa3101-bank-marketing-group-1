@@ -51,16 +51,15 @@ combined_df = (
 
 # High-value user flag
 combined_df["is_high_value_user"] = define_high_value_user(combined_df)
-# Active in the last 30 days flag
-combined_df["is_recently_active"] = is_recently_active(combined_df, days=30)
-# Customers with both mobile and web usage flag
-combined_df["is_multichannel_user"] = is_multichannel_user(combined_df)
-
 # Transaction frequency
 combined_df["transaction_frequency"] = combined_df["transaction_count"] / combined_df["tenure"]
 combined_df[["total_transaction_amt", "transaction_count", "transaction_frequency"]] = combined_df[[
     "total_transaction_amt", "transaction_count", "transaction_frequency"]].fillna(0)
 combined_df.drop(columns=["last_transaction_date"], inplace=True)
+# Active in the last 30 days flag
+combined_df["is_recently_active"] = is_recently_active(combined_df, days=30)
+# Customers with both mobile and web usage flag
+combined_df["is_multichannel_user"] = is_multichannel_user(combined_df)
 
 # Final checks
 print_null_summary(combined_df, "combined_df")
