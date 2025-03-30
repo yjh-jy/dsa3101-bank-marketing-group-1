@@ -15,8 +15,9 @@ customer_engagement/
 │   ├── feature_engineering.py        # Feature engineering logic
 │   └── business_rules.py             # Business rule flagging functions
 ├── figures/                          # Auto-generated plots (EDA output)
-├── README.md                         # Project overview and usage
 └── engagement_summary.md             # Business interpretation and key findings
+├── README.md                         # Project overview and usage
+├── requirements.txt                  # Project dependencies overview
 
 ---
 
