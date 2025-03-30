@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 from scipy import stats
 from scipy.stats import chi2_contingency
 
+DATA_DIR = "../../data/processed"
+FIGURES_DIR = "../figures"
+
 # =========================
 # Data Quality Functions
 # =========================
@@ -66,19 +69,19 @@ def load_customer_data():
     '''
     Loads csv files for customer-level engagement analysis
     '''
-    engagement_details = pd.read_csv("../data/processed/engagement_details.csv")
-    customers = pd.read_csv("../data/processed/customer.csv")
-    digital_usage = pd.read_csv("../data/processed/digital_usage.csv")
-    products_owned = pd.read_csv("../data/processed/products_owned.csv")
-    transactions = pd.read_csv("../data/processed/transactions.csv")
+    engagement_details = pd.read_csv(f"{DATA_DIR}/engagement_details.csv")
+    customers = pd.read_csv(f"{DATA_DIR}/customer.csv")
+    digital_usage = pd.read_csv(f"{DATA_DIR}/digital_usage.csv")
+    products_owned = pd.read_csv(f"{DATA_DIR}/products_owned.csv")
+    transactions = pd.read_csv(f"{DATA_DIR}/transactions.csv")
     return engagement_details, customers, digital_usage, products_owned, transactions
 
 def load_campaign_data():
     '''
     Loads csv files for campaign-level engagement analysis
     '''
-    engagement_details = pd.read_csv("../data/processed/engagement_details.csv")
-    campaigns = pd.read_csv("../data/processed/campaigns.csv")
+    engagement_details = pd.read_csv(f"{DATA_DIR}/engagement_details.csv")
+    campaigns = pd.read_csv(f"{DATA_DIR}/campaigns.csv")
     return engagement_details, campaigns
 
 # =========================
@@ -86,10 +89,10 @@ def load_campaign_data():
 # =========================
 
 # Make sure output folders exist
-os.makedirs("figures/boxplots", exist_ok=True)
-os.makedirs("figures/barplots", exist_ok=True)
-os.makedirs("figures/violinplots", exist_ok=True)
-os.makedirs("figures/histograms", exist_ok=True)
+os.makedirs(f"{FIGURES_DIR}/boxplots", exist_ok=True)
+os.makedirs(f"{FIGURES_DIR}/barplots", exist_ok=True)
+os.makedirs(f"{FIGURES_DIR}/violinplots", exist_ok=True)
+os.makedirs(f"{FIGURES_DIR}/histograms", exist_ok=True)
 
 def get_categorical_columns(df, exclude_col=None, max_unique=10):
     """ 
@@ -116,7 +119,7 @@ def get_numerical_columns(df, exclude_col=None, max_unique=10):
 def plot_numeric_distributions(df, prefix, cols=None):
     """
     Plots histograms with KDE for selected or auto-detected numeric columns.
-    Saves plots in figures/histograms/<prefix>_colname_hist.png.
+    Saves plots as f"{FIGURES_DIR}/histograms/<prefix>_colname_hist.png".
     """
     if cols is None:
         num_cols = get_numerical_columns(df)
@@ -128,7 +131,7 @@ def plot_numeric_distributions(df, prefix, cols=None):
         sns.histplot(df[col].dropna(), bins=30, kde=True)
         plt.title(f"Distribution of {col}")
         plt.tight_layout()
-        plt.savefig(f"figures/histograms/{prefix}_{col}_hist.png")
+        plt.savefig(f"{FIGURES_DIR}/histograms/{prefix}_{col}_hist.png")
         plt.close()
 
 
@@ -143,7 +146,7 @@ def plot_product_ownership_barplot(df, id_col):
     plt.title("Proportion of Customers Owning Each Product")
     plt.ylabel("Proportion")
     plt.tight_layout()
-    plt.savefig("figures/barplots/product_ownership_barplot.png")
+    plt.savefig(f"{FIGURES_DIR}/barplots/product_ownership_barplot.png")
     plt.close()
 
 
@@ -181,7 +184,7 @@ def get_boxplot(df, target_col):
         plt.figure(figsize=(8, 5))
         sns.boxplot(x=df[target_col], y=df[col])
         plt.title(f"Boxplot of {col} by {target_col}")
-        plt.savefig(f"figures/boxplots/{col}_boxplot.png")
+        plt.savefig(f"{FIGURES_DIR}/boxplots/{col}_boxplot.png")
         plt.close()
 
 
@@ -259,7 +262,7 @@ def get_barplot(df, target_col):
         plt.xlabel(col)
         plt.xticks(rotation=45)
         plt.tight_layout()
-        plt.savefig(f"figures/barplots/{col}_barplot.png")    
+        plt.savefig(f"{FIGURES_DIR}/barplots/{col}_barplot.png")    
         plt.close()
 
 
@@ -281,7 +284,7 @@ def get_violin_plots_by_engagement_bin(df, target_col):
         plt.xlabel(f"{target_col} Category")
         plt.ylabel(col)
         plt.tight_layout()
-        plt.savefig(f"figures/violinplots/{col}_violinplot.png")
+        plt.savefig(f"{FIGURES_DIR}/violinplots/{col}_violinplot.png")
         plt.close()
 
     df.drop(columns="bin", inplace=True)
