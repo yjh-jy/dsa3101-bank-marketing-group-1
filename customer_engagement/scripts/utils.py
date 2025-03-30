@@ -14,10 +14,16 @@ from scipy.stats import chi2_contingency
 # Global Constants
 # =========================
 
+# Get absolute path to the scripts folder
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Get project root (2 levels up)
+PROJECT_ROOT = os.path.abspath(f"{SCRIPT_DIR}/../../")
+
 # Folder path to processed data
-DATA_DIR = "../../data/processed"
+DATA_DIR = f"{PROJECT_ROOT}/data/processed"
 # Folder path to output figures
-FIGURES_DIR = "../figures"
+FIGURES_DIR = f"{PROJECT_ROOT}/figures"
 
 
 # Ensure output folders exist
