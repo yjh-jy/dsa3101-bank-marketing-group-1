@@ -35,15 +35,19 @@ print('Transaction:', transactions_df.shape)
 # 
 # To effectively measure the success of our marketing campaigns and improve customer interactions, we have identified the following key performance indicators (KPIs):
 # 
-# 1. Reach: This metric represents the number of unique customers who have been exposed to the campaign. It helps us understand the breadth of our campaign's audience and its potential impact.
+# 1. Reach: This metric represents the number of unique customers who have been exposed to the campaign. It helps us understand the breadth of our campaign's audience and its potential impact. 
+#    - **Business Outcome**: A higher reach can lead to increased brand awareness, which is critical for capturing market share and driving long-term revenue growth.
 # 
 # 2. Engagement Rate: This is the percentage of engagement attempts that result in a successful interaction with the customer. A higher engagement rate indicates that our campaign is resonating well with the audience and prompting them to take the desired action.
+#    - **Business Outcome**: Improved engagement rates can lead to stronger customer relationships, which in turn can increase customer retention and lifetime value.
 # 
 # 3. Conversion Rate: This measures the percentage of engaged customers who ultimately convert to taking the desired action (e.g., purchasing a product or service). Conversion rate helps us understand how effective our campaigns are at driving actual business outcomes.
+#    - **Business Outcome**: Higher conversion rates directly translate to increased revenue and profitability, as more customers take desired actions like purchasing products or services.
 # 
 # 4. Customer Lifetime Value (CLV): This represents the total worth of a customer to the business over the entirety of their relationship. Tracking CLV in relation to our campaigns helps us understand if we're effectively targeting and converting high-value customers.
+#    - **Business Outcome**: Maximizing CLV ensures that the bank is focusing on high-value customers, which can significantly boost long-term revenue and profitability.
 # 
-# By focusing on these KPIs, we aim to gain actionable insights into the effectiveness of our marketing strategies and make data-driven decisions to enhance customer engagement.
+# By focusing on these KPIs, we aim to gain actionable insights into the effectiveness of our marketing strategies and make data-driven decisions to enhance customer engagement and achieve tangible business outcomes.
 
 # ### Reach
 # 
@@ -51,6 +55,7 @@ print('Transaction:', transactions_df.shape)
 # 
 # Is it better to employ a marketing strategy with a focused approach to campaigns or with diverse campaigns types?
 # 
+# **Business Outcome**: Optimizing reach ensures that campaigns are effectively targeting the right demographics, which can lead to increased market penetration and brand visibility.
 
 campaign_customers_df = engagement_details_df.merge(campaigns_df, on="campaign_id").merge(customer_df, on="customer_id").merge(segmentation_df, on="customer_id")
 g = sns.FacetGrid(campaign_customers_df, col="campaign_type", col_wrap=3, height=4, sharex=False)
@@ -112,6 +117,8 @@ print(age_mismatch_rate)
 # - What are the characteristics of a campaign with high engagement rate?
 # - Which communication channels have a higher chance of customer interaction?
 # - Are we allocating our engagement efforts to the appropriate customer segments?
+# 
+# **Business Outcome**: Higher engagement rates indicate that campaigns are resonating with customers, leading to stronger relationships and higher likelihood of repeat business.
 
 # Engagement rate overall
 engagement_rate = engagement_details_df["has_engaged"].mean() * 100
@@ -188,6 +195,8 @@ plt.close()
 # ### Conversion rate and CLV
 # - Do higher engagement corresponds to higher conversion rate?
 # - How good are we at converting higher CLV customer?
+# 
+# **Business Outcome**: Improving conversion rates and targeting high-CLV customers ensures that marketing efforts are translating into tangible revenue growth and profitability.
 
 engagement_rate = engagement_details_df.groupby("campaign_id")["has_engaged"].mean() * 100
 df = campaigns_df.merge(engagement_rate, on="campaign_id")
@@ -252,7 +261,8 @@ plt.close()
 # --> Action: We should organize specialized campaigns focusing on specific segments. For example, retention campaigns for inactive customers and loyalty campaigns for high-value customers can help improve engagement and conversion rates.
 
 # ## Summary
-# - Key KPIs: Reach and engagement rate are critical metrics for evaluating the success of our marketing campaigns.
+# - Key KPIs: Reach, engagement rate and conversion rate are critical metrics for evaluating the success of our marketing campaigns.
 # - Alignment: Ensure engagement efforts are consistent with campaign objectives.
 # - Seasonality: Consider the time of year when planning and organizing campaigns to optimize engagement.
-# - Specialization: Organize specialized campaigns each focusing on a specific segments
+# - Specialization: Organize specialized campaigns each focusing on a specific segment.
+# - **Business Outcomes**: By aligning KPIs with business outcomes, such as increased revenue, market share, and customer retention, we can ensure that our marketing strategies deliver measurable value to the organization.
