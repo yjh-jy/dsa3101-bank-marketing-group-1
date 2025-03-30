@@ -8,41 +8,48 @@ import pandas as pd
 import utils as ut
 from feature_engineering import prepare_campaign_features
 
-# Load data
-engagement_details, campaigns = ut.load_campaign_data()
-merged = engagement_details.merge(campaigns, on='campaign_id', how='left')
+# ===== Global Constants =====
+target_col = "engagement_rate"
 
-# Initial null check
-ut.print_null_summary(merged, "merged")
-ut.print_shape_and_preview(merged, "merged")
+def main():
+    # Load data
+    engagement_details, campaigns = ut.load_campaign_data()
+    merged = engagement_details.merge(campaigns, on='campaign_id', how='left')
 
-# Missing correlation diagnosis
-ut.check_missing_correlation(merged, "clicks", "channel_used")
-ut.check_missing_correlation(merged, "clicks", "campaign_type")
+    # Initial null check
+    ut.print_null_summary(merged, "merged")
+    ut.print_shape_and_preview(merged, "merged")
 
-# Feature engineering
-campaign_grouped = prepare_campaign_features(merged)
+    # Missing correlation diagnosis
+    ut.check_missing_correlation(merged, "clicks", "channel_used")
+    ut.check_missing_correlation(merged, "clicks", "campaign_type")
 
-# Summary statistics
-ut.print_null_summary(campaign_grouped, "campaign_grouped")
-ut.print_shape_and_preview(campaign_grouped, "campaign_grouped")
-print("\nSummary statistics:\n", campaign_grouped.describe(include='all'))
+    # Feature engineering
+    campaign_grouped = prepare_campaign_features(merged)
 
-# Plot distributions for numeric variables
-ut.plot_numeric_distributions(df=campaign_grouped, prefix="campaign")
+    # Summary statistics
+    ut.print_null_summary(campaign_grouped, "campaign_grouped")
+    ut.print_shape_and_preview(campaign_grouped, "campaign_grouped")
+    print("\nSummary statistics:\n", campaign_grouped.describe(include='all'))
 
-# Categorical value counts and numeric exclusions
-categorical_cols = ut.get_categorical_columns(campaign_grouped)
-for col in categorical_cols:
-    print(f"\nValue counts for {col}:\n{campaign_grouped[col].value_counts()}")
+    # Plot distributions for numeric variables
+    ut.plot_numeric_distributions(df=campaign_grouped, prefix="campaign")
 
-# Relationship analysis
-ut.get_violin_plots_by_engagement_bin(campaign_grouped, target_col="engagement_rate")
+    # Categorical value counts and numeric exclusions
+    categorical_cols = ut.get_categorical_columns(campaign_grouped)
+    for col in categorical_cols:
+        print(f"\nValue counts for {col}:\n{campaign_grouped[col].value_counts()}")
 
-numeric_cols = ut.get_numerical_columns(campaign_grouped)
-print("\nCorrelation Matrix:\n", campaign_grouped[numeric_cols].corr())
+    # Relationship analysis
+    ut.get_violin_plots_by_engagement_bin(campaign_grouped, target_col=target_col)
 
-ut.get_barplot(campaign_grouped, target_col="engagement_rate")
-campaign_grouped["engagement_bin"] = pd.qcut(campaign_grouped["engagement_rate"], q=3, labels=["Low", "Medium", "High"])
-chi2_results = ut.get_chi_square(campaign_grouped, "engagement_bin")
-print("\nChi-Square Test Results:\n", chi2_results)
+    numeric_cols = ut.get_numerical_columns(campaign_grouped)
+    print("\nCorrelation Matrix:\n", campaign_grouped[numeric_cols].corr())
+
+    ut.get_barplot(campaign_grouped, target_col=target_col)
+    campaign_grouped["engagement_bin"] = pd.qcut(campaign_grouped[target_col], q=3, labels=["Low", "Medium", "High"])
+    chi2_results = ut.get_chi_square(campaign_grouped, "engagement_bin")
+    print("\nChi-Square Test Results:\n", chi2_results)
+
+if __name__ == "__main__":
+    main()
