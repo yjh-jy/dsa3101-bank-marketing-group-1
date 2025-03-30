@@ -203,12 +203,15 @@ def analyze_engagement_conversion_correlation(engagement_details_df, campaigns_d
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
 
+    # Left sub-plot: regression line for has_engaged versus conversion_rate
     sns.regplot(data=df, x="has_engaged", y="conversion_rate", ax=ax1, seed=42)
     ax1.set_title("Engagement Rate vs Conversion Rate")
     ax1.set_xlabel("Engagement Rate (%)")
     ax1.set_ylabel("Conversion Rate (%)")
     ax1.annotate(f'Correlation: {correlation:.2f}', xy=(0.05, 0.95), xycoords='axes fraction', fontsize=12, color='red', ha='left', va='top')
 
+    # Right sub-plot: scatter plot for has_engaged versus conversion_rate, colored
+    # by campaign type
     sns.scatterplot(data=df, x="has_engaged", y="conversion_rate", hue="type", ax=ax2)
     ax2.set_title("Engagement Rate vs Conversion Rate")
     ax2.set_xlabel("Engagement Rate (%)")
