@@ -18,6 +18,7 @@ customer_engagement/
 └── engagement_summary.md             # Business interpretation and key findings
 ├── README.md                         # Project overview and usage
 ├── requirements.txt                  # Project dependencies overview
+```
 
 ---
 
