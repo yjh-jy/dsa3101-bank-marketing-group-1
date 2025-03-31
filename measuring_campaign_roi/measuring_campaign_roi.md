@@ -180,8 +180,8 @@ We analyzed the distributions of **conversion rate** and **acquisition cost** to
 
 | Metric         | Value  | Interpretation |
 |------------------|--------|----------------|
-| **R²**           | 0.88   | Model explains ~88% of the variance in ROI |
-| **RMSE**         | 0.29   |  Predictions deviate by ~2.9 percentage points on average |
+| **R²**           | 0.73   | Model explains ~73% of the variance in ROI |
+| **RMSE**         | 0.44   |  Predictions deviate by ~0.44 percentage points on average |
 
 > Strong model fit — ROI can be reliably predicted using conversion rate and acquisition cost.
 
@@ -191,8 +191,8 @@ We analyzed the distributions of **conversion rate** and **acquisition cost** to
 
 | Feature          | Coefficient | Insight |
 |------------------|-------------|---------|
-| **Conversion Rate** | +1.4     | Strong positive impact — increases in conversion rate significantly improve ROI |
-| **Acquisition Cost** | −0.74    | Negative impact — higher costs reduces ROI |
+| **Conversion Rate** | +0.84     | Strong positive impact — increases in conversion rate significantly improve ROI |
+| **Acquisition Cost** | −0.03    | Slight negative impact — higher costs reduces ROI marginally |
 
 > **Key Insight**: 
 - While minimizing cost is helpful, increasing conversion rate has a far greater effect on ROI and should be prioritized.
