@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import os
+import zipfile
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
@@ -171,3 +173,46 @@ def get_feature_importance(best_models, top_n=5, plot=False):
             plt.show()
 
     return feature_importance_dict
+
+
+import os
+import zipfile
+
+def export_feature_importances_zipped(feature_importances_dict, project_root, folder, output_zip_name='feature_importances.zip'):
+    """
+    Exports each target's feature importances DataFrame as a CSV file, zips them together,
+    and outputs the zip file in the specified folder under the project root.
+
+    Args:
+        feature_importances_dict (dict): Dictionary where each key is a target and each value is a 
+                                         DataFrame of feature importances.
+        project_root (str): The root directory of the project.
+        folder (str): The subfolder under the project root where the output will be stored.
+        output_zip_name (str): Name of the output zip file.
+    """
+    # Construct the full output directory.
+    output_dir = os.path.join(project_root, folder)
+    os.makedirs(output_dir, exist_ok=True)
+    
+    csv_files = []
+    
+    # Save each DataFrame as a CSV file in the output directory.
+    for target, importance_df in feature_importances_dict.items():
+        csv_filename = os.path.join(output_dir, f"feature_importances_{target}.csv")
+        importance_df.to_csv(csv_filename, index=False)
+        csv_files.append(csv_filename)
+    
+    # Define the full path for the zip file.
+    output_zip_path = os.path.join(output_dir, output_zip_name)
+    
+    # Create a zip archive and add each CSV file.
+    with zipfile.ZipFile(output_zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
+        for csv_filename in csv_files:
+            # Store only the file name in the zip.
+            zipf.write(csv_filename, arcname=os.path.basename(csv_filename))
+    
+    # Optionally, remove the individual CSV files after zipping.
+    for csv_filename in csv_files:
+        os.remove(csv_filename)
+    
+    print(f"Exported feature importances to feature_importances.zip")
