@@ -4,7 +4,16 @@ This module performs customer segmentation based on transaction data and custome
 
 ---
 
-## Folder Structure
+## Prerequisites
+
+Ensure the following dependencies are installed before running the system:
+
+- **Docker**: [Install Docker](https://docs.docker.com/get-docker/)
+- **Python 3.10.6**: [Install Python](https://www.python.org/downloads/)
+
+---
+
+## Project Structure
 
 ```
 customer_segmentation/
@@ -29,7 +38,7 @@ customer_segmentation/
 |------|-------------|
 | `customer_segmentation/scripts/segmentation.py` | **Main execution script.** Calls the functions from `utils.py` to perform customer segmentation, handle missing values, outlier treatment, clustering, and labeling. Also generates boxplots and outputs a processed CSV file with customer segments (`customer_segments_rerun.csv`). |
 | `customer_segmentation/scripts/utils.py` | **Contains all reusable functions** for data loading, preprocessing, handling missing values, feature engineering, outlier detection and treatment, scaling, clustering, labeling, and saving outputs. This file organizes the segmentation logic into modular functions. |
-| `customer_segmentation/customer_segments.csv` | **Reference output data file** containing  customer id with their segmentation. This is the version used for analysis and exploration. The output CSV file generated after running `segmentation.py` will be named `customer_segments_rerun.csv`, but analysis will refer to `customer_segments.csv` to ensure consistency across different environments. |
+| `customer_segmentation/customer_segments.csv` | **Reference output data file** containing customer id with their segmentation. This is the version used for analysis and exploration. The output CSV file generated after running `segmentation.py` will be named `customer_segments_rerun.csv`, but analysis will refer to `customer_segments.csv` to ensure consistency across different environments. |
 | `customer_segmentation/markdown/segmentation.md` | **Project documentation** and business logic explanation. Summarizes the methodology used in `segmentation.py`, key data characteristics, assumptions, and insights derived from customer segmentation. Meant for clean and structured explanation. |
 | `customer_segmentation/visuals/` | **Folder to store visual outputs** such as boxplots generated during the segmentation process. Example files include `boxplots_for_outliers.png` and `post_winsorize_boxplots_for_outliers.png` to compare data distributions before and after outlier treatment. |
 | `customer_segmentation/README.md` | **Project-level documentation.** Provides an overview of the customer segmentation module, instructions to run the scripts, dependencies, and folder structure. Meant for onboarding or for others to quickly understand how to use the module. |
@@ -37,32 +46,39 @@ customer_segmentation/
 
 ---
 
-##  How to Run the python script/ notebook
+## How To Run
+This module is dockerised and should be run from the project root directory due to file path dependencies.
 
-1. **Clone the repository**
+### 1. Ensure Docker containers are running
+From project root:
 ```bash
-git clone <repository-url>
-```
-
-2. **Check current working directory**
-```bash
-pwd
-# should end in dsa3101-bank-marketing-group-1
+docker ps | grep customer_segmentation
 ```
 
-3. **Dependencies: Install required Python packages**
+### 2. Run the segmentation pipeline
+From project root:
 ```bash
-pip install -r requirements.txt
+./customer_segmentation/run_scripts.sh
 ```
 
-4. **Run the Python script**
+---
+
+## Script Execution Order
+For this module, only one script needs to be executed:
 ```bash
-python customer_segmentation/scripts/segmentation.py
+customer_segmentation/scripts/utils.py
+customer_segmentation/scripts/segmentation.py
 ```
+
+---
+
+## Dependencies
+All required Python packages for this module are listed in:
 ```bash
-# if above code does not work in macbook terminal:
-python3 customer_segmentation/scripts/segmentation.py
+customer_segmentation/requirements.txt
 ```
+If package versions used do not match those in requirements.txt, a package mismatch warning will appear in terminal.
+Follow the printed instructions to fix
 
 ---
 
@@ -120,4 +136,3 @@ These visuals help explain the variation in customer behavior across segments.
 When running the segmentation script, if packages used are not the same packages required, a message and a reminder to install the correct packages will be printed. The script will still run but please download the necessary packages and run again.
 
 ---
-
