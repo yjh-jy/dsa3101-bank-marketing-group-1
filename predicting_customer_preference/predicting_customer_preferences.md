@@ -115,7 +115,7 @@ After selecting XGBoost as the final model, we analyzed feature importance to be
 |--------------------|----------------|-------------------------------------------------------------------------|
 | Segment_High-value | 10.11%         | High-value customers are more likely to invest, indicating a clear segment preference. |
 | Income             | 4.77%          | Higher income levels are linked to increased investment activity.       |
-| Job - Unknown      | 4.32%          | Even without a known job, patterns in other attributes may indicate investment potential. |
+| Job - Admin      | 4.32%          | Admin roles moderately influence investment activity. |
 
 ---
 
@@ -133,8 +133,8 @@ After selecting XGBoost as the final model, we analyzed feature importance to be
 
 | Feature            | Importance     | Insight                                                                 |
 |--------------------|----------------|-------------------------------------------------------------------------|
-| Segment_High-value | 4.46%          | Fixed deposits appeal more to high-value customers.                     |
-| Job_Unknown        | 4.39%          | Job data may be missing, but behavior patterns still inform predictions.|
+| Segment_High-value | 5.21%          | Fixed deposits appeal more to high-value customers.                     |
+| Job_Admin          | 4.39%          | Similar to investment products, admin roles moderately influence predictions, indicating some relevance to the target outcome.|
 | Income             | 4.18%          | Higher income increases the likelihood of owning a fixed deposit.       |
 
 ---
