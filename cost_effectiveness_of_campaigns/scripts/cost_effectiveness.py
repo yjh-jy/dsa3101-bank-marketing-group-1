@@ -394,58 +394,6 @@ cost_model, cost_label_encoder, cost_scaler = train_cost_model(merged_df)
 predicted_acquisition_cost = predict_acquisition_cost(new_campaign_df, cost_model, cost_label_encoder, cost_scaler)
 print(f"Predicted Acquisition Cost: {predicted_acquisition_cost}")
 
-
-def get_personalisation_potential(row):
-    """
-    Calculates the personalisation potential score for a customer.
-
-    Returns:
-    - float: THe personalised potential score for the customer based on the input data.
-    """
-    if row['age'] < 30:
-        age_score = 0.7
-    elif 30 <= row['age'] <= 50:
-        age_score = 0.8
-    else:
-        age_score = 0.6
-
-    if row['income'] > 2000:
-        income_score = 0.9
-    elif 1000 <= row['income'] <= 2000:
-        income_score = 0.7
-    else:
-        income_score = 0.5
-
-    education_score = 0.8 if row['education'] == 'tertiary' else 0.6
-
-    job_score = 0.8 if row['job'] in ['management', 'technician', 'blue-collar'] else 0.5
-
-    dependents_score = 0.7 if row['dependents'] > 0 else 0.5
-
-    lifetime_value_score = 0.9 if row['customer_lifetime_value'] > 200 else 0.6
-
-    potential_score = (
-        0.2 * age_score +
-        0.3 * income_score +
-        0.2 * education_score +
-        0.1 * job_score +
-        0.1 * dependents_score +
-        0.1 * lifetime_value_score
-    )
-
-    return potential_score
-
-# Calculates the personalisation potential score for each customer
-customers['personalisation_potential_score'] = customers.apply(get_personalisation_potential, axis=1)
-
-# Create a histogram to show the distribution of personalisation potential scores
-plt.figure(figsize=(10, 6))
-sns.histplot(customers['personalisation_potential_score'], kde=True, bins=20)
-plt.title('Distribution of Personalisation Potential Scores')
-plt.xlabel('Personalisation Potential Score')
-plt.ylabel('Frequency')
-# plt.show()
-
 def calculate_cost_benefit_ratio(new_campaign_df, personalisation_model, engagement_model, cost_model, label_encoder, cost_scaler):
     """
     Calculates the cost-benefit ratio for a new campaign using predicted personalisation
@@ -501,7 +449,7 @@ def calculate_cost_benefit_for_df(merged_df, personalisation_model, engagement_m
     
     # Loop through each campaign and calculate the cost-benefit ratio
     for _, row in merged_df.iterrows():
-        campaign_df = pd.DataFrame([row])  # Get a single campaign as a DataFrame
+        campaign_df = pd.DataFrame([row])
         
         # Calculate the cost-benefit ratio for this campaign
         normalized_acquisition_cost, personalisation_score, engagement_score, cost_benefit_ratio = calculate_cost_benefit_ratio(
@@ -529,8 +477,8 @@ result_df = result_df.groupby(['target_audience', 'campaign_type'], as_index=Fal
 heatmap_data = result_df.pivot(index='target_audience', columns='campaign_type', values='cost_benefit_ratio')
 
 # Drop any rows and columns that contain NaN values
-heatmap_data = heatmap_data.dropna(axis=0, how='all')  # Drop rows with all NaN values
-heatmap_data = heatmap_data.dropna(axis=1, how='all')  # Drop columns with all NaN values
+heatmap_data = heatmap_data.dropna(axis=0, how='all')
+heatmap_data = heatmap_data.dropna(axis=1, how='all')
 
 # Create a heatmap to visualize the cost-benefit ratio
 plt.figure(figsize=(12, 6))
@@ -539,12 +487,76 @@ plt.figure(figsize=(12, 6))
 sns.heatmap(heatmap_data, annot=True, cmap='coolwarm', fmt='.2f', cbar_kws={'label': 'Cost-Benefit Ratio'}, 
             xticklabels=heatmap_data.columns, yticklabels=heatmap_data.index)
 
-# Set plot title
+# Set plot title and axis labels
 plt.title('Cost-Benefit Ratio Heatmap by Campaign Type and Target Audience')
-
-# Set axis labels
 plt.xlabel('Campaign Type')
 plt.ylabel('Target Audience')
 
 # Show the plot
+# plt.show()
+
+def get_personalisation_potential(row):
+    """
+    Calculates the personalisation potential score for a customer.
+
+    Returns:
+    - float: THe personalised potential score for the customer based on the input data.
+    """
+    if row['age'] < 30:
+        age_score = 0.7
+    elif 30 <= row['age'] <= 50:
+        age_score = 0.8
+    else:
+        age_score = 0.6
+
+    if row['income'] > 2000:
+        income_score = 0.9
+    elif 1000 <= row['income'] <= 2000:
+        income_score = 0.7
+    else:
+        income_score = 0.5
+
+    education_score = 0.8 if row['education'] == 'tertiary' else 0.6
+
+    job_score = 0.8 if row['job'] in ['management', 'technician', 'blue-collar'] else 0.5
+
+    dependents_score = 0.7 if row['dependents'] > 0 else 0.5
+
+    lifetime_value_score = 0.9 if row['customer_lifetime_value'] > 200 else 0.6
+
+    potential_score = (
+        0.2 * age_score +
+        0.3 * income_score +
+        0.2 * education_score +
+        0.1 * job_score +
+        0.1 * dependents_score +
+        0.1 * lifetime_value_score
+    )
+
+    return potential_score
+
+# Calculates the personalisation potential score for each customer
+customers['personalisation_potential_score'] = customers.apply(get_personalisation_potential, axis=1)
+
+# Create a histogram to show the distribution of personalisation potential scores
+plt.figure(figsize=(10, 6))
+sns.histplot(customers['personalisation_potential_score'], kde=True, bins=20)
+plt.title('Distribution of Personalisation Potential Scores')
+plt.xlabel('Personalisation Potential Score')
+plt.ylabel('Frequency')
+# plt.show()
+
+# Select relevant columns for correlation matrix (excluding education and job)
+relevant_columns = ['personalisation_potential_score', 'age', 'income', 'dependents', 'customer_lifetime_value']
+
+# Calculate the correlation matrix for these selected columns
+corr_matrix = customers[relevant_columns].corr()
+
+# Print the correlation matrix
+print(corr_matrix)
+
+# Visualize the correlation matrix with a heatmap
+plt.figure(figsize=(10, 6))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt='.2f', cbar=True, linewidths=0.5)
+plt.title('Correlation Matrix of Important Customer Features')
 # plt.show()
