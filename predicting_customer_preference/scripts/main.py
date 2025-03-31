@@ -11,7 +11,7 @@ from data_preprocessing import preprocess_data, cap_outliers, log_transform
 from EDA import plot_heatmaps, plot_categorical_features, plot_correlation_matrix, plot_product_counts, drop_unwanted_features
 from model_training import train_and_evaluate_models, get_feature_importance, export_feature_importances_zipped
 from final_model import predict_with_best_model
-from test_evaluation import evaluate_model_on_test
+from model_evaluation import evaluate_model_on_test
 
 def main():
     """
@@ -94,7 +94,6 @@ def main():
     # Print performance metrics.
     print("Performance Metrics:")
     print(train_performance_df)
-    train_performance_df.to_csv(os.path.join(PROJECT_ROOT, "predicting_customer_preference", "training_evaluation.csv"), index=False)
     print(feature_importances)
     export_feature_importances_zipped(feature_importances, PROJECT_ROOT, "predicting_customer_preference")
         
@@ -107,7 +106,6 @@ def main():
     print("Predictions saved to product_recommendations.csv")
 
     test_performance_df = evaluate_model_on_test(predictions_df, df_test, target_cols)
-    test_performance_df.to_csv(os.path.join(PROJECT_ROOT, "predicting_customer_preference", "test_evaluation.csv"), index=False)
     print(test_performance_df)
 
 if __name__ == "__main__":
