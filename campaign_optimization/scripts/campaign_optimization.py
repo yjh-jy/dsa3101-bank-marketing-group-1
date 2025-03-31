@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 import random
+import psycopg2
+from scipy.stats import mode
+
 # Thompson Sampling Class
 class CampaignOptimizer:
     def __init__(self, alpha, beta):
@@ -27,34 +30,48 @@ class CampaignOptimizer:
         """Updates the Bayesian model with new engagement data"""
         key = (campaign, income_level, target_audience, channel_type)
 
-        if key not in self.alpha:
-            self.alpha[key] = 1
-            self.beta[key] = 1
+        if key not in self.alpha:            
+            prior_strength = 2  # Adjust this based on dataset size
+            prior_alpha = global_mean_engagement * prior_strength
+            prior_beta = (1 - global_mean_engagement) * prior_strength
+            
+            alpha[key] = row["successful_engagements"] + prior_alpha  
+            beta[key] = (row["total_attempts"] - row["successful_engagements"]) + prior_beta  
 
         if success:
             self.alpha[key] += 3
         else:
             self.beta[key] += 3
 
-# Load Relevant Data
-customers = pd.read_csv("data/processed/customer.csv")
-engagements = pd.read_csv("data/processed/engagement_details.csv")
-campaigns = pd.read_csv("data/processed/campaigns.csv")
+#Read campaigns data
+campaigns = pd.read_csv("/app/data/processed/campaigns.csv")
 
-def categorize_income(income):
-    if income < 3000:
-        return "Low Income"
-    elif 3000 <= income <= 6000:
-        return "Medium Income"
-    else:
-        return "Hign Income"
+# Connect to PostgreSQL
 
-customers["income_category"] = customers["income"].apply(categorize_income) 
+DB_NAME = "postgres"
+DB_USER = "postgres"
+DB_PASSWORD = "dsa3101project"
+DB_HOST = "postgres"
+DB_PORT = "5432"
 
+conn = psycopg2.connect(
+    dbname=DB_NAME,
+    user=DB_USER,
+    password=DB_PASSWORD,
+    host=DB_HOST,
+    port=DB_PORT
+)
+cur = conn.cursor()
 
-# Merge Engagements with Campaigns
-engagements = engagements.merge(campaigns, on="campaign_id")
-engagements = engagements.merge(customers, on='customer_id') 
+query = """
+SELECT campaign_id, income_category, target_audience, channel_used, has_engaged
+FROM Engagements;
+"""
+
+engagements = pd.read_sql(query,conn)
+
+cur.close()
+conn.close()
 
 # Group by campaign and calculate engagement success rate
 campaign_stats = engagements.groupby(["campaign_id", "income_category", "target_audience", "channel_used"]).agg(
@@ -96,7 +113,7 @@ def simulate_engagement(campaign_id, income_category, target_audience, channel_u
 campaign_stats_concise = campaign_stats[["campaign_id", "income_category", "target_audience", "channel_used", "engagement_rate"]]
 
 
-for _ in range(50):
+for _ in range(2):
     for index, row in campaign_stats_concise.iterrows():
         campaign_id = row["campaign_id"]
         income_category = row["income_category"]
@@ -107,8 +124,3 @@ for _ in range(50):
         campaign_optimizer.update_campaign(campaign_id, income_category, target_audience, channel_used, engagement_results)
 
 
-lol = []
-for _ in range(200):
-    lol.append(campaign_optimizer.select_campaign("Low Income", "25-34", "Email"))
-    
-print(campaigns[campaigns['campaign_id'] == 2])

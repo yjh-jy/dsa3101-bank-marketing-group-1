@@ -108,7 +108,7 @@ All tables were merged on `customer_id` to form a unified DataFrame for analysis
 To prepare features for clustering, we first applied **winsorization** to cap extreme outliers.
 
 - Features like `customer_lifetime_value`, `avg_transaction_amt`, and `transaction_freq` were less skewed, so we applied **1% winsorization** (limits = `[0.0, 0.01]`).
-- Wealth-related features like `income`, `balance`, and `debt` were more skewed, so we applied a stronger **10% winsorization** to reduce the influence of extreme values (limits = `[0.05, 0.15]`).
+- Wealth-related features like `income`, `balance`, and `debt` were more skewed, so we applied a stronger **10% winsorization** to reduce the influence of extreme values (limits = `[0.05, 0.1]`).
 
 After capping outliers, we applied two types of scaling:
 
@@ -187,8 +187,19 @@ We designed a weighted scoring system using normalized cluster means:
 ## Segment Insights (Aggregated Means)
 
 Segment-wise behavior patterns were confirmed post-clustering:
-- **High-value**: High engagement, high CLV and income, frequent digital usage, and broad product ownership
-- **Budget-conscious**: Moderate income and activity, fewer products, digital presence
-- **At risk**: Low engagement, high recency, few products, low digital usage
+- **High-value**: High transaction amounts, high CLV, balance and income, and broad product ownership
+- **Budget-conscious**: Moderate activity, fewer products owned, lower income and balance
+- **At risk**: Lowest average transaction amount and frequence, most days since last transaction suggesting low engagement, lowest digital usage and engagement
+  ### Segment-wise Mean of Key Features
+
+| Segment                     | Income   | Balance | Debt     | CLV    | Days Since Last Txn | Avg Txn Amt | Digital Engagement  | Products Owned | Txn Frequency  |
+|----------------------------|----------|---------|----------|---------|---------------------|-------------|---------------------|----------------|----------------|
+| **At risk / inactive**     | 3794.34  | 443.85  | 23332.20 | 680.92  | 744.61              | 13.01       | 0.3191              | 2.33           | 0.0043         |
+| **Budget-conscious**       | 3730.14  | 391.18  | 21980.71 | 691.96  | 167.05              | 281.22      | 0.3410              | 2.30           | 0.1521         |
+| **High-value**             | 8530.00  | 3575.02 | 22009.61 | 940.17  | 440.61              | 393.41      | 0.3373              | 2.90           | 0.1003         |
 
 ---
+
+## Business Application
+
+Segmenting customers this way allows straightforward analysis of behaviour within groups where customers exhibit similar behavioural patterns. It enables us to effectively detect segment-specific behavioural trends and allows us to make informed decision-making regarding interventions targeted at each segment.
