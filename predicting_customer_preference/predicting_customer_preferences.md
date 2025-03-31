@@ -37,7 +37,6 @@ The categorical feature distributions were analyzed to identify potential imbala
 
 ![Categorical Feature Distributions](visuals/categorical_features.png)
 
-**Key Insights:**
 
 - **Significant Class Imbalance in `default`:**  
   The `default` feature is highly imbalanced, with a dominant majority of customers categorized as non-defaulters (`default=0`). Such an imbalance might bias model predictions, especially by underrepresenting minority classes.
@@ -49,13 +48,9 @@ To assess the predictive value of loan-related data, we aggregated multiple loan
 
 ![Heatmaps Active Loans](visuals/heatmaps_active_loans.png)
 
-**Key Insights:**
-
 - Customers with **active loans** exhibit notably higher ownership rates across several financial products (investment products, credit cards, fixed deposits, and insurance), suggesting these customers are generally more financially engaged.
 
 - Particularly strong relationships emerged between active loan status and the ownership of **credit card** and **fixed deposit** products, highlighting potential cross-selling opportunities.
-
-**Implications for Modeling:**
 
 Given these insights, the binary feature `has_active_loan` was retained as a valuable predictor, while other aggregated loan features (`total loan amount`, `average loan amount`) were excluded due to their lack of meaningful relationships with product ownership.
 
@@ -102,11 +97,11 @@ The table below summarizes the cross-validated performance metrics obtained with
 
 **Insights from Performance Results:**
 
-> High recall scores across products suggest strong performance in capturing potential leads or customers, especially for Investment Products and Fixed Deposits.
+- High recall scores across products suggest strong performance in capturing potential leads or customers, especially for Investment Products and Fixed Deposits.
 
-> Credit Cards showed strong balance between recall and precision, resulting in a higher F1-score, indicative of good predictive balance.
+- Credit Cards showed strong balance between recall and precision, resulting in a higher F1-score, indicative of good predictive balance.
 
-> Insurance, while performing slightly lower compared to other products, still demonstrates reasonable recall and F1 scores, given its relatively more balanced distribution of ownership.
+- Insurance, while performing slightly lower compared to other products, still demonstrates reasonable recall and F1 scores, given its relatively more balanced distribution of ownership.
 
 Overall, the model is a strong fit, and customer preferences can be accurately predicted.
 
