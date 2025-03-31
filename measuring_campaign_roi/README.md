@@ -51,7 +51,7 @@ measuring_campaign_roi/
 
 Key visual outputs are stored in the `visuals/` directory:
 - **ROI Scatterplot**: 3d_roi_scatterplots.png
-- **Analysis of categorical campaign features vs CLV, cost and conversion rate**: boxplots_categorical_vs_targets.png
+- **Analysis of categorical campaign features vs. CLV, cost and conversion rate**: boxplots_categorical_vs_targets.png
 - **Analysis of campaign duration vs CLV, cost and conversion rate**: lineplots_duration_vs_targets.png
 ---
 
