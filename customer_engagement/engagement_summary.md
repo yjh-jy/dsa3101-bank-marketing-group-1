@@ -289,33 +289,6 @@ Based on the customer-level and campaign-level analyses, as well as multivariate
 
 These metrics can support campaign planning, real-time monitoring, and segmentation logic. In future modelling efforts, they can also inform propensity scoring and help forecast campaign outcomes more accurately.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 3. Expected Outcome: Key Metrics for Tracking Customer Engagement
-
-Based on current analysis, the following metrics are most useful for monitoring campaign and customer responsiveness:
-
-- Engagement rate: The primary outcome metric for campaigns.
-- Click-through rate (CTR): The most reliable campaign-level predictor of engagement.
-- Clicks per day and Impressions per day: Effective pacing metrics to assess campaign momentum.
-- Campaign duration: Track engagement decay beyond the 30-day mark.
-- Campaign type and channel used: These remain important categorical drivers with actionable insight.
-- Product bundling: Monitor `num_products_owned` as a proxy for engagement readiness on the customer side.
-
-These metrics can support real-time performance monitoring, segmentation logic, and more accurate forecasting of future campaign outcomes.
-
 ---
 # Appendix
 
@@ -327,4 +300,4 @@ Figures used in this EDA are stored under:
 - `figures/barplots/`: category-level engagement patterns
 - `figures/violinplots/`: campaign features split across engagement tiers
 - `figures/histograms/`: baseline distributions
-- `figures/multivariate/`: 
+- `figures/multivariate/`: feature importance plot for multivariate analysis
