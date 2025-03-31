@@ -97,71 +97,37 @@ Ensure that the following environment is set up:
 
 ---
 
-##  How to Run the Python Script
+## How To Run
+This module is dockerised and should be run from the project root directory due to file path dependencies.
 
-1. **Clone the repository**
+### 1. Ensure Docker containers are running
+From project root:
 ```bash
-git clone <repository-url>
+docker ps | grep behavioural_patterns
 ```
 
-2. **Check current working directory**
+### 2. Run the pipeline
+From project root:
 ```bash
-pwd
-# should end in dsa3101-bank-marketing-group-1
-```
-
-3. **Dependencies: Install required Python packages**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Run the Python scripts in the specified order**
-
-The scripts should be executed in the following order:
-
-- First, run `utils.py`: This script contains utility functions for loading and preparing data. It must be executed first to ensure the necessary data is available for analysis.
-
-```bash
-# Run this in terminal
-python behavioural_patterns/scripts/utils.py
-```
-```bash
-# If above code does not work in macbook terminal:
-python3 behavioural_patterns/scripts/utils.py
-```
-
-- Next, run `analysis_functions.py`: This script includes various functions for analyzing customer behaviour, financial health, product usage, and more. It should be run after utils.py to utilize the prepared data.
-
-```bash
-# Run this in terminal
-python behavioural_patterns/scripts/analysis_functions.py
-```
-```bash
-# If above code does not work in macbook terminal:
-python3 behavioural_patterns/scripts/analysis_functions.py
-```
-
-- Finally, run `behavioural_patterns.py`: This script is the main execution file that integrates the functions from `utils.py` and `analysis_functions.py`. It should be run last to perform the full analysis and generate the insights.
-
-```bash
-# Run this in terminal
-python behavioural_patterns/scripts/behavioural_patterns.py
-```
-```bash
-# If above code does not work in macbook terminal:
-python3 behavioural_patterns/scripts/behavioural_patterns.py
+./behavioural_patterns/run_scripts.sh
 ```
 
 ---
 
-## Generating Visualizations
-
-To generate and display visualizations from the analysis script, follow these steps:
-
-1. Add the following lines after each chunk of the visualization code in behavioural_patterns.py to display the visualizations interactively:
+## Script Execution Order
+For this module, only one script needs to be executed:
 ```bash
-plt.tight_layout()
-plt.show()
+behavioural_patterns/scripts/behavioural_patterns.py
 ```
 
-2. Comment out or remove plt.close() to allow the visualizations to pop up interactively. This will ensure that the generated plots are displayed during script execution.
+---
+
+## Dependencies
+All required Python packages for this module are listed in:
+```bash
+behavioural_patterns/requirements.txt
+```
+If package versions used do not match those in requirements.txt, a package mismatch warning will appear in terminal.
+Follow the printed instructions to fix
+
+---
