@@ -36,7 +36,7 @@ Score calculation:
 
 The final personalisation score is a weighted sum of the above factors.
 
-### Calculating the engagement 
+### Calculating the engagement score
 The engagement scores for each campaign indicate their effectiveness – how well the campaign has succeeded in attracting interactions from its audience. Higher engagement scores suggest campaigns have resonated well with customers and elicited more significant actions, such as clicks and views.
 
 **Engagement rate** measures the frequency of interactions, whilst the **effective engagement rate** considers the depth of engagement by accounting for the duration of interactions. Both provide complementary insights into how well a campaign resonates with its audience.
