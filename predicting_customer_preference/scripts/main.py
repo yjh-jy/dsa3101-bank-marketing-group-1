@@ -105,7 +105,7 @@ def main():
     # ---------------------------
     # Use the best models to generate predictions on the held-out test set.
     predictions_df = predict_with_best_model(df_test, feature_cols, best_models)
-    predictions_df.to_csv(os.path.join(PROJECT_ROOT, "predicting_customer_preference", "predictions.csv"), index=False)
+    predictions_df.to_csv(os.path.join(PROJECT_ROOT, "predicting_customer_preference", "product_recommendations.csv"), index=False)
     print("Predictions saved to predictions.csv")
 
 if __name__ == "__main__":
