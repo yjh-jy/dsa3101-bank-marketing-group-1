@@ -1,5 +1,7 @@
 # Cost Effectiveness of Campaigns
 
+## Overview
+
 This module analyses how to balance personalisation with cost-effectiveness in marketing campaigns based on campaign, engagement and customer data.
 
 ---
@@ -22,10 +24,18 @@ cost_effectiveness_of_campaigns/
 
 ---
 
+## Datasets Used
+
+- **campaigns**: Contains information about various marketing campaigns, such as campaign type, language, target audience etc.
+- **engagement_details**: Details regarding customer engagement with various capaigns, such as duration and impression.
+- **customer**: Contains demographic and behavioural information about the customers.
+
+---
+
 ## Key Features
 
 - **Feature Engineering**: Calcuation of personalisation score, calculation of the engagement score, preprocessing data functions that handle encoding categorical features and defining the features and target variables, and calculating customer personalisation potential.
-- **Predictive Models**: Trained and utilised several models, including a personalisation model, engagement model, and cost model.
+- **Predictive Models**: Trained and utilised several models, including a personalisation model, engagement model, cost model and cost-benefit ratio calculation.
 - **Model Evaluation**: Assesses the predictive models according to relevant metrics.
 
 ---
