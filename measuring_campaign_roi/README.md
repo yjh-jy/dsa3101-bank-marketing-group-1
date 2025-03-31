@@ -22,9 +22,9 @@ measuring_campaign_roi/
 │   ├── boxplots_categorical_vs_targets.png
 │   └── lineplots_duration_vs_targets.png
 ├── README.md                         # Project overview and usage
-├── requirements.txt                  # Project dependencies
 ├── measuring_campaign_roi.md         # Detailed documentation
-└── output_predictions.csv            # Predictions of ROI model on test set
+├── output_predictions.csv            # Predictions of ROI model on test set
+└── requirements.txt                  # Project dependencies
 ```
 
 ---
