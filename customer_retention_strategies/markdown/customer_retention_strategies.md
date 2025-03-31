@@ -62,7 +62,7 @@ How can we proactively identify and mitigate customer churn by analyzing behavio
 
 ## Visual Insights
 
-### ⚖️ Balanced Churn Class Distribution
+### Balanced Churn Class Distribution
 
 ![Churn Class Distribution](visuals/churn_class_distribution.png)
 
@@ -70,7 +70,7 @@ SMOTE was used to handle class imbalance, ensuring that churn and non-churn samp
 
 ---
 
-### 📊 Confusion Matrix
+### Confusion Matrix
 
 ![Confusion Matrix](visuals/confusion_matrix.png)
 
@@ -88,7 +88,7 @@ The model achieves **high accuracy** with very few false positives and strong re
 
 ---
 
-### 🔍 Feature Importance
+### Feature Importance
 
 ![Feature Importance](visuals/feature_importance.png)
 
@@ -107,6 +107,27 @@ Churn is largely driven by a combination of **financial stress** and **digital i
 
 ---
 
+## Why Are These Customers More Likely to Churn?
+
+Customers identified as high-risk typically share traits that weaken their relationship with the bank:
+
+1. **High Debt-to-Income Ratios**  
+   Financial stress decreases satisfaction and restricts future engagement.
+
+2. **Digital Inactivity**  
+   Lack of app or web usage shows disengagement, often a precursor to churn.
+
+3. **Low Product Ownership**  
+   Fewer products = lower switching costs = higher churn likelihood.
+
+4. **Frequent Support Interaction**  
+   These customers may be experiencing unresolved issues, turning support into a frustration touchpoint.
+
+5. **Outdated Transactions**  
+   Lack of recent financial activity signals dormancy or shifting loyalty.
+
+---
+
 ## Output: Churn Warning Report
 
 The final output file `churn_warning_report.csv` includes:
@@ -118,22 +139,21 @@ This file can be used to trigger automated CRM actions or retention team alerts.
 
 ---
 
-## Business Recommendations
+## Summary
 
-1. **Prioritize High-Risk Customers:**
-   - Use the churn scores to filter and flag at-risk individuals.
-   - Consider proactive outreach (SMS, email, or call).
+- **Key Drivers**: Churn risk stems from financial strain, digital disengagement, and low product attachment.
+- **Insightful Predictors**: Features like debt-to-income ratio and login activity are highly predictive.
+- **Support Signals Risk**: Frequent help requests indicate dissatisfaction, not loyalty.
 
-2. **Launch Digital Engagement Campaigns:**
-   - Re-engage customers with low or no recent app/web usage.
 
-3. **Offer Targeted Products:**
-   - Upsell products to customers with low product ownership.
+---
 
-4. **Support Financially Strained Clients:**
-   - Customers with high debt or low income may need personalized financial advisory services.
+## Business Outcomes
 
-5. **CRM Integration:**
-   - Feed churn scores into CRM system to automate retention triggers and assign high-risk customers to relationship managers.
+- **Reduced Churn Rates**: Early detection enables proactive outreach  
+- **Revenue Protection**: High CLV customers retained through timely offers  
+- **Improved Lifecycle Management**: Engagement-focused campaigns aligned to churn risks  
+- **Resource Efficiency**: Retention efforts prioritized where they're most needed  
+- **Competitive Edge**: A predictive model gives banks a strategic advantage in customer experience
 
 ---
