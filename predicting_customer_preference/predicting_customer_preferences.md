@@ -107,9 +107,6 @@ Overall, the model is a strong fit, and customer preferences can be accurately p
 
 ## 4. Model Results and Interpretation
 
-After selecting XGBoost as the final model, we analyzed feature importance to better understand which variables most influenced product ownership predictions. The tables below present the top three most influential features for each product, along with their relative importance scores (expressed as percentages).
----
-
 ### Investment Products
 
 | Feature            | Importance (%) | Insight                                                                 |
@@ -148,7 +145,9 @@ After selecting XGBoost as the final model, we analyzed feature importance to be
 | Segment_High-value       | 9.52%          | High-value customers show a strong tendency toward insurance products.  |
 | Segment_Budget-conscious | 4.12%          | Budget-conscious users also show relevant interest in insurance.        |
 
->These feature importance insights provide valuable interpretability to the model, enabling more tailored marketing strategies and deeper understanding of customer behavior across product types.
+---
+
+These feature importance insights provide valuable interpretability to the model, enabling more tailored marketing strategies and deeper understanding of customer behavior across product types.
 
 ---
 
