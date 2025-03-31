@@ -77,4 +77,4 @@ All generated plots will be automatically saved in the `visuals/` folder.
 
 ## Documentation and Standards
 
-Detailed project documentation can be found in [`customer_preferences.md`](customer_preferences.md).
+All script dependencies will be managed automatically via Docker.
