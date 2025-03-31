@@ -30,7 +30,6 @@ campaign_impact_analysis/
 ├── requirements.txt                # Python dependencies
 └── README.md                       # Document for campaign impact analysis module
 ```
-TODO: Remove `notebooks/`
 
 ## Methodology
 
