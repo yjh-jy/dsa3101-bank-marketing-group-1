@@ -23,7 +23,6 @@ measuring_campaign_roi/
 │   └── lineplots_duration_vs_targets.png
 ├── README.md                         # Project overview and usage
 ├── measuring_campaign_roi.md         # Detailed documentation
-├── output_predictions.csv            # Predictions of ROI model on test set
 └── requirements.txt                  # Project dependencies
 ```
 
