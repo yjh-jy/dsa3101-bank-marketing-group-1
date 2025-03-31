@@ -107,6 +107,8 @@ Overall, the model is a strong fit, and customer preferences can be accurately p
 
 ## 4. Model Results and Interpretation
 
+After selecting XGBoost as the final model, we analyzed feature importance to better understand which variables most influenced product ownership predictions. The tables below present the top three most influential features for each product, along with their relative importance scores (expressed as percentages).
+
 ### Investment Products
 
 | Feature            | Importance (%) | Insight                                                                 |
