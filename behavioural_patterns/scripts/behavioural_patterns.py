@@ -297,37 +297,36 @@ for bar in bars:
                color='black')
 plt.close()
 
-## Grouping by segment and money flow, summing the transaction amount, and calculating percentage
-money_summary = df.groupby(['Segment', 'money_flow'])['transaction_amt'].sum().reset_index()
-print('\nTransaction amount by segment and money flow:')
+## Average transaction amount, grouped by segment and money flow
+money_summary = df.groupby(['Segment', 'money_flow'])['transaction_amt'].mean().reset_index()
+print('\nAverage transaction amount by segment and money flow:')
 print(money_summary)
 
-fig, ax = plt.subplots(1, 2, figsize=(18, 6))
-## Barplot of transaction amount (money_summary)
-sns.barplot(data=money_summary, x='Segment', y='transaction_amt', hue='money_flow', palette='viridis', ax=ax[0])
-for container in ax[0].containers:
-    ax[0].bar_label(container, fmt='%.2f', padding=3)
-ax[0].set_xlabel('Customer Segment')
-ax[0].set_ylabel('Transaction Amount')
-ax[0].set_title('Transaction Amount by Money Flow Across Customer Segments')
-ax[0].legend(title='Money Flow')
-## Barplot of transaction count for money flow across segments
-flow_distribution_reset = flow_distribution.reset_index()
-flow_melted = flow_distribution_reset.melt(id_vars='Segment', var_name='money_flow', value_name='Count')
-sns.barplot(data=flow_melted, x='Segment', y='Count', hue='money_flow', palette='viridis', ax=ax[1])
-for container in ax[1].containers:
-    ax[1].bar_label(container, padding=3)
-ax[1].set_xlabel('Customer Segment')
-ax[1].set_ylabel('Transaction Count')
-ax[1].set_title('Transaction Count by Money Flow Across Customer Segments')
-ax[1].legend(title='Money Flow')
-plt.close()
+## Merging transaction count for each customer segment with money flow
+merged_data = pd.merge(customer_tx, df[['customer_id', 'Segment', 'money_flow']], on=['customer_id', 'Segment'], how='left')
 
-## Transforming the money flow data to a long format for easier comparison across segments
-flow_distribution_reset = flow_distribution.reset_index()
-flow_melted = flow_distribution_reset.melt(id_vars='Segment', var_name='money_flow', value_name='Count')
-print('\nMelted money flow data:')
-print(flow_melted)
+## Calculating the average transaction count by segment and money flow
+avg_tx_count_by_flow = merged_data.groupby(['Segment', 'money_flow'])['tx_count'].mean().reset_index()
+
+fig, ax = plt.subplots(1, 2, figsize=(18, 6))
+## Barplot of average transaction count for money flow across segments
+sns.barplot(data=avg_tx_count_by_flow, x='Segment', y='tx_count', hue='money_flow', palette='viridis', ax=ax[0])
+for container in ax[0].containers:
+    ax[0].bar_label(container, padding=3)
+ax[0].set_xlabel('Customer Segment')
+ax[0].set_ylabel('Average Transaction Count')
+ax[0].set_title('Average Transaction Count by Money Flow Across Customer Segments')
+ax[0].legend(title='Money Flow')
+## Barplot of average transaction amount for money flow across segments
+sns.barplot(data=money_summary, x='Segment', y='transaction_amt', hue='money_flow', palette='viridis', ax=ax[1])
+for container in ax[1].containers:
+    ax[1].bar_label(container, fmt='%.2f', padding=3)
+ax[1].set_xlabel('Customer Segment')
+ax[1].set_ylabel('Average Transaction Amount')
+ax[1].set_title('Average Transaction Amount by Money Flow Across Customer Segments')
+ax[1].legend(title='Money Flow')
+
+plt.close()
 
 # Analyzing digital engagement across customer segments
 
