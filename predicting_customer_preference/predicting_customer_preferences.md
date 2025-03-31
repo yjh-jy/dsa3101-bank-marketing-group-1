@@ -101,7 +101,7 @@ The table below summarizes the cross-validated performance metrics obtained with
 
 - Credit Cards showed strong balance between recall and precision, resulting in a higher F1-score, indicative of good predictive balance.
 
-- Insurance, while performing slightly lower compared to other products, still demonstrates reasonable recall and F1 scores, given its relatively more balanced distribution of ownership.
+- Insurance, while performing slightly lower compared to other products, still demonstrates reasonable recall and F1 scores, given its relatively lower rates of customer ownership.
 
 Overall, the model is a strong fit, and customer preferences can be accurately predicted.
 
