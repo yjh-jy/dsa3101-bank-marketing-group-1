@@ -13,6 +13,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import classification_report
+import warnings
+from sklearn.exceptions import UndefinedMetricWarning
+
+# Suppress precision/recall warnings for imbalanced classes
+warnings.filterwarnings("ignore", category=UndefinedMetricWarning)
 
 # =========================
 # Global Constants
@@ -28,7 +33,6 @@ PROJECT_ROOT = os.path.abspath(f"{SCRIPT_DIR}/../../")
 DATA_DIR = f"{PROJECT_ROOT}/data/processed"
 # Folder path to output figures
 FIGURES_DIR = f"{PROJECT_ROOT}/customer_engagement/figures"
-
 
 # Ensure output folders exist
 os.makedirs(f"{FIGURES_DIR}/boxplots", exist_ok=True)
