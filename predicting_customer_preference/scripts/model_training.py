@@ -174,10 +174,6 @@ def get_feature_importance(best_models, top_n=5, plot=False):
 
     return feature_importance_dict
 
-
-import os
-import zipfile
-
 def export_feature_importances_zipped(feature_importances_dict, project_root, folder, output_zip_name='feature_importances.zip'):
     """
     Exports each target's feature importances DataFrame as a CSV file, zips them together,
@@ -211,7 +207,7 @@ def export_feature_importances_zipped(feature_importances_dict, project_root, fo
             # Store only the file name in the zip.
             zipf.write(csv_filename, arcname=os.path.basename(csv_filename))
     
-    # Optionally, remove the individual CSV files after zipping.
+    # Remove the individual CSV files after zipping.
     for csv_filename in csv_files:
         os.remove(csv_filename)
     
