@@ -19,9 +19,9 @@ predicting_customer_preference/
 │   ├── correlation_matrix.png
 │   ├── heatmaps_active_loans.png
 │   └── product_counts.png
-├── README.md                     # Project overview and usage
-├── requirements.txt              # Project dependencies
-└── customer_preferences.md       # Detailed documentation
+├── README.md                             # Project overview and usage
+├── requirements.txt                      # Project dependencies
+└── predicting_customer_preferences.md    # Detailed documentation
 ```
 
 ## Key Features
