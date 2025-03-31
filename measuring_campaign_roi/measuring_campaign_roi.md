@@ -1,10 +1,5 @@
 # Measuring Campaign ROI
 
-**Main Question: How can we measure and maximize the return on investment (ROI) for personalized marketing efforts?** \
-**Objective:** Develop a model that predicts the ROI of different marketing campaigns, incorporating factors like conversion rate, customer lifetime value
-(CLV), and acquisition cost.\
-**Expected Outcome:** Provide recommendations on which campaign strategies yield the best ROI.
-
 ### Table of Contents
 1. Problem Analysis
 2. Exploratory Data Analysis (EDA)
@@ -29,7 +24,6 @@ To tackle this challenge, we aim to develop a model that can predict the ROI of 
 
 We explore the relationships between the campaign-related features and three key variables: Customer Lifetime Value (CLV), Acquisition Cost, and Conversion Rate. These insights guide our feature and model selection.
 
----
 ### **Customer Lifetime Value (CLV)**
 | Observation |
 |-------------|
@@ -71,8 +65,6 @@ We explore the relationships between the campaign-related features and three key
 ## 3. Acquisition Cost Sub-Model
 
 After testing out several models, Linear Regression seemed to perform the best. We evaluated the model performance using metrics such as MSE, PMSE, R^2 and adjusted R^2. Then, we extracted the coefficients to analyse the contribution of each variable to the model prediction.
-
----
 
 ### **Model Performance**
 
@@ -127,8 +119,6 @@ Although we've identified methods to reduce marketing expenditure, these insight
 
 Similar to the acquisition cost model, Linear Regression performed best for predicting conversion rates after testing various models.
 
----
-
 ### **Model Performance**
 
 | Metric         | Value      | Interpretation |
@@ -156,7 +146,7 @@ Similar to the acquisition cost model, Linear Regression performed best for pred
 - **Email Marketing** performs the worst, possibly due to spam filters and lack of personalization
 
 > **Recommendations**:
-- Focus on Affiliate Marketing** and SEO for better conversion outcomes
+- Focus on Affiliate Marketing and SEO for better conversion outcomes
 - Improve email strategy by avoiding spam-triggering keywords and personalizing messages to boost reach and engagement
 
 ---
@@ -205,12 +195,11 @@ We analyzed the distributions of **conversion rate** and **acquisition cost** to
 | **Acquisition Cost** | −0.053    | Mild negative impact — cost slightly reduces ROI |
 
 > **Key Insight**: 
-- While **minimizing cost** is helpful, **increasing conversion rate** has a far greater effect on ROI and should be prioritized.
+- While minimizing cost is helpful, increasing conversion rate has a far greater effect on ROI and should be prioritized.
 
 ---
 
 ## 6. Key Recommendations
-### **Key Recommendations Summary**
 
 | **Goal**                  | **Action**                                                        | **Rationale**                                                                  |
 |---------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------------------|
