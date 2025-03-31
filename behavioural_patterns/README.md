@@ -6,59 +6,6 @@ This module aims to analyze behavioural patterns across different customer segme
 
 ---
 
-## Objectives
-
-- **Segment Analysis:**  
-  Examine how customer behaviours vary across different segments.
-
-- **Behavioural Insights:**  
-  Analyze patterns in product usage, transaction history, and digital engagement.
-
-- **Targeted Recommendations:**  
-  Use the insights gained to recommend tailored marketing approaches for each customer segment.
-
-## Expected Outcome
-
-- **Detailed Insights:**  
-  A comprehensive analysis that highlights differences in behavioural patterns among various segments.
-
-- **Actionable Strategies:**  
-  Specific recommendations for targeted marketing based on the identified patterns.
-
-- **Data Visualization:**  
-  Charts and graphs that visually represent the differences in customer behaviour across segments.
-
-## Description of Datasets Used
-
-- **customers:** Contains demographic, financial, and account information for each customer.
-
-- **loans:** Details of loans taken by customers, including loan amounts, purposes, and repayment dates.
-
-- **products:** Information about the products each customer holds, such as investment products, credit cards, personal loans, fixed deposits, and insurance.
-
-- **transactions:** Transactional data, capturing transaction type, amount, and date for each customer.
-
-- **digital_usage:** Tracks customers' usage of digital platforms, including mobile app and web account activity, login frequency, and time spent on these platforms.
-
-## Methodology
-
-1. **Data Preparation:**  
-   Merge data from internal sources and perform data cleaning and transformation.
-
-2. **Segmentation:**  
-   Use the customer_segments.csv file, generated from the customer_segmentation folder, for customer segmentation analysis.
-
-3. **Exploratory Data Analysis (EDA):**  
-   Apply statistical tests, such as the chi-square test, and visualization techniques, including bar plots, heatmaps, and boxplots, to identify data patterns across customer segments.
-
-4. **Pattern Identification:**  
-   Analyze key behaviors, including on-time loan payments, product usage trends, transactional habits, and digital engagement levels, to uncover significant patterns within the data.
-
-5. **Recommendation Development:**  
-   Translate the insights into targeted marketing recommendations for each customer segment.
-
----
-
 ## Folder Structure
 
 ```
@@ -129,5 +76,47 @@ behavioural_patterns/requirements.txt
 ```
 If package versions used do not match those in requirements.txt, a package mismatch warning will appear in terminal.
 Follow the printed instructions to fix
+
+---
+
+## Expected Outcome
+
+- **Detailed Insights:**  
+  A comprehensive analysis that highlights differences in behavioural patterns among various segments.
+
+- **Actionable Strategies:**  
+  Specific recommendations for targeted marketing based on the identified patterns.
+
+- **Data Visualization:**  
+  Charts and graphs that visually represent the differences in customer behaviour across segments.
+
+## Description of Datasets Used
+
+- **customers:** Contains demographic, financial, and account information for each customer.
+
+- **loans:** Details of loans taken by customers, including loan amounts, purposes, and repayment dates.
+
+- **products:** Information about the products each customer holds, such as investment products, credit cards, personal loans, fixed deposits, and insurance.
+
+- **transactions:** Transactional data, capturing transaction type, amount, and date for each customer.
+
+- **digital_usage:** Tracks customers' usage of digital platforms, including mobile app and web account activity, login frequency, and time spent on these platforms.
+
+## Methodology
+
+1. **Data Preparation:**  
+   Merge data from internal sources and perform data cleaning and transformation.
+
+2. **Segmentation:**  
+   Use the customer_segments.csv file, generated from the customer_segmentation folder, for customer segmentation analysis.
+
+3. **Exploratory Data Analysis (EDA):**  
+   Apply statistical tests, such as the chi-square test, and visualization techniques, including bar plots, heatmaps, and boxplots, to identify data patterns across customer segments.
+
+4. **Pattern Identification:**  
+   Analyze key behaviors, including on-time loan payments, product usage trends, transactional habits, and digital engagement levels, to uncover significant patterns within the data.
+
+5. **Recommendation Development:**  
+   Translate the insights into targeted marketing recommendations for each customer segment.
 
 ---
