@@ -15,7 +15,6 @@ measuring_campaign_roi/
 │   ├── eda.py                        # Exploratory data analysis and visualization
 │   ├── load_data.py                  # Data loading script
 │   ├── main.py                       # Main execution pipeline
-│   ├── measuring_campaign_roi.py     # ROI calculation and analysis
 │   ├── model_evaluation.py           # Model performance evaluation
 │   └── roi_model.py                  # ROI predictive modeling
 ├── visuals/                          # Auto-generated plots (EDA output)
@@ -23,8 +22,9 @@ measuring_campaign_roi/
 │   ├── boxplots_categorical_vs_targets.png
 │   └── lineplots_duration_vs_targets.png
 ├── README.md                         # Project overview and usage
-├── requirements.txt                  # Project dependencies
-└── measuring_campaign_roi.md         # Detailed documentation
+├── measuring_campaign_roi.md         # Detailed documentation
+├── output_predictions.csv            # Predictions of ROI model on test set
+└── requirements.txt                  # Project dependencies
 ```
 
 ---
@@ -64,6 +64,7 @@ Once the Docker environment is set up, you can run all analysis scripts with:
 ```
 
 All output plots will be saved automatically in the `visuals/` folder.
+The output predictions of the ROI model on the test set will be saved in `output_predictions.csv`.
 
 ---
 
