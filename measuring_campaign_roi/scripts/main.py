@@ -32,7 +32,7 @@ def main():
     cat_cost = ['campaign_type', 'campaign_language']
     num_cost = ['campaign_duration']
 
-    cost_model, preds_cost, true_cost, cost_coef_df = train_acquisition_cost_model(X_cost_train, y_cost_train, cat_cost, num_cost)
+    cost_model, preds_cost_train, true_cost, cost_coef_df = train_acquisition_cost_model(X_cost_train, y_cost_train, cat_cost, num_cost)
     print("ACQUISITION COST MODEL COEFFICIENTS")
     print(cost_coef_df)
     print("\n")
@@ -52,7 +52,7 @@ def main():
     y_conv_train = train_df['conversion_rate']
     cat_conv = ['campaign_type', 'target_audience']
 
-    conv_model, _, _, conv_coef_df = train_conversion_rate_model(X_conv_train, y_conv_train, cat_conv)
+    conv_model, preds_conv_train, _, conv_coef_df = train_conversion_rate_model(X_conv_train, y_conv_train, cat_conv)
     print("CONVERSION RATE MODEL COEFFICIENTS")
     print(conv_coef_df)
     print("\n")
@@ -68,7 +68,7 @@ def main():
     print("\n")
 
     # ---- ROI Model ----
-    roi_model, __, roi_scaler = train_roi_model(preds_conv_test, preds_cost_test, test_df['roi'])
+    roi_model, __, roi_scaler = train_roi_model(preds_conv_train, preds_cost_train, train_df['roi'])
     print("ROI MODEL COEFFICIENTS")
     print(dict(zip(['Conversion Rate', 'Cost'], roi_model.coef_)))
     print("\n")
