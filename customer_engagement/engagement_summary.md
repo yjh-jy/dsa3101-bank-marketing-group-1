@@ -135,6 +135,8 @@ The top five features identified were:
 
 The decision tree analysis highlighted that transactional attributes (`total_transaction_amt`, `debt`, `income`) and recency of digital activity (`days_since_mobile_use`, `days_since_web_use`) were the strongest drivers of engagement in a multivariate context. This aligns with earlier EDA findings that behavioural and financial activity, when considered jointly, shape engagement patterns.
 
+This multivariate analysis is exploratory and not intended to serve as a predictive model. Further modelling and validation would be required for predictive deployment.
+
 ### C. Business Insights and Limitations
 
 **Business insights:**
