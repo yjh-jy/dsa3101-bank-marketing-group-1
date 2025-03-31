@@ -35,6 +35,7 @@ def main():
     cost_model, preds_cost, true_cost, cost_coef_df = train_acquisition_cost_model(X_cost_train, y_cost_train, cat_cost, num_cost)
     print("ACQUISITION COST MODEL COEFFICIENTS")
     print(cost_coef_df)
+    print("\n")
 
     # Predictions on test set
     X_cost_test = test_df[['campaign_type', 'campaign_duration', 'campaign_language']]
@@ -68,6 +69,9 @@ def main():
 
     # ---- ROI Model ----
     roi_model, __, roi_scaler = train_roi_model(preds_conv_test, preds_cost_test, test_df['roi'])
+    print("ROI MODEL COEFFICIENTS")
+    print(dict(zip(['Conversion Rate', 'Cost'], roi_model.coef_)))
+    print("\n")
 
     preds_roi_test = predict_roi_model(roi_model, roi_scaler, preds_conv_test, preds_cost_test)
 
