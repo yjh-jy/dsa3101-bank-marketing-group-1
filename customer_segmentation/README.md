@@ -66,7 +66,6 @@ From project root:
 ## Script Execution Order
 For this module, only one script needs to be executed:
 ```bash
-customer_segmentation/scripts/utils.py
 customer_segmentation/scripts/segmentation.py
 ```
 
