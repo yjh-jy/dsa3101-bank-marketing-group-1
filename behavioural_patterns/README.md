@@ -2,7 +2,7 @@
 
 ## Overview
 
-This module aims to analyze customer behaviours across different segments. By examining product usage, transaction history, and digital engagement, the analysis identifies key behavioural patterns that inform targeted marketing strategies. The insights will help tailor approaches to specific customer segments, increasing the effectiveness of marketing efforts.
+This module aims to analyze behavioural patterns across different customer segments. By examining product usage, transaction history, and digital engagement, the analysis identifies key behavioural patterns that inform targeted marketing strategies. The insights will help tailor approaches to specific customer segments, increasing the effectiveness of marketing efforts.
 
 ---
 
@@ -67,8 +67,11 @@ behvioural_patterns/
 │   └── visualizations/             # Folder containing output visualizations
 │   └── behavioural_patterns.md     # Markdown file containing key insights and targeted marketing approaches
 ├── scripts/
-│   └── behavioural_patterns.py     # Main analysis logic     
-└── README.md                       # Project overview and instructions
+|   └── analysis_functions.py       # Functions for performing various analyses and visualizations
+│   └── behavioural_patterns.py     # Main analysis     
+│   └── utils.py                    # Utility functions for data loading and transformation
+│── README.md                       # Project overview and instructions
+└── requirements.txt                # Import required packages
 ```
 
 ---
@@ -79,8 +82,11 @@ behvioural_patterns/
 |------|-------------|
 | `behavioural_patterns/insights/visualizations/` | Directory where all generated charts and plots are saved after running the script. |
 | `behavioural_patterns/insights/behavioural_patterns.md` | Markdown file containing key insights from the analysis, including targeted marketing approaches for each customer segment. It also includes visualizations. |
-| `behavioural_patterns/scripts/behavioural_patterns.py` | Python script containing the core analysis logic, including data preprocessing, identification of key behavioral patterns, and the creation of visualizations. Visualizations are generated but do not appear as popups, as they are closed automatically using plt.close(). |
+| `behavioural_patterns/scripts/analysis_functions.py` | Contains functions that perform the analysis and generate visualizations (e.g., NPS analysis, financial health, product usage, transactions, and digital engagement). |
+| `behavioural_patterns/scripts/behavioural_patterns.py` | Main Analysis Script: This file serves as the entry point for the module. It orchestrates the data loading, preparation, and analysis workflow by calling functions from utils.py and analysis_functions.py. The script imports utility functions for tasks such as data loading, preparation, and transformation (including loan categorization and transaction classification), and then executes various analysis functions to generate insights and visualizations. Note that visualizations are generated programmatically and closed automatically (using `plt.close()`), unless modified to display interactively. |
+| `behavioural_patterns/scripts/utils.py` | Contains utility functions for data loading, preparation, and helper methods such as `categorize_loan_purpose` and `classify_money_flow`. |
 | `behavioural_patterns/README.md` | Documentation file for the behavioural patterns module, including an overview of the project, details of the analysis methodology, and setup instructions. |
+| `behavioural_patterns/requirements.txt` | Lists all the Python packages and their versions required to run the analysis. This ensures a consistent development environment across different systems. |
 
 ---
 
@@ -106,18 +112,46 @@ pwd
 
 3. **Dependencies: Install required Python packages**
 ```bash
-pip install pandas==2.2.3 numpy==1.23.1 seaborn==0.13.2 matplotlib==3.10.1 scipy==1.9.0 
+pip install -r requirements.txt
 ```
 
-4. **Run the Python script**
+4. **Run the Python scripts in the specified order**
+
+The scripts should be executed in the following order:
+
+- First, run `utils.py`: This script contains utility functions for loading and preparing data. It must be executed first to ensure the necessary data is available for analysis.
+
+```bash
+# Run this in terminal
+python behavioural_patterns/scripts/utils.py
+```
+```bash
+# If above code does not work in macbook terminal:
+python3 behavioural_patterns/scripts/utils.py
+```
+
+- Next, run `analysis_functions.py`: This script includes various functions for analyzing customer behaviour, financial health, product usage, and more. It should be run after utils.py to utilize the prepared data.
+
+```bash
+# Run this in terminal
+python behavioural_patterns/scripts/analysis_functions.py
+```
+```bash
+# If above code does not work in macbook terminal:
+python3 behavioural_patterns/scripts/analysis_functions.py
+```
+
+- Finally, run `behavioural_patterns.py`: This script is the main execution file that integrates the functions from `utils.py` and `analysis_functions.py`. It should be run last to perform the full analysis and generate the insights.
+
 ```bash
 # Run this in terminal
 python behavioural_patterns/scripts/behavioural_patterns.py
 ```
 ```bash
-# if above code does not work in macbook terminal:
+# If above code does not work in macbook terminal:
 python3 behavioural_patterns/scripts/behavioural_patterns.py
 ```
+
 ---
 
 ## Generating Visualizations
