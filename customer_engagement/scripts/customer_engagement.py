@@ -6,6 +6,7 @@ from feature_engineering import (create_customer_engagement_flag,
                                  count_products_owned
                                  )
 from business_rules import define_high_value_user, is_recently_active, is_multichannel_user
+from multivariate_exploration import run_multivariate_exploration
 
 # ===== Global Constants =====
 target_col = "has_engaged"
@@ -82,6 +83,20 @@ def main():
     ut.get_proportion_table(df, target_col)
     ut.get_barplot(df, target_col)
     print("\nChi-Square Test Results:\n", ut.get_chi_square(df, target_col))
+
+    ###### TEST: Multivariate Exploration
+    
+    # Define the feature columns you'd like to include
+    multivariate_features = [col for col in df.columns 
+                             if col != target_col and 
+                             df[col].dtype in ["int64", "float64", "int32", "bool"]]
+
+    # Run multivariate exploratory model
+    run_multivariate_exploration(
+        df,
+        target_col='has_engaged',
+        feature_cols=multivariate_features
+    )
 
     #~54% of customers have never transacted
     #This may include inactive, new, or digitally engaged but not monetized customers
