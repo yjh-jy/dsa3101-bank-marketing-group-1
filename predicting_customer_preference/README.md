@@ -1,4 +1,4 @@
-# Predicting Customer Preference
+# Predicting Customer Preferences
 
 This repository contains scripts and visualizations for predicting customer product preferences. It includes supporting functions for data preprocessing, exploratory data analysis (EDA), visualization, model training, evaluation, and final prediction of customer preferences.
 
@@ -29,28 +29,43 @@ predicting_customer_preference/
 ### Data Preprocessing
 **`scripts/data_preprocessing.py`**
 
-- Cleans and preprocesses data to aggregate customer behaviour, format featyres, and perform feature scaling.
+- Cleans and preprocesses raw data to consolidate customer loan behavior, format feature inputs, and perform scaling for modeling.
 
 ### Exploratory Data Analysis (EDA)
 **`scripts/EDA.py`**
 
-- Provides exploratory analysis with visualizations to uncover key insights and identify patterns for model and feature selection.
+- Performs exploratory analysis with visualizations to uncover key insights and identify patterns for model and feature selection.
 
 ### Model Training
 **`scripts/model_training.py`**
 
-- Performs hyperparameter tuning on our model and cross-validates their initial performance.
+- Conducts hyperparameter tuning and cross-validation to evaluate initial model performance and identify optimal modeling parameters.
 
 ### Final Model Prediction
 **`scripts/final_model.py`**
 
-- Deploys the final optimized model to predict customer preferences based on trained insights.
+- Implements the optimized predictive model to forecast customer preferences.
 
 ### Model Evaluation
 **`scripts/model_evaluation.py`**
 
-- Assesses predictive model accuracy using metrics such as accuracy, F1 score, and recall.
+- Evaluates model accuracy and predictive capability using performance metrics such as accuracy, precision, recall, and F1 score.
 
+## Key Visualisations
+
+Key visual outputs from exploratory data analysis are stored in the `visuals/` directory:
+
+- **Heatmaps of Active Loans vs Product Ownership:** [`heatmaps_active_loans.png`](visuals/heatmaps_active_loans.png)  
+  *Visualizes the relationship between customer product ownership and active loan status using heatmaps.*
+
+- **Categorical Feature Distributions:** [`categorical_features.png`](visuals/categorical_features.png)  
+  *Bar plots showing distributions of key categorical variables to uncover trends and potential feature importance.*
+
+- **Correlation Matrix:** [`correlation_matrix.png`](visuals/correlation_matrix.png)  
+  *Heatmap displaying correlations among numerical features, aiding in feature selection.*
+
+- **Product Ownership Counts and Rates:** [`product_counts.png`](visuals/product_counts.png)  
+  *Bar charts illustrating the number of customers owning each product and the relative ownership rates.*
 
 ## How to Run
 
