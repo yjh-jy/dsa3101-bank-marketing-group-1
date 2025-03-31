@@ -59,7 +59,7 @@ Engagement rates were compared across different category levels:
 - While is_recently_active and is_high_value_user did not show statistical significance on their own, these flags may serve as practical operational segments. They can help prioritise customers who are more primed to respond, especially when paired with real-time behavioural triggers.
 - Job, education, marital status, and default status showed weak visual patterns. Although not individually predictive, they may still contribute value for tailoring messaging or creative direction.
 
-### C. Chi-Square Tests (Categorical & Binary Variables)
+### D. Chi-Square Tests (Categorical & Binary Variables)
 
 No categorical feature showed a significant association with engagement (p < 0.05), but some showed weak-to-moderate trends:
 
@@ -68,6 +68,77 @@ No categorical feature showed a significant association with engagement (p < 0.0
 | `dependents` | 0.13 |
 | `is_recently_active` | 0.20 |
 | `default`, `education`, `is_high_value_user` | 0.32 – 0.42 |
+
+
+## 3. Multivariate Exploratory Analysis
+To supplement the univariate and bivariate analyses, a multivariate exploratory analysis was conducted. This aimed to explore how customer attributes jointly relate to engagement, moving beyond individual variable effects and assessing their combined predictive value.
+
+### A. Logistic Regression Results
+A logistic regression model was fitted using numeric and boolean customer-level features (excluding the target variable). This model aimed not to provide a reliable prediction of engagement, but to provide an initial indication of which attributes, when considered together, are associated with higher engagement.
+
+The model produced the following classification report:
+Logistic Regression Classification Report:
+```
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       498
+           1       0.59      1.00      0.74       708
+
+    accuracy                           0.59      1206
+   macro avg       0.29      0.50      0.37      1206
+weighted avg       0.34      0.59      0.43      1206
+```
+
+The model demonstrated high recall (1.00) but low precision (0.59), indicating that it successfully identified most engaged customers but also generated a large number of false positives. This is expected in an imbalanced dataset and reflects the exploratory, untuned nature of the analysis.
+
+**Top logistic regression coefficients:**
+
+| Feature                 | Coefficient |
+|------------------------|------------:|
+| `dependents`           |     -0.0246 |
+| `total_logins_per_week`|      0.0193 |
+| `nps`                  |     -0.0149 |
+| `tenure`               |      0.0057 |
+| `is_high_value_user`   |      0.0054 |
+
+These coefficients suggest that, when controlling for other attributes:
+
+- A higher number of dependents slightly reduces the likelihood of engagement.
+- Increased digital logins and high-value user status are positively associated with engagement.
+- Longer tenure and higher NPS scores have marginal effects.
+
+While the model's predictive accuracy is limited, these results reinforce earlier findings that digital behaviour signals uch as login frequency and customer value are positively associated with engagement. However, the individual effect sizes are small, suggesting that these variables may need to be used in combination rather than isolation to inform targeting strategies.
+
+### B. Decision Tree Feature Importance
+
+A decision tree classifier (max depth = 4) was also fitted to assess non-linear relationships and provide an interpretable ranking of feature importance.
+
+The top five features identified were:
+
+| Feature                | Importance |
+|-----------------------:|----------:|
+| `total_transaction_amt`|     0.228 |
+| `debt`                 |     0.200 |
+| `income`               |     0.138 |
+| `days_since_mobile_use`|     0.137 |
+| `days_since_web_use`   |     0.129 |
+
+The decision tree analysis highlighted that transactional attributes (`total_transaction_amt`, `debt`, `income`) and recency of digital activity (`days_since_mobile_use`, `days_since_web_use`) were the strongest drivers of engagement in a multivariate context. This aligns with earlier EDA findings that behavioural and financial activity, when considered jointly, shape engagement patterns.
+
+### C. Business Insights and Limitations
+
+**Business insights:**
+These multivariate exploratory models support the overall EDA conclusion that no single attribute strongly drives engagement, but combined behavioural and financial signals can provide meaningful guidance for:
+
+- Operational segmentation strategies (e.g., targeting recently active, high-value users with above-average transaction activity).
+- Trigger-based engagement campaigns based on behavioural readiness.
+
+**Limitations:**
+- The models were not tuned for predictive performance and are intended solely for exploratory purposes.
+- Class imbalance limited model accuracy, particularly for the non-engaged group.
+- Demographic features remained weak contributors in both models, suggesting limited value for direct targeting.
+
+
 
 ---
 # Campaign-Level Analysis

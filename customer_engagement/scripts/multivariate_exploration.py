@@ -12,7 +12,6 @@ This multivariate exploration provides an additional layer of insight beyond ind
 
 import os
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -57,9 +56,9 @@ def run_multivariate_exploration(df, target_col, feature_cols):
     print(classification_report(y_test, logreg.predict(X_test)))
 
     coef_df = pd.DataFrame({
-        'Feature': feature_cols,
-        'Coefficient': logreg.coef_[0]
-    }).sort_values(by='Coefficient', key=abs, ascending=False)
+        "Feature": feature_cols,
+        "Coefficient": logreg.coef_[0]
+    }).sort_values(by="Coefficient", key=abs, ascending=False)
 
     print("\nTop logistic regression coefficients:")
     print(coef_df.head())
@@ -68,17 +67,17 @@ def run_multivariate_exploration(df, target_col, feature_cols):
     tree = DecisionTreeClassifier(max_depth=4, random_state=42)
     tree.fit(X_train, y_train)
     importances = pd.DataFrame({
-        'Feature': feature_cols,
-        'Importance': tree.feature_importances_
-    }).sort_values(by='Importance', ascending=False)
+        "Feature": feature_cols,
+        "Importance": tree.feature_importances_
+    }).sort_values(by="Importance", ascending=False)
 
     print("\nDecision Tree Feature Importances:")
     print(importances.head())
 
     # Plot feature importances
     plt.figure(figsize=(10, 5))
-    sns.barplot(x='Importance', y='Feature', data=importances.head(10))
-    plt.title('Top Decision Tree Feature Importances')
+    sns.barplot(x="Importance", y="Feature", data=importances.head(10))
+    plt.title("Top Decision Tree Feature Importances")
     plt.tight_layout()
     plt.savefig(f"{FIGURES_DIR}/multivariate/feature_importances.png")
     plt.close()
