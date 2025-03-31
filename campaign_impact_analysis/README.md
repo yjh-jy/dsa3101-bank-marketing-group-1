@@ -46,27 +46,14 @@ TODO: Remove `notebooks/`
 4. **Insights and Recommendations:**  
    Derive actionable insights, such as optimizing campaign scheduling, improving alignment with target audiences, and focusing on specific customer segments. Propose strategies to enhance marketing effectiveness based on data-driven findings.
 
-## Usage
+## How to Run
 
-### Prerequisites
+Once the Docker environment is set up, you can run all analysis scripts with:
+```
+./run_scripts.sh
+```
+All generated plots will be automatically saved in the `insights/visuals/` folder.
 
-Ensure you have the following installed:
-- **Python 3.10.6** or higher: [Install Python](https://www.python.org/downloads/)
+## Documentation and Standards
 
-### Running the Analysis
-
-1. **Clone the repository**
-    ```bash
-    git clone <repository-url>
-    cd dsa3101-bank-marketing-group-1
-    ```
-
-2. **Install dependencies**
-    ```bash
-    pip install -r campaign_impact_analysis/requirements.txt
-    ```
-
-3. **Execute the analysis script**
-    ```bash
-    python campaign_impact_analysis/scripts/campaign_impact_analysis.py
-    ```
+All script dependencies will be managed automatically via Docker.
