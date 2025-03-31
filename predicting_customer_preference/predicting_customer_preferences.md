@@ -107,11 +107,11 @@ Overall, the model is a strong fit, and customer preferences can be accurately p
 
 ## 4. Model Results and Interpretation
 
-After selecting XGBoost as the final model, we analyzed feature importance to better understand which variables most influenced product ownership predictions. The tables below present the top three most influential features for each product, along with their relative importance scores (expressed as percentages).
+After selecting XGBoost as the final model, we analyzed feature importance to better understand which variables most influenced product ownership predictions. The tables below present the top three most influential features for each product, along with their relative importance scores.
 
 ### Investment Products
 
-| Feature            | Importance (%) | Insight                                                                 |
+| Feature            | Importance     | Insight                                                                 |
 |--------------------|----------------|-------------------------------------------------------------------------|
 | Segment_High-value | 10.11%         | High-value customers are more likely to invest, indicating a clear segment preference. |
 | Income             | 4.77%          | Higher income levels are linked to increased investment activity.       |
@@ -121,7 +121,7 @@ After selecting XGBoost as the final model, we analyzed feature importance to be
 
 ### Credit Cards
 
-| Feature                  | Importance (%) | Insight                                                                 |
+| Feature                  | Importance     | Insight                                                                 |
 |--------------------------|----------------|-------------------------------------------------------------------------|
 | Age                      | 21.45%         | Age is a strong predictor of credit card ownership—likely tied to financial maturity. |
 | Segment_High-value       | 4.38%          | High-value customers are significantly more likely to hold credit cards. |
@@ -131,7 +131,7 @@ After selecting XGBoost as the final model, we analyzed feature importance to be
 
 ### Fixed Deposits
 
-| Feature            | Importance (%) | Insight                                                                 |
+| Feature            | Importance     | Insight                                                                 |
 |--------------------|----------------|-------------------------------------------------------------------------|
 | Segment_High-value | 4.46%          | Fixed deposits appeal more to high-value customers.                     |
 | Job_Unknown        | 4.39%          | Job data may be missing, but behavior patterns still inform predictions.|
@@ -141,7 +141,7 @@ After selecting XGBoost as the final model, we analyzed feature importance to be
 
 ### Insurance
 
-| Feature                  | Importance (%) | Insight                                                                 |
+| Feature                  | Importance     | Insight                                                                 |
 |--------------------------|----------------|-------------------------------------------------------------------------|
 | Dependents               | 20.90%         | Customers with more dependents are more inclined to own insurance.      |
 | Segment_High-value       | 9.52%          | High-value customers show a strong tendency toward insurance products.  |
