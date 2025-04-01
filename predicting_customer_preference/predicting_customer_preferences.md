@@ -144,7 +144,7 @@ After selecting XGBoost as the final model, we analyzed feature importance to un
 |--------------------|----------------|-------------------------------------------------------------------------|
 | Segment - High-value | 5%          | High-value customers tend to favor secure, interest-yielding products. |
 | Income          | 4%          | Customers with higher incomes are more likely to invest in fixed deposits.|
-| Job - Self-employed             | 4%          |Admin workers show a moderate tendency to own insurance products.|
+| Job - Self-employed             | 4%          | Self-employed individuals may prefer low-risk savings vehicles.|
 > Key Takeaways:
 - No single dominant feature—importance is relatively balanced across predictors.
 - Yet again, Segment - High-value leads slightly.
@@ -157,7 +157,7 @@ After selecting XGBoost as the final model, we analyzed feature importance to un
 |--------------------------|----------------|-------------------------------------------------------------------------|
 | Dependents               | 22%         | Customers with more dependents are significantly more inclined to own insurance.      |
 | Segment_High-value       | 10%          | High-value customers are more likely to secure insurance products. |
-| Job - Admin | 4%          | Budget-conscious customers also show moderate interest in insurance.     |
+| Job - Admin | 4%          | Admin workers show a moderate tendency to own insurance products.   |
 > Key Takeaways:
 - Dependents is the strongest predictor, far ahead of others.
 - Customer segment again plays a key role, especially for high-value customers.
