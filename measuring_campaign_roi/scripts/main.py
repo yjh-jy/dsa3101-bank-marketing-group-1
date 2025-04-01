@@ -13,7 +13,7 @@ def main():
     # ---- Paths ----
     project_root = os.getcwd()
     data_path = os.path.join(project_root, "data", "processed")
-    visuals_path = os.path.join(project_root, "measuring_campaign_roi", "visuals")
+    visuals_path = os.path.join(project_root, "visuals")
 
     # ---- Load and preprocess data ----
     customer_df, campaigns_df, engagement_df = load_data(data_path)
@@ -83,7 +83,7 @@ def main():
     # ---- Save predictions to CSV ----
     predictions_df = test_df.copy()
     predictions_df['predicted_roi'] = preds_roi_test
-    predictions_df.to_csv(os.path.join(project_root, "measuring_campaign_roi", "output_predictions.csv"), index=False)
+    predictions_df.to_csv(os.path.join(project_root, "output", "output_predictions.csv"), index=False)
 
     # ---- ROI 3D Visualization ----
     plot_3d_roi(test_df, preds_conv_test, preds_cost_test, visuals_path)

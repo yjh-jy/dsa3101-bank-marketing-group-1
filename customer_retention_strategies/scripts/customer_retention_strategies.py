@@ -11,13 +11,11 @@ from sklearn.utils import shuffle
 seed = 888
 import os
 
-# Global constants
-VISUAL_DIR = "../visuals"
-os.makedirs(VISUAL_DIR, exist_ok=True)
-
 def main():
     # Load datasets
     project_root = os.getcwd()  
+    VISUAL_DIR = os.path.join(project_root, "visuals")
+    os.makedirs(VISUAL_DIR, exist_ok=True)
     data_path = os.path.join(project_root, "data", "processed")
     file_paths = {
     "customer": os.path.join(data_path, "customer.csv"),
@@ -183,7 +181,7 @@ def main():
     plt.savefig(os.path.join(VISUAL_DIR, "confusion_matrix.png"))
     plt.close()
 
-    warning_report.to_csv("../churn_warning_report.csv", index=False)
+    warning_report.to_csv(os.path.join("churn_warning_report.csv"), index=False)
     print("Churn Early Warning Report saved as 'churn_warning_report.csv'.")
     print(report)
 
