@@ -30,7 +30,7 @@ project_root = os.getcwd()
 DATA_DIR = os.path.join(project_root, "data", "processed")
 
 # Folder path to output figures
-FIGURES_DIR = os.path.join(project_root, "customer_engagement", "figures")
+FIGURES_DIR = os.path.join(project_root, "figures")
 
 # Ensure output folders exist
 os.makedirs(f"{FIGURES_DIR}/boxplots", exist_ok=True)

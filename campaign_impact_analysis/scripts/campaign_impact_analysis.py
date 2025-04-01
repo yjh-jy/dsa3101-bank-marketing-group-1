@@ -5,8 +5,10 @@ import seaborn as sns
 import os
 sns.set_theme(style="whitegrid")
 
-# Global constants
-VISUALS_PATH = "campaign_impact_analysis/insights/visuals"
+project_root = os.getcwd()  
+data_path = os.path.join(project_root, "data", "processed")
+
+VISUALS_PATH = os.path.join(project_root, "insights", "visuals")
 os.makedirs(VISUALS_PATH, exist_ok=True)
 
 def load_data():
@@ -16,9 +18,7 @@ def load_data():
     Returns:
         tuple: Tuple containing all loaded dataframes
     """
-    project_root = os.getcwd()  
-    data_path = os.path.join(project_root, "data", "processed")
-    
+        
     campaigns_df = pd.read_csv(os.path.join(data_path, "campaigns.csv"))
     customer_df = pd.read_csv(os.path.join(data_path, "customer.csv"))
     digital_usage_df = pd.read_csv(os.path.join(data_path, "digital_usage.csv"))
