@@ -11,21 +11,23 @@ from sklearn.utils import shuffle
 seed = 888
 import os
 
-visual_dir = "../visuals"
-os.makedirs(visual_dir, exist_ok=True)
-
-
-# Load datasets
-file_paths = {
-    "customer": "../../data/processed/customer.csv",
-    "customer_segments": "../../customer_segmentation/customer_segments.csv",
-    "digital_usage": "../../data/processed/digital_usage.csv",
-    "products_owned": "../../data/processed/products_owned.csv",
-    "loans": "../../data/processed/loans.csv",
-    "transactions": "../../data/processed/transactions.csv",
-}
+# Global constants
+VISUAL_DIR = "../visuals"
+os.makedirs(VISUAL_DIR, exist_ok=True)
 
 def main():
+    # Load datasets
+    project_root = os.getcwd()  
+    data_path = os.path.join(project_root, "data", "processed")
+    file_paths = {
+    "customer": os.path.join(data_path, "customer.csv"),
+    "customer_segments": os.path.join(data_path, "..", "..", "customer_segmentation", "customer_segments.csv"),
+    "digital_usage": os.path.join(data_path, "digital_usage.csv"),
+    "products_owned": os.path.join(data_path, "products_owned.csv"),
+    "loans": os.path.join(data_path, "loans.csv"),
+    "transactions": os.path.join(data_path, "transactions.csv"),
+    }
+
     dataframes = {name: pd.read_csv(path) for name, path in file_paths.items()}
 
     # Merge datasets using 'customer_id' as the key
@@ -112,7 +114,7 @@ def main():
     plt.ylim(0, 1)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
-    plt.savefig(os.path.join(visual_dir, "churn_class_distribution.png"))
+    plt.savefig(os.path.join(VISUAL_DIR, "churn_class_distribution.png"))
     plt.close()
 
 
@@ -137,7 +139,7 @@ def main():
     plt.title("Key Factors Driving Churn")
     plt.gca().invert_yaxis()  
     plt.tight_layout()
-    plt.savefig(os.path.join(visual_dir, "feature_importance.png"))
+    plt.savefig(os.path.join(VISUAL_DIR, "feature_importance.png"))
     plt.close()
 
 
@@ -178,7 +180,7 @@ def main():
     disp.plot(cmap='Blues', ax=ax)
     plt.title("Confusion Matrix: Churn Prediction")
     plt.tight_layout()
-    plt.savefig(os.path.join(visual_dir, "confusion_matrix.png"))
+    plt.savefig(os.path.join(VISUAL_DIR, "confusion_matrix.png"))
     plt.close()
 
     warning_report.to_csv("../churn_warning_report.csv", index=False)

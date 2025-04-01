@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 
 # Global constant: Define the project root.
 PROJECT_ROOT = os.getcwd()
-visuals_path = os.path.join(PROJECT_ROOT, "predicting_customer_preference", "visuals")
+visuals_path = os.path.join(PROJECT_ROOT, "visuals")
 
 # Import functions from your separate modules
 from load_data import load_data

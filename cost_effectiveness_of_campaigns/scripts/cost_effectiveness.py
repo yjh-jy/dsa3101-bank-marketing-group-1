@@ -18,175 +18,174 @@ campaigns = pd.read_csv('data/processed/campaigns.csv')
 customers = pd.read_csv('data/processed/customer.csv')
 engagements = pd.read_csv('data/processed/engagement_details.csv')
 
+def calculate_personalisation_score(merged_df):
+    """
+    Calculates the personalisation score for each campaign.
+
+    Returns
+    - pandas.DataFrame, original DataFrame with an additional column 'personalisation_score'.
+    """
+    # Define campaign type weights
+    campaign_type_weights = {
+        'Search Engine Optimisation': 0.2,
+        'Email Marketing': 0.8,
+        'Affiliate Marketing': 0.5,
+        'Display Advertising': 0.3
+    }
+
+    def get_personalisation_score(row):
+        # Language score based on campaign language
+        language_score = 0.5 if row['campaign_language'] in ['Mandarin', 'French', 'Spanish', 'German'] else 0.3
+
+        # Target audience score based on age group
+        if row['target_audience'] == '35-44':
+            target_audience_score = 0.7
+        elif row['target_audience'] == '55+':
+            target_audience_score = 0.6
+        else:
+            target_audience_score = 0.5
+
+        # Duration score based on campaign duration
+        if row['campaign_duration'] > 60:
+            duration_score = 0.8
+        elif row['campaign_duration'] > 30:
+            duration_score = 0.6
+        else:
+            duration_score = 0.4
+
+        # Campaign type score based on predefined weights
+        campaign_type_score = campaign_type_weights.get(row['campaign_type'], 0.4)
+
+        # Calculate the final personalisation score
+        personalisation_score = (
+            0.25 * campaign_type_score +
+            0.2 * language_score + 
+            0.25 * target_audience_score +
+            0.3 * duration_score
+        )
+
+        return personalisation_score
+
+    merged_df['personalisation_score'] = merged_df.apply(get_personalisation_score, axis=1)
+
+    return merged_df
+
+def calculate_engagement_score(merged_df):
+    """
+    Calculates the engagement score for each campaign.
+
+    Returns:
+    - pandas.DataFrame, original DataFrame with an additional column 'engagement_score'.
+    """
+    # Aggregate engagement data by campaign_id
+    campaign_engagements = merged_df.groupby('campaign_id').agg(
+        total_engagements=('has_engaged', 'sum'),
+        total_duration=('duration', 'sum'),
+        impressions=('impressions', 'first')
+    ).reset_index()
+
+    # Calculate the engagement rate and effective engagement rate
+    campaign_engagements['engagement_rate'] = campaign_engagements['total_engagements'] / campaign_engagements['impressions']
+    campaign_engagements['effective_engagement_rate'] = campaign_engagements['total_duration'] / campaign_engagements['impressions']
+
+    # Calculate the final engagement score
+    campaign_engagements['engagement_score'] = (
+        0.5 * campaign_engagements['engagement_rate'] + 
+        0.5 * campaign_engagements['effective_engagement_rate']
+    )
+
+    merged_df = pd.merge(merged_df, campaign_engagements[['campaign_id', 'engagement_score']], on='campaign_id', how='left')
+
+    return merged_df
+
+def preprocess_data(df):
+    """
+    Preprocesses the data for modelling by encoding categorical features and defining 
+    features and target variable.
+
+    Returns:
+    - X: pandas.DataFrame, the feature set for modelling.
+    - y: pandas.Series, the target variable for modelling.
+    - label_encoder: sklearn.preprocessing.LabelEncoder, the fitted LabelEncoder 
+    used to transform the categorical variables.
+    """
+    # Encode categorical features using LabelEncoder
+    label_encoder = LabelEncoder()
+    categorical_features = ['campaign_type', 'campaign_language', 'target_audience']
+    
+    for col in categorical_features:
+        df[col] = label_encoder.fit_transform(df[col])
+    
+    # Define features (X) and target variable (y)
+    X = df[['campaign_type', 'campaign_language', 'target_audience', 'campaign_duration']]
+    y = df['personalisation_score']
+    
+    return X, y, label_encoder
+
+def train_personalisation_model(df):
+    """
+    Trains a Random Forest model to predict the personalisation score for a campaign.
+
+    Returns:
+    - personalisation_model: sklearn.ensemble.RandomForestRegressor, the trained Random Forest
+    model for predicting the personalisation score.
+    - label_encoder: sklearn.preprocessing.LabelEncoder, the fitted LabelEncoder 
+    used to transform the categorical variables.
+    """
+    # Preprocess the data
+    X, y, label_encoder = preprocess_data(df)
+    
+    # Split data into training and test sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Train the Random Forest Regressor
+    personalisation_model = RandomForestRegressor(n_estimators=100, random_state=42)
+    personalisation_model.fit(X_train, y_train)
+    
+    # Predict on the test set
+    y_pred = personalisation_model.predict(X_test)
+    
+    # Evaluate the model
+    mae = mean_absolute_error(y_test, y_pred)
+    rmse = mean_squared_error(y_test, y_pred, squared=False)
+    r2 = r2_score(y_test, y_pred)
+    
+    print(f"Model Evaluation:")
+    print(f"Mean Absolute Error (MAE): {mae}")
+    print(f"Root Mean Squared Error (RMSE): {rmse}")
+    print(f"R-squared (R²): {r2}")
+    
+    return personalisation_model, label_encoder
+
+def predict_personalisation_score(new_campaign_df, personalisation_model, label_encoder):
+    """
+    Predicts the personalisation score for a new campaign using a trained model.
+
+    Returns:
+    - float: The predicted personalisation score for the new campaign.
+    """
+    # List of categorical features
+    categorical_features = ['campaign_type', 'campaign_language', 'target_audience']
+    
+    # Encode categorical features only (skip numerical columns like 'campaign_duration')
+    for col in categorical_features:
+        new_campaign_df[col] = label_encoder.fit_transform(new_campaign_df[col])
+
+    # Define the features to be used in the model 
+    X_new = new_campaign_df[['campaign_type', 'campaign_language', 'target_audience', 'campaign_duration']]
+
+    # Predict the personalization score using the trained model
+    predicted_personalisation_score = personalisation_model.predict(X_new)
+    
+    return predicted_personalisation_score[0]
+
 def main():
     # Merge the datasets
     merged_df = pd.merge(campaigns, engagements, on='campaign_id', how='left')
 
-    def calculate_personalisation_score(merged_df):
-        """
-        Calculates the personalisation score for each campaign.
-
-        Returns
-        - pandas.DataFrame, original DataFrame with an additional column 'personalisation_score'.
-        """
-        # Define campaign type weights
-        campaign_type_weights = {
-            'Search Engine Optimisation': 0.2,
-            'Email Marketing': 0.8,
-            'Affiliate Marketing': 0.5,
-            'Display Advertising': 0.3
-        }
-
-        def get_personalisation_score(row):
-            # Language score based on campaign language
-            language_score = 0.5 if row['campaign_language'] in ['Mandarin', 'French', 'Spanish', 'German'] else 0.3
-
-            # Target audience score based on age group
-            if row['target_audience'] == '35-44':
-                target_audience_score = 0.7
-            elif row['target_audience'] == '55+':
-                target_audience_score = 0.6
-            else:
-                target_audience_score = 0.5
-
-            # Duration score based on campaign duration
-            if row['campaign_duration'] > 60:
-                duration_score = 0.8
-            elif row['campaign_duration'] > 30:
-                duration_score = 0.6
-            else:
-                duration_score = 0.4
-
-            # Campaign type score based on predefined weights
-            campaign_type_score = campaign_type_weights.get(row['campaign_type'], 0.4)
-
-            # Calculate the final personalisation score
-            personalisation_score = (
-                0.25 * campaign_type_score +
-                0.2 * language_score + 
-                0.25 * target_audience_score +
-                0.3 * duration_score
-            )
-
-            return personalisation_score
-
-        merged_df['personalisation_score'] = merged_df.apply(get_personalisation_score, axis=1)
-
-        return merged_df
-
-    def calculate_engagement_score(merged_df):
-        """
-        Calculates the engagement score for each campaign.
-
-        Returns:
-        - pandas.DataFrame, original DataFrame with an additional column 'engagement_score'.
-        """
-        # Aggregate engagement data by campaign_id
-        campaign_engagements = merged_df.groupby('campaign_id').agg(
-            total_engagements=('has_engaged', 'sum'),
-            total_duration=('duration', 'sum'),
-            impressions=('impressions', 'first')
-        ).reset_index()
-
-        # Calculate the engagement rate and effective engagement rate
-        campaign_engagements['engagement_rate'] = campaign_engagements['total_engagements'] / campaign_engagements['impressions']
-        campaign_engagements['effective_engagement_rate'] = campaign_engagements['total_duration'] / campaign_engagements['impressions']
-
-        # Calculate the final engagement score
-        campaign_engagements['engagement_score'] = (
-            0.5 * campaign_engagements['engagement_rate'] + 
-            0.5 * campaign_engagements['effective_engagement_rate']
-        )
-
-        merged_df = pd.merge(merged_df, campaign_engagements[['campaign_id', 'engagement_score']], on='campaign_id', how='left')
-
-        return merged_df
-
     # Calculate the personalisation score and engagement score for each campaign.
     merged_df = calculate_personalisation_score(merged_df)
     merged_df = calculate_engagement_score(merged_df)
-
-    def preprocess_data(df):
-        """
-        Preprocesses the data for modelling by encoding categorical features and defining 
-        features and target variable.
-
-        Returns:
-        - X: pandas.DataFrame, the feature set for modelling.
-        - y: pandas.Series, the target variable for modelling.
-        - label_encoder: sklearn.preprocessing.LabelEncoder, the fitted LabelEncoder 
-        used to transform the categorical variables.
-        """
-        # Encode categorical features using LabelEncoder
-        label_encoder = LabelEncoder()
-        categorical_features = ['campaign_type', 'campaign_language', 'target_audience']
-        
-        for col in categorical_features:
-            df[col] = label_encoder.fit_transform(df[col])
-        
-        # Define features (X) and target variable (y)
-        X = df[['campaign_type', 'campaign_language', 'target_audience', 'campaign_duration']]
-        y = df['personalisation_score']
-        
-        return X, y, label_encoder
-
-
-    def train_personalisation_model(df):
-        """
-        Trains a Random Forest model to predict the personalisation score for a campaign.
-
-        Returns:
-        - personalisation_model: sklearn.ensemble.RandomForestRegressor, the trained Random Forest
-        model for predicting the personalisation score.
-        - label_encoder: sklearn.preprocessing.LabelEncoder, the fitted LabelEncoder 
-        used to transform the categorical variables.
-        """
-        # Preprocess the data
-        X, y, label_encoder = preprocess_data(df)
-        
-        # Split data into training and test sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-        
-        # Train the Random Forest Regressor
-        personalisation_model = RandomForestRegressor(n_estimators=100, random_state=42)
-        personalisation_model.fit(X_train, y_train)
-        
-        # Predict on the test set
-        y_pred = personalisation_model.predict(X_test)
-        
-        # Evaluate the model
-        mae = mean_absolute_error(y_test, y_pred)
-        rmse = mean_squared_error(y_test, y_pred, squared=False)
-        r2 = r2_score(y_test, y_pred)
-        
-        print(f"Model Evaluation:")
-        print(f"Mean Absolute Error (MAE): {mae}")
-        print(f"Root Mean Squared Error (RMSE): {rmse}")
-        print(f"R-squared (R²): {r2}")
-        
-        return personalisation_model, label_encoder
-
-    def predict_personalisation_score(new_campaign_df, personalisation_model, label_encoder):
-        """
-        Predicts the personalisation score for a new campaign using a trained model.
-
-        Returns:
-        - float: The predicted personalisation score for the new campaign.
-        """
-        # List of categorical features
-        categorical_features = ['campaign_type', 'campaign_language', 'target_audience']
-        
-        # Encode categorical features only (skip numerical columns like 'campaign_duration')
-        for col in categorical_features:
-            new_campaign_df[col] = label_encoder.fit_transform(new_campaign_df[col])
-
-        # Define the features to be used in the model 
-        X_new = new_campaign_df[['campaign_type', 'campaign_language', 'target_audience', 'campaign_duration']]
-
-        # Predict the personalization score using the trained model
-        predicted_personalisation_score = personalisation_model.predict(X_new)
-        
-        return predicted_personalisation_score[0]
 
     # Train and obtain the personalisation model
     personalisation_model, label_encoder = train_personalisation_model(merged_df)

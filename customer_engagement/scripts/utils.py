@@ -24,15 +24,13 @@ warnings.filterwarnings("ignore", category=UndefinedMetricWarning)
 # =========================
 
 # Get absolute path to the scripts folder
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Get project root (2 levels up)
-PROJECT_ROOT = os.path.abspath(f"{SCRIPT_DIR}/../../")
+project_root = os.getcwd()  
 
 # Folder path to processed data
-DATA_DIR = f"{PROJECT_ROOT}/data/processed"
+DATA_DIR = os.path.join(project_root, "data", "processed")
+
 # Folder path to output figures
-FIGURES_DIR = f"{PROJECT_ROOT}/customer_engagement/figures"
+FIGURES_DIR = os.path.join(project_root, "customer_engagement", "figures")
 
 # Ensure output folders exist
 os.makedirs(f"{FIGURES_DIR}/boxplots", exist_ok=True)
