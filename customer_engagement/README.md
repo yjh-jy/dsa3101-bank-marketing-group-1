@@ -15,9 +15,11 @@ customer_engagement/
 │   ├── feature_engineering.py        # Feature engineering logic
 │   └── business_rules.py             # Business rule flagging functions
 ├── figures/                          # Auto-generated plots (EDA output)
-└── engagement_summary.md             # Business interpretation and key findings
-├── README.md                         # Project overview and usage
-├── requirements.txt                  # Project dependencies overview
+│── Dockerfile                        # Docker container setup
+│── engagement_summary.md             # Business interpretation and key findings
+│── README.md                         # Module-specific documentation
+│── requirements.txt                  # Import required packages
+└── run_scripts.sh                    # Bash script to coordinate all the script runs
 ```
 
 ---

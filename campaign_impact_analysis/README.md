@@ -27,8 +27,10 @@ campaign_impact_analysis/
 ├── insights/
 │   ├── visuals/                    # Folder containing output visualizations
 │   └── campaign_impact_analysis.md # Key insights of the module
-├── requirements.txt                # Python dependencies
-└── README.md                       # Document for campaign impact analysis module
+│── Dockerfile                      # Docker container setup
+│── README.md                       # Module-specific documentation
+│── requirements.txt                # Import required packages
+└── run_scripts.sh                  # Bash script to coordinate all the script runs
 ```
 
 ## Methodology

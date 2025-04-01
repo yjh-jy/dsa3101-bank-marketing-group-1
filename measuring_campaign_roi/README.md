@@ -21,9 +21,10 @@ measuring_campaign_roi/
 │   ├── 3d_roi_scatterplots.png
 │   ├── boxplots_categorical_vs_targets.png
 │   └── lineplots_duration_vs_targets.png
-├── README.md                         # Project overview and usage
-├── measuring_campaign_roi.md         # Detailed documentation
-└── requirements.txt                  # Project dependencies
+│── Dockerfile                      # Docker container setup
+│── README.md                       # Module-specific documentation
+│── requirements.txt                # Import required packages
+└── run_scripts.sh                  # Bash script to coordinate all the script runs
 ```
 
 ---

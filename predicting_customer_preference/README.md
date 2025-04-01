@@ -7,21 +7,23 @@ This repository contains scripts and visualizations for predicting customer prod
 ```
 predicting_customer_preference/
 ├── scripts/
-│   ├── data_preprocessing.py     # Data cleaning and preprocessing
-│   ├── EDA.py                    # Exploratory data analysis and visualization
-│   ├── final_model.py            # Final model to predict customer preferences
-│   ├── load_data.py              # Data loading script
-│   ├── main.py                   # Main execution pipeline
-│   └── model_evaluation.py       # Model performance evaluation
-│   ├── model_training.py         # Model training and evaluation
-├── visuals/                      # Auto-generated plots (EDA output)
+│   ├── data_preprocessing.py           # Data cleaning and preprocessing
+│   ├── EDA.py                          # Exploratory data analysis and visualization
+│   ├── final_model.py                  # Final model to predict customer preferences
+│   ├── load_data.py                    # Data loading script
+│   ├── main.py                         # Main execution pipeline
+│   └── model_evaluation.py             # Model performance evaluation
+│   ├── model_training.py               # Model training and evaluation
+├── visuals/                            # Auto-generated plots (EDA output)
 │   ├── categorical_features.png
 │   ├── correlation_matrix.png
 │   ├── heatmaps_active_loans.png
 │   └── product_counts.png
-├── README.md                             # Project overview and usage
-├── requirements.txt                      # Project dependencies
-└── predicting_customer_preferences.md    # Detailed documentation
+│── Dockerfile                          # Docker container setup
+│── predicting_customer_preferences.md  # Detailed documentation
+│── README.md                           # Module-specific documentation
+│── requirements.txt                    # Import required packages
+└── run_scripts.sh                      # Bash script to coordinate all the script runs
 ```
 
 ## Key Features

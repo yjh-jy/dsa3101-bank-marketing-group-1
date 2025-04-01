@@ -18,8 +18,10 @@ cost_effectiveness_of_campaigns/
 │   ├── cost_benefit_ratio_heatmap.png
 │   ├── personalisation_potential_heatmap.png
 │   ├── personalisation_potential_scores.png
-├── README.md                         # Project overview and usage
-├── requirements.txt                  # Project dependencies
+│── Dockerfile                      # Docker container setup
+│── README.md                       # Module-specific documentation
+│── requirements.txt                # Import required packages
+└── run_scripts.sh                  # Bash script to coordinate all the script runs
 ```
 
 ---
