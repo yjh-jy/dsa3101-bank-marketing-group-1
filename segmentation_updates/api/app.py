@@ -1,32 +1,57 @@
-from flask import Flask, request, jsonify
+"""
+Real-Time Customer Segmentation Dashboard Entry Point
+
+This script sets up a Flask web server with a Dash frontend to visualize real-time customer segmentation data.
+It connects to a PostgreSQL database, retrieves customer segment data, and updates a live dashboard with
+a table and scatter plot visualization.
+
+Technologies Used:
+- Flask: REST API framework
+- SQLAlchemy: Database ORM for Flask
+- Dash: Data visualization framework
+- Plotly: Interactive visualizations
+- PostgreSQL: Relational database
+- Docker
+"""
+
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from dash import Dash, dcc, html, Input, Output, dash_table
 import plotly.express as px
 import pandas as pd
 import psycopg2
-import plotly.io as pio
-
-
 
 # Flask App Setup
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:dsa3101project@postgres:5433/postgres'
 db = SQLAlchemy(app)
 
+# Initialize Dash app, mounted onto the Flask server
 dash_app = Dash(__name__, server=app, routes_pathname_prefix='/dashboard/')
 
 def get_cluster_data():
-    """Fetch latest customer segment data from PostgreSQL."""
+    """
+    Fetches the latest customer segment data from the PostgreSQL database.
+    
+    Returns:
+        pd.DataFrame: DataFrame containing customer segmentation details.
+    """
     conn = psycopg2.connect("dbname=postgres user=postgres password=dsa3101project host=postgres")
-    query = "SELECT customer_id, balance, avg_transaction_amt, segment FROM customer_segments ORDER BY last_updated DESC;"
+    query = """
+        SELECT customer_id, balance, avg_transaction_amt, segment 
+        FROM customer_segments 
+        ORDER BY last_updated DESC;
+    """
     df = pd.read_sql(query, conn)
     conn.close()
     return df
 
-# Dash Layout
+# Dash Layout: Defines the dashboard structure
 dash_app.layout = html.Div([
-    html.H1("  Real-Time Customer Segmentation Dashboard"),
-    html.H2("  Live Customer Table (Sorted by last updated)"),
+    html.H1("Real-Time Customer Segmentation Dashboard"),
+    html.H2("Live Customer Table (Sorted by last updated)"),
+    
+    # Data Table for Customer Segments
     dash_table.DataTable(
         id='customer-table',
         columns=[
@@ -35,78 +60,67 @@ dash_app.layout = html.Div([
             {'name': 'Average Transaction Amount', 'id': 'avg_transaction_amt'},
             {'name': 'Cluster', 'id': 'segment'},
         ],
-        style_table={'width':'99%'},
-        style_header={
-            'backgroundColor': 'rgb(30, 30, 30)',
-            'color': 'white',
-            'fontWeight':'bold',
-            'fontSize': '18px'
-        },
-        style_data={
-            'backgroundColor': 'rgb(50, 50, 50)',
-            'color': 'white',
-            'border': '0px',
-            'fontSize': '16px'
-        },
-        style_data_conditional=[ 
-            {
-                'if': {'column_id': 'segment', 'filter_query': '{segment} = "High-value"'},
-                'backgroundColor': '#28A745',  
-                'color': 'white',
-            },
-            {
-                'if': {'column_id': 'segment', 'filter_query': '{segment} = "Budget-conscious"'},
-                'backgroundColor': '#007BFF',  
-                'color': 'white',
-            },
-            {
-                'if': {'column_id': 'segment', 'filter_query': '{segment} = "At risk / inactive customers"'},
-                'backgroundColor': '#FF4136', 
-                'color': 'white',
-            }
+        style_table={'width': '99%'},
+        style_header={'backgroundColor': 'rgb(30, 30, 30)', 'color': 'white', 'fontWeight': 'bold', 'fontSize': '18px'},
+        style_data={'backgroundColor': 'rgb(50, 50, 50)', 'color': 'white', 'border': '0px', 'fontSize': '16px'},
+        style_data_conditional=[
+            {'if': {'column_id': 'segment', 'filter_query': '{segment} = "High-value"'}, 'backgroundColor': '#28A745', 'color': 'white'},
+            {'if': {'column_id': 'segment', 'filter_query': '{segment} = "Budget-conscious"'}, 'backgroundColor': '#007BFF', 'color': 'white'},
+            {'if': {'column_id': 'segment', 'filter_query': '{segment} = "At risk / inactive customers"'}, 'backgroundColor': '#FF4136', 'color': 'white'},
         ],
         page_size=10,
     ),
-    dcc.Graph(id='cluster-graph-scatter', style={'height': '800px'},),
-    dcc.Interval(id='interval-component', interval=1000, n_intervals=0)  # Update every 1 sec
-    ],
-    style={'backgroundColor': '#111111', 'color': 'white', 'height': '100vh', 'width':'100vw', 'margin-top':'-20px',  'margin-left':'-9px'}
-    )
+    
+    # Scatter Plot for Customer Segments
+    dcc.Graph(id='cluster-graph-scatter', style={'height': '800px'}),
+    
+    # Auto-refresh interval
+    dcc.Interval(id='interval-component', interval=1000, n_intervals=0)
+], style={'backgroundColor': '#111111', 'color': 'white', 'height': '100vh', 'width': '100vw', 'margin-top': '-20px', 'margin-left': '-9px'})
 
 @dash_app.callback(
     Output('cluster-graph-scatter', 'figure'),
     Input('interval-component', 'n_intervals')
 )
 def update_graph(n):
+    """
+    Updates the scatter plot with the latest customer segmentation data.
+    
+    Args:
+        n (int): Number of intervals passed (unused, but required by Dash callback mechanism).
+    
+    Returns:
+        plotly.graph_objs.Figure: Updated scatter plot figure.
+    """
     color_map = {
-        "High-value": "#28A745",  # Cluster A color
-        "Budget-conscious": "#007BFF",  # Cluster B color
-        "At risk / inactive customers": "#FF4136",  # Cluster C color
+        "High-value": "#28A745",
+        "Budget-conscious": "#007BFF",
+        "At risk / inactive customers": "#FF4136",
     }
     df = get_cluster_data()
     fig = px.scatter(df, x='balance', y='avg_transaction_amt', color='segment', hover_data=['customer_id'], color_discrete_map=color_map)
     fig.layout.template = 'plotly_dark'
     fig.update_layout(
-    legend=dict(
-        orientation="h",     
-        yanchor="bottom",      
-        xanchor="center",
-        x= 0.5, 
-        y=1.05,               
-        font=dict(size=20),    
-    ),
-    legend_title=dict(text='Customer Segments'),  # Optional: Add a title to the legend
-)
+        legend=dict(orientation="h", yanchor="bottom", xanchor="center", x=0.5, y=1.05, font=dict(size=20)),
+        legend_title=dict(text='Customer Segments')
+    )
     return fig
-
 
 @dash_app.callback(
     Output('customer-table', 'data'),
     Input('interval-component', 'n_intervals')
 )
 def update_table(n):
+    """
+    Fetches the latest customer data and updates the table.
+    
+    Args:
+        n (int): Number of intervals passed (unused, but required by Dash callback mechanism).
+    
+    Returns:
+        list[dict]: List of dictionaries representing updated customer data.
+    """
     df = get_cluster_data()
-    # Convert the dataframe to a list of dictionaries for the table
     return df[['customer_id', 'balance', 'avg_transaction_amt', 'segment']].to_dict('records')
 
 if __name__ == '__main__':
