@@ -1,14 +1,15 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import os
-import zipfile
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.model_selection import StratifiedKFold, RandomizedSearchCV, train_test_split
+from sklearn.model_selection import StratifiedKFold, RandomizedSearchCV
 from sklearn.metrics import precision_recall_curve, precision_recall_fscore_support, accuracy_score
 from xgboost import XGBClassifier
+
 
 def train_and_evaluate_models(df, target_cols, feature_cols, numerical_features, categorical_features):
     """
@@ -18,15 +19,6 @@ def train_and_evaluate_models(df, target_cols, feature_cols, numerical_features,
     F1-score, and accuracy) for each target. It returns performance metrics and the best model,
     preprocessor, threshold, and averaged feature importances for each target.
     """
-    from sklearn.model_selection import StratifiedKFold, RandomizedSearchCV
-    from sklearn.compose import ColumnTransformer
-    from sklearn.pipeline import Pipeline
-    from sklearn.impute import SimpleImputer
-    from sklearn.preprocessing import StandardScaler, OneHotEncoder
-    from sklearn.metrics import precision_recall_curve, precision_recall_fscore_support, accuracy_score
-    from xgboost import XGBClassifier
-    import numpy as np
-    import pandas as pd
 
     param_grid = {
         'n_estimators': [50, 100, 500],
@@ -141,15 +133,31 @@ def train_and_evaluate_models(df, target_cols, feature_cols, numerical_features,
     return performance_df, best_models
 
 def get_feature_importance(best_models, top_n=5, plot=False):
-    import matplotlib.pyplot as plt
+    """
+    Extract and optionally plot the top N most important features for each target model.
 
+    Args:
+        best_models (dict): A dictionary where each key is a target name and the value is another 
+                            dictionary containing a DataFrame of feature importances under the key 
+                            'feature_importances'.
+        top_n (int, optional): Number of top features to extract per target. Defaults to 5.
+        plot (bool, optional): Whether to plot a bar chart of feature importances for each target. Defaults to False.
+
+    Returns:
+        dict: A dictionary mapping each target to its top N most important features in DataFrame format.
+    """
     feature_importance_dict = {}
+
+    # Loop through each target and its corresponding model components
     for target, components in best_models.items():
+        # Select the top N important features
         importance_df = components["feature_importances"].head(top_n)
         feature_importance_dict[target] = importance_df
 
         if plot:
+            # Plot a horizontal bar chart of the top N features
             plt.figure(figsize=(8, 5))
+            # Reverse order so the most important feature is on top
             plt.barh(importance_df["Feature"][::-1], importance_df["Importance"][::-1])
             plt.xlabel("Importance")
             plt.title(f"Top {top_n} Feature Importances for Target: {target}")
@@ -159,41 +167,38 @@ def get_feature_importance(best_models, top_n=5, plot=False):
     return feature_importance_dict
 
 
-def export_feature_importances_zipped(feature_importances_dict, project_root, folder, output_zip_name='feature_importances.zip'):
+import os
+import pandas as pd
+
+def export_feature_importances(feature_importances_dict, project_root, folder, output_csv_name='feature_importances.csv'):
     """
-    Exports each target's feature importances DataFrame as a CSV file, zips them together,
-    and outputs the zip file in the specified folder under the project root.
+    Merges all target-specific feature importances into a single CSV file, preserving the original order
+    of targets and sorting features by descending importance within each target.
 
     Args:
         feature_importances_dict (dict): Dictionary where each key is a target and each value is a 
                                          DataFrame of feature importances.
         project_root (str): The root directory of the project.
         folder (str): The subfolder under the project root where the output will be stored.
-        output_zip_name (str): Name of the output zip file.
+        output_csv_name (str): Name of the output CSV file.
     """
-    # Construct the full output directory.
+    # Construct the full output directory
     output_dir = os.path.join(project_root, folder)
     os.makedirs(output_dir, exist_ok=True)
-    
-    csv_files = []
-    
-    # Save each DataFrame as a CSV file in the output directory.
-    for target, importance_df in feature_importances_dict.items():
-        csv_filename = os.path.join(output_dir, f"feature_importances_{target}.csv")
-        importance_df.to_csv(csv_filename, index=False)
-        csv_files.append(csv_filename)
-    
-    # Define the full path for the zip file.
-    output_zip_path = os.path.join(output_dir, output_zip_name)
-    
-    # Create a zip archive and add each CSV file.
-    with zipfile.ZipFile(output_zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zipf:
-        for csv_filename in csv_files:
-            # Store only the file name in the zip.
-            zipf.write(csv_filename, arcname=os.path.basename(csv_filename))
-    
-    # Remove the individual CSV files after zipping.
-    for csv_filename in csv_files:
-        os.remove(csv_filename)
-    
-    print(f"Exported feature importances to feature_importances.zip")
+
+    combined_dfs = []
+
+    # Go through each target in the order they appear and sort by importance descending
+    for target, df in feature_importances_dict.items():
+        df_sorted = df.sort_values(by="Importance", ascending=False).copy()
+        df_sorted.insert(0, "Target", target)  # Add 'Target' as the first column
+        combined_dfs.append(df_sorted)
+
+    # Combine all into one DataFrame
+    combined_df = pd.concat(combined_dfs, ignore_index=True)
+
+    # Save to CSV
+    output_csv_path = os.path.join(output_dir, output_csv_name)
+    combined_df.to_csv(output_csv_path, index=False)
+
+    print(f"Exported grouped feature importances to feature_importances.csv")

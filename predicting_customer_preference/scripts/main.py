@@ -9,7 +9,7 @@ visuals_path = os.path.join(PROJECT_ROOT, "predicting_customer_preference", "vis
 from load_data import load_data
 from data_preprocessing import preprocess_data, cap_outliers, log_transform
 from EDA import plot_heatmaps, plot_categorical_features, plot_correlation_matrix, plot_product_counts, drop_unwanted_features
-from model_training import train_and_evaluate_models, get_feature_importance, export_feature_importances_zipped
+from model_training import train_and_evaluate_models, get_feature_importance, export_feature_importances
 from final_model import predict_with_best_model
 from model_evaluation import evaluate_model_on_test
 
@@ -95,7 +95,7 @@ def main():
     print("Performance Metrics:")
     print(train_performance_df)
     print(feature_importances)
-    export_feature_importances_zipped(feature_importances, PROJECT_ROOT, "predicting_customer_preference")
+    export_feature_importances(feature_importances, PROJECT_ROOT, "predicting_customer_preference")
         
     # ---------------------------
     # 6. Model Prediction on Test Set
