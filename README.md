@@ -68,7 +68,7 @@ Ensure you have the following installed:
 
    This will build and start the containers, but it **will not automatically execute any scripts.**
 
-4. **Manually run the scripts**: After the containers are up and running, navigate to each module directory and execute the respective bash script:
+4. **Manually run the scripts in Bash terminal**: After the containers are up and running, navigate to each module directory and execute the respective bash script:
 
    ```bash
    cd <module_directory>
@@ -80,6 +80,8 @@ Ensure you have the following installed:
    ```bash
    ./<module_directory>/run_scripts.sh
    ```
+
+DISCLAIMER: Do not use a virtual environment or your global environment to run this project, because the file paths are prioritized to be compatible with Docker container environments thus running some scripts with your own environments might produce unexpected results. In general, using `python` or `python3` to run the scripts is NOT guranteed to work.
 
 ### Troubleshooting
 
