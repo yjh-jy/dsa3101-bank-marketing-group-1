@@ -1,6 +1,6 @@
 # Campaign Optimization
 
-This documentation provides step-by-step instructions for setting up a real-time customer segmentation model locally using Kafka, PostgreSQL, and KMeans++, with simulated live transaction data for dynamic clustering and analysis.
+This documentation provides step-by-step instructions for setting up a campaign optimization model locally using Kafka, PostgreSQL, and Thmompson-Sampling.
 
 ## Prerequisites
 
@@ -70,12 +70,14 @@ Here's the revised section with the Dash frontend integration:
     run docker exec real_time_data python campaign_suggestion.py 
    ```
    
-   run docker exec real_time_data python campaign_suggestion.py  is the main script to test which campaigns to recommend for a particular segment group. All you need to do is to adjust the global variables (INCOME_LEVEL, AGE_RANGE, MEDIA_TYPE)
+   run docker exec real_time_data python campaign_suggestion.py 
+   
+   campaign_suggestion.py  is the main script to test which campaigns to recommend for a particular segment group. All you need to do is to adjust the global variables (INCOME_LEVEL, AGE_RANGE, MEDIA_TYPE)
  
 
 ### 3. PostgreSQL Integration  
 
-This project integrates **PostgreSQL** as the primary database for handling customer segments and real-time transactions. The setup includes efficient data ingestion, batch processing, and automated updates using triggers and stored functions.  
+This project integrates **PostgreSQL** as the primary database for handling engagements.
 
 The PostgresSQL db can be setup with the provided SQL script (`init_db.sql`).
 
@@ -83,8 +85,8 @@ The PostgresSQL db can be setup with the provided SQL script (`init_db.sql`).
 
 #### **Tables**  
 
-##### **`live_transaction_data`**  
-Stores incoming transactions before aggregating them into `customer_segments`.  
+##### **`engagements`**  
+Stores incoming engagements to be utilized for measuring campaign optimization metrics.  
 
 | Column Name        | Data Type   | Description |
 |-------------------|------------|-------------|
