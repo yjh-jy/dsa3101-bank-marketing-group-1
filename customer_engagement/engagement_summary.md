@@ -22,6 +22,11 @@ This section uses `customer_engagement.py`, which aggregates user data to custom
 | `total_logins_per_week` | Weekly digital login volume |
 | `total_transaction_amt` / `transaction_count` | Overall transaction activity metrics |
 
+Note:
+- The `is_high_value_user` flag was defined using the median cutoff of login activity and transaction volume. Median was chosen over mean to reduce the influence of extreme values and to segment users into two balanced groups for operational simplicity.
+- `transaction_frequency` was normalised by tenure to account for differing customer lifespans and enable fairer comparison across new and long-term customers.
+- For the `is_recently_active` flag, a 30-day threshold was selected to align with typical business reporting cycles (monthly engagement tracking) and balances recent activity with adequate sample size. 
+
 ## 2. Key Insights by Plot Type
 
 ### A. Boxplots (Continuous Features by Engagement)
@@ -80,7 +85,7 @@ Specifically, the following were applied:
 - Logistic Regression: to examine the relative contribution of each feature to engagement likelihood.
 - Decision Tree Feature Importance: to assess which variables best split engaged vs non-engaged customers.
 
-This multivariate exploration provides an additional layer of insight beyond individual variable associations, supporting the identification of meaningful behavioural patterns.
+Logistic regression and shallow decision trees (max depth = 4) were selected for their interpretability and simplicity, to identify key behavioural drivers of engagement without overfitting. This multivariate exploration provides an additional layer of insight beyond individual variable associations, supporting the identification of meaningful behavioural patterns.
 
 ### A. Logistic Regression Results
 A logistic regression model was fitted using numeric and boolean customer-level features (excluding the target variable). This model aimed not to provide a reliable prediction of engagement, but to provide an initial indication of which attributes, when considered together, are associated with higher engagement.
