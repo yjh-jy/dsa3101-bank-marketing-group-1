@@ -70,8 +70,8 @@ After testing out several models, Linear Regression seemed to perform the best. 
 
 | Metric         | Value | Interpretation |
 |----------------|-------|----------------|
-| **R²**         | 0.85  | Model explains ~85% of the variance in acquisition cost |
-| **RMSE**       | $26   | Predictions deviate by ~$26 from actual values on average |
+| **R²**         | 0.8  | Model explains ~80% of the variance in acquisition cost |
+| **RMSE**       | 0.4   | Predictions deviate by 0.4 from actual values on average |
 
 > The model is generally reliable and performs well, even when generalized to unseen data.
 
@@ -81,9 +81,9 @@ After testing out several models, Linear Regression seemed to perform the best. 
 
 | Language   | Cost Impact vs English | Insight |
 |------------|------------------------|---------|
-| **German** | +37%                   | High localization and media targeting costs in regions where the Portugese bank has limited presence |
-| **Mandarin** | +28%                 | Similar reasons as German; reflects limited internal resources |
-| **French** | +18%                   | |
+| **Mandarn** | +33%                  | High localization and media targeting costs in regions where the Portugese bank has limited presence |
+| **German** | +31%                   | Similar reasons as Mandarin; reflects limited internal resources |
+| **French** | +11%                   | |
 | **Spanish** | −16%                  | Likely due to geographical proximity and linguistic similarity with Portuguese, reducing the need for external vendors |
 
 > **Recommendation**: Prioritize **English** and **Spanish** campaigns for cost efficiency. Limit high-cost campaigns, such as those in **German** and **Mandarin**, unless supported by strong expected conversions.
@@ -94,9 +94,9 @@ After testing out several models, Linear Regression seemed to perform the best. 
 
 | Type                 | Cost Reduction vs Affiliate Marketing |
 |----------------------|----------------------------------------|
-| **Email Marketing**  | −94% |
-| **Display Advertising** | −82% |
-| **Telemarketing** | −63% |
+| **Email Marketing**  | −95% |
+| **Display Advertising** | −83% |
+| **Telemarketing** | −60% |
 | **SEO** | −33% |
 
 > **Recommendation**: For cost-cutting, banks should focus on **email marketing** and **display advertising** campaigns, which scale more easily to larger audiences without incurring significant additional costs.
@@ -123,8 +123,8 @@ Similar to the acquisition cost model, Linear Regression performed best for pred
 
 | Metric         | Value      | Interpretation |
 |----------------|------------|----------------|
-| **R²**         | 0.82       | Model explains ~82% of the variance in conversion rate |
-| **RMSE**       | 2.1%       | Predictions deviate by ~2.1 percentage points on average |
+| **R²**         | 0.77       | Model explains ~82% of the variance in conversion rate |
+| **RMSE**       | 2.0%       | Predictions deviate by ~2.0 percentage points on average |
 
 > Strong predictive ability with consistent performance
 
@@ -136,10 +136,10 @@ Similar to the acquisition cost model, Linear Regression performed best for pred
 
 | Campaign Type        | Conversion Rate Change vs Affiliate Marketing |
 |----------------------|-----------------------------------------------|
-| **SEO**              | −1.6 percentage points                        |
+| **SEO**              | −2.1 percentage points                        |
 | **Telemarketing**    | −5.2 percentage points                        |
-| **Display Advertising** | −8.4 percentage points                     |
-| **Email Marketing**  | −11.9 percentage points                       |
+| **Display Advertising** | −8.7 percentage points                     |
+| **Email Marketing**  | −12.1 percentage points                       |
 
 > **Insights**:
 - **Affiliate Marketing** yields the highest conversion rates; often driven by influencers, so they offer a more personalized and relatable experience that builds trust
@@ -155,10 +155,10 @@ Similar to the acquisition cost model, Linear Regression performed best for pred
 
 | Age Group     | Conversion Rate Change vs Age 18–24 |
 |---------------|--------------------------------------|
-| **25-34**     | −1.0 percentage points               |
-| **35-44**     | −1.5 percentage points               |
-| **45–54**     | −3.2 percentage points               |
-| **55+**       | −4.1 percentage points               |
+| **25-34**     | −0.5 percentage points               |
+| **35-44**     | −1.1 percentage points               |
+| **45–54**     | −3.0 percentage points               |
+| **55+**       | −2.9 percentage points               |
 
 > Older age groups show reduced conversion, possibly due to lower digital engagement or a preference for in-person banking among older customers
 
@@ -180,8 +180,8 @@ We analyzed the distributions of **conversion rate** and **acquisition cost** to
 
 | Metric         | Value  | Interpretation |
 |------------------|--------|----------------|
-| **R²**           | 0.70   | Model explains ~70% of the variance in ROI |
-| **RMSE**         | 0.52   |  Predictions deviate by ~0.5 percentage points on average |
+| **R²**           | 0.73   | Model explains ~73% of the variance in ROI |
+| **RMSE**         | 0.44   |  Predictions deviate by ~0.44 percentage points on average |
 
 > Strong model fit — ROI can be reliably predicted using conversion rate and acquisition cost.
 
@@ -191,8 +191,8 @@ We analyzed the distributions of **conversion rate** and **acquisition cost** to
 
 | Feature          | Coefficient | Insight |
 |------------------|-------------|---------|
-| **Conversion Rate** | +0.86      | Strong positive impact — increases in conversion rate significantly improve ROI |
-| **Acquisition Cost** | −0.053    | Mild negative impact — cost slightly reduces ROI |
+| **Conversion Rate** | +0.84     | Strong positive impact — increases in conversion rate significantly improve ROI |
+| **Acquisition Cost** | −0.03    | Slight negative impact — higher costs reduces ROI marginally |
 
 > **Key Insight**: 
 - While minimizing cost is helpful, increasing conversion rate has a far greater effect on ROI and should be prioritized.

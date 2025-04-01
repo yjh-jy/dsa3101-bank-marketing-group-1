@@ -9,6 +9,15 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy import stats
 from scipy.stats import chi2_contingency
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import classification_report
+import warnings
+from sklearn.exceptions import UndefinedMetricWarning
+
+# Suppress precision/recall warnings for imbalanced classes
+warnings.filterwarnings("ignore", category=UndefinedMetricWarning)
 
 # =========================
 # Global Constants
@@ -25,12 +34,12 @@ DATA_DIR = f"{PROJECT_ROOT}/data/processed"
 # Folder path to output figures
 FIGURES_DIR = f"{PROJECT_ROOT}/customer_engagement/figures"
 
-
 # Ensure output folders exist
 os.makedirs(f"{FIGURES_DIR}/boxplots", exist_ok=True)
 os.makedirs(f"{FIGURES_DIR}/barplots", exist_ok=True)
 os.makedirs(f"{FIGURES_DIR}/violinplots", exist_ok=True)
 os.makedirs(f"{FIGURES_DIR}/histograms", exist_ok=True)
+os.makedirs(f"{FIGURES_DIR}/multivariate", exist_ok=True)
 
 # =========================
 # Data Quality Functions
@@ -402,3 +411,54 @@ def get_violin_plots_by_engagement_bin(df, target_col):
         plt.close()
     # Remove bin column after plotting
     df.drop(columns="bin", inplace=True)
+
+def run_multivariate_exploration(df, target_col, feature_cols):
+    """
+    Performs exploratory multivariate analysis using logistic regression and decision tree.
+
+    Args:
+        df (dataframe): Cleaned customer-level dataframe.
+        target_col (str): Column name of engagement binary target.
+        feature_cols (list): List of feature column names to use.
+
+    Returns:
+        None
+    """
+    # Split data
+    X = df[feature_cols]
+    y = df[target_col]
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+    # Logistic Regression
+    logreg = LogisticRegression(max_iter=1000, random_state=42)
+    logreg.fit(X_train, y_train)
+    print("\nLogistic Regression Classification Report:")
+    print(classification_report(y_test, logreg.predict(X_test)))
+
+    coef_df = pd.DataFrame({
+        "Feature": feature_cols,
+        "Coefficient": logreg.coef_[0]
+    }).sort_values(by="Coefficient", key=abs, ascending=False)
+
+    print("\nTop logistic regression coefficients:")
+    print(coef_df.head())
+
+    # Decision Tree Feature Importance
+    tree = DecisionTreeClassifier(max_depth=4, random_state=42)
+    tree.fit(X_train, y_train)
+    importances = pd.DataFrame({
+        "Feature": feature_cols,
+        "Importance": tree.feature_importances_
+    }).sort_values(by="Importance", ascending=False)
+
+    print("\nDecision Tree Feature Importances:")
+    print(importances.head())
+
+    # Plot feature importances
+    plt.figure(figsize=(10, 5))
+    sns.barplot(x="Importance", y="Feature", data=importances.head(10))
+    plt.title("Top Decision Tree Feature Importances")
+    plt.tight_layout()
+    plt.savefig(f"{FIGURES_DIR}/multivariate/feature_importances.png")
+    plt.close()

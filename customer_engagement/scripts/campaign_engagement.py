@@ -8,7 +8,7 @@ import pandas as pd
 import utils as ut
 from feature_engineering import prepare_campaign_features
 
-# ===== Global Constants =====
+# Global constants
 target_col = "engagement_rate"
 
 def main():

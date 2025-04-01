@@ -14,9 +14,9 @@ from sklearn.pipeline import Pipeline
 
 
 # Load the necessary datasets
-campaigns = pd.read_csv('../../data/processed/campaigns.csv')
-customers = pd.read_csv('../../data/processed/customer.csv')
-engagements = pd.read_csv('../../data/processed/engagement_details.csv')
+campaigns = pd.read_csv('data/processed/campaigns.csv')
+customers = pd.read_csv('data/processed/customer.csv')
+engagements = pd.read_csv('data/processed/engagement_details.csv')
 
 def main():
     # Merge the datasets
@@ -562,5 +562,5 @@ def main():
     plt.title('Correlation Matrix of Important Customer Features')
     # plt.show()
 
-if name == 'main':
+if __name__ == 'main':
     main()

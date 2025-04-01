@@ -1,4 +1,9 @@
-import pandas as pd
+# Customer-Level EDA
+'''
+This script analyses customer attributes in relation to engagement outcomes,
+focusing on behavioural, financial, and digital activity indicators that may drive customer responsiveness.
+'''
+
 import utils as ut
 from feature_engineering import (create_customer_engagement_flag,
                                  summarize_transactions,
@@ -7,7 +12,7 @@ from feature_engineering import (create_customer_engagement_flag,
                                  )
 from business_rules import define_high_value_user, is_recently_active, is_multichannel_user
 
-# ===== Global Constants =====
+# Global constants
 target_col = "has_engaged"
 
 def main():
@@ -83,8 +88,18 @@ def main():
     ut.get_barplot(df, target_col)
     print("\nChi-Square Test Results:\n", ut.get_chi_square(df, target_col))
 
-    #~54% of customers have never transacted
-    #This may include inactive, new, or digitally engaged but not monetized customers
+    # Multivariate Exploration
+    
+    # Define the feature columns tobe  included
+    multivariate_features = [col for col in df.columns 
+                             if col != target_col and 
+                             df[col].dtype in ["int64", "float64", "int32", "bool"]]
+
+    # Run multivariate exploratory model
+    ut.run_multivariate_exploration(df,
+                                    target_col='has_engaged',
+                                    feature_cols=multivariate_features
+                                    )
 
 if __name__ == "__main__":
     main()
