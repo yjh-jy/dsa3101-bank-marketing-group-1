@@ -64,32 +64,13 @@ customer_retention/
 
 ## Usage
 
-### Prerequisites
+Once the Docker environment is set up, you can run all analysis scripts with:
+```
+./run_scripts.sh
+```
 
-- Python 3.10.6 or later
-- Required packages listed in `requirements.txt`
+The plots will be saved in 'visuals/' and the CSV output file will be generated
 
-### Running the Script
-
-1. **Clone the repository:**
-    ```bash
-    git clone <repository-url>
-    cd customer_retention/
-    ```
-
-2. **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. **Execute the script:**
-    ```bash
-    python scripts/customer_retention_strategies.py
-    ```
-
-4. **Output:**
-    - Visuals displayed for class distribution and feature impact.
-    - `churn_warning_report.csv` generated in the working directory with churn predictions.
 
 ## Strategic Impact
 
