@@ -170,7 +170,7 @@ def get_feature_importance(best_models, top_n=5, plot=False):
 import os
 import pandas as pd
 
-def export_feature_importances(feature_importances_dict, project_root, folder, output_csv_name='feature_importances.csv'):
+def export_feature_importances(feature_importances_dict, project_root, folder, output_csv_name='feature_importances_rerun.csv'):
     """
     Merges all target-specific feature importances into a single CSV file, preserving the original order
     of targets and sorting features by descending importance within each target.
@@ -201,4 +201,4 @@ def export_feature_importances(feature_importances_dict, project_root, folder, o
     output_csv_path = os.path.join(output_dir, output_csv_name)
     combined_df.to_csv(output_csv_path, index=False)
 
-    print(f"Exported grouped feature importances to feature_importances.csv")
+    print(f"Exported grouped feature importances to feature_importances_rerun.csv")
