@@ -115,8 +115,7 @@ After selecting XGBoost as the final model, we analyzed feature importance to un
 | Feature            | Importance     | Insight                                                                 |
 |--------------------|----------------|-------------------------------------------------------------------------|
 | Segment - High-value | 9%         | High-value customers are significantly more likely to invest.|
-| Job - Admin        | 4%          | Admins may have more stable income and financial planning behavior.
-      |
+| Job - Admin        | 4%          | Admins may have more stable income and financial planning behavior.|
 | Income  | 4%          | Higher income enables greater capacity for investment.  |
  >Key Takeaways:
 - Segment - High-value is the most influential predictor of investment product ownership.
@@ -158,7 +157,7 @@ After selecting XGBoost as the final model, we analyzed feature importance to un
 |--------------------------|----------------|-------------------------------------------------------------------------|
 | Dependents               | 22%         | Customers with more dependents are significantly more inclined to own insurance.      |
 | Segment_High-value       | 10%          | High-value customers are more likely to secure insurance products. |
-| Segment_Budget-conscious | 4%          | Budget-conscious customers also show moderate interest in insurance.     |
+| Job - Admin | 4%          | Admin workers show a moderate tendency to own insurance products.   |
 > Key Takeaways:
 - Dependents is the strongest predictor, far ahead of others.
 - Customer segment again plays a key role, especially for high-value customers.
