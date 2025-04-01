@@ -68,7 +68,7 @@ Ensure you have the following installed:
 
    This will build and start the containers, but it **will not automatically execute any scripts.**
 
-4. **Manually run the scripts**: After the containers are up and running, navigate to each module directory and execute the respective bash script:
+4. **Manually run the scripts in Bash terminal**: After the containers are up and running, navigate to each module directory and execute the respective bash script:
 
    ```bash
    cd <module_directory>
