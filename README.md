@@ -1,11 +1,10 @@
 # Personalised Campaigns for Bank Marketing
-<p align="center">
-  <img src="https://img.shields.io/badge/status-complete-brightgreen">
-  <img src="https://img.shields.io/badge/license-Academic-lightgrey">
-  <img src="https://img.shields.io/badge/contributions-welcome-blue">
-  <img src="https://img.shields.io/badge/python-3.10.6-lightblue">
-  <img src="https://img.shields.io/badge/docker-ready-lightblue">
-</p>
+![Status](https://img.shields.io/badge/status-complete-brightgreen)
+![License](https://img.shields.io/badge/license-Academic-lightgrey)
+![Contributions](https://img.shields.io/badge/contributions-welcome-blue)
+![Python](https://img.shields.io/badge/python-3.10.6-lightblue)
+![Docker](https://img.shields.io/badge/docker-ready-lightblue)
+
 ## Project Overview
 
 This project, developed as part of the DSA3101 AY24/25 Semester 2 curriculum, focuses on analyzing bank marketing strategies to enhance customer engagement and optimize campaign effectiveness. The primary objective is to leverage data analytics and machine learning to design personalized marketing campaigns that helpthe bank by segmenting customers based on behaviors and preferences, predicting future customer needs, and optimizing marketing campaigns in real time to boost engagement and ROI.
