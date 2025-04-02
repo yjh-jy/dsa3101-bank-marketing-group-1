@@ -97,9 +97,10 @@ To observe the change, run the following command to regenerate the suggestions:
 ```bash
 docker exec -it campaign_optimization python campaign_suggestion.py income_level age_range media_type
 
-e.g. docker exec -it campaign_optimization python campaign_suggestion.py "High Income" "25-34" "Google Ads"
+e.g. docker exec -it campaign_optimization python campaign_suggestion.py "Medium Income" "25-34" "Google Ads"
+e.g. docker exec -it campaign_optimization python campaign_suggestion.py "Medium Income" "18-24" "Email"   
 ```
-
+Note: Initially some segments are not available due to the lack of data to back up the prior distribution. Once the generated synthetic-data for that particular segment is available after 5-10 minutes, it should output the campaign.
 #### Parameters:
 
 INCOME_LEVEL: Choose from ['Low Income', 'Medium Income', 'High Income']
@@ -128,3 +129,12 @@ If you encounter any issues, try the following steps:
    docker-compose logs -f zookeeper
    docker-compose logs -f postgres
    ```
+3.
+Traceback (most recent call last):
+  File "/app/campaign_suggestion.py", line 52, in <module>
+    recommend_campaign(args.income_level, args.age_range, args.media_type)
+  File "/app/campaign_suggestion.py", line 37, in recommend_campaign
+    raise ValueError("No valid campaign found for the given criteria.")
+ValueError: No valid campaign found for the given criteria.
+
+This means that that particular segment does not have a past engagement history yet. The synthetic data-generation will eventually generate engagements for that particular segment after 5-10 minutes and give out a relevant optimal campaign.
