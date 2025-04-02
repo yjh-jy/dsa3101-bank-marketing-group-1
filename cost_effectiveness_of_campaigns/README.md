@@ -10,8 +10,6 @@ This module analyses how to balance personalisation with cost-effectiveness in m
 
 ```
 cost_effectiveness_of_campaigns/
-├── markdown/                         
-│   ├── cost_effectiveness.md         # Detailed documentation
 ├── scripts/
 │   ├── cost_effectiveness.py         # Cost-benefit analysis
 ├── visuals/                          # Auto-generated plots
@@ -20,6 +18,7 @@ cost_effectiveness_of_campaigns/
 │   ├── personalisation_potential_scores.png
 │── Dockerfile                       # Docker container setup
 │── README.md                        # Module-specific documentation
+│── cost_effectiveness.md            # Detailed documentation
 │── requirements.txt                 # Import required packages
 └── run_scripts.sh                   # Bash script to coordinate all the script runs
 ```
