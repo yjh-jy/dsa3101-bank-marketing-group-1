@@ -3,6 +3,12 @@ import numpy as np
 import os
 import psycopg2
 
+"""
+Script helps to digest initial dataset from csv into Engagements table in PostgreSQL
+"""
+
+
+
 # Kafka and database configurations
 KAFKA_BROKER = os.getenv('KAFKA_BROKER', 'kafka:9092')
 DB_NAME = "postgres"
@@ -32,7 +38,6 @@ customers["income_category"] = customers["income"].apply(categorize_income)
 engagements = engagements.merge(campaigns, on="campaign_id")
 engagements = engagements.merge(customers, on='customer_id') 
 engagements = engagements[["campaign_id", "income_category", "target_audience", "channel_used", "has_engaged"]]
-
 
 
 # Connect to PostgreSQL
