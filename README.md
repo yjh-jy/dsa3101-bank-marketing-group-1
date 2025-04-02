@@ -81,7 +81,7 @@ Ensure you have the following installed:
    ./<module_directory>/run_scripts.sh
    ```
 
-DISCLAIMER: Do not use a virtual environment or your global environment to run this project, because the file paths are prioritized to be compatible with Docker container environments thus running some scripts with your own environments might produce unexpected results. In general, using `python` or `python3` to run the scripts is NOT guranteed to work.
+DISCLAIMER: Do not use a virtual environment or your global environment to run this project, because the file paths are prioritized to be compatible with Docker container environments thus running some scripts with your own environments might produce different results. In general, using `python` or `python3` to run the scripts is NOT guranteed to work.
 
 ### Troubleshooting
 
