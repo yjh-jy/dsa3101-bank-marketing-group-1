@@ -103,7 +103,7 @@ def main():
     # Use the best models to generate predictions on the held-out test set.
     predictions_df = predict_with_best_model(df_test, feature_cols, best_models)
     predictions_df.to_csv(os.path.join(PROJECT_ROOT, "results", "product_recommendations_rerun.csv"), index=False)
-    print("Predictions saved to product_recommendations.csv")
+    print("Predictions saved to product_recommendations_rerun.csv")
 
     test_performance_df = evaluate_model_on_test(predictions_df, df_test, target_cols)
     print(test_performance_df)

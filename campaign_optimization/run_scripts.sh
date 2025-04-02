@@ -15,6 +15,6 @@ echo "Starting campaign_optimization.py ..."
 docker exec -d campaign_optimization python3 scripts/campaign_optimization.py
 
 echo "Starting campaign_suggestion.py ..."
-docker exec -it campaign_optimization python campaign_suggestion.py
+docker exec -it campaign_optimization python campaign_suggestion.py "High Income" "25-34" "Google Ads"
 
 echo "Analysis ended"
