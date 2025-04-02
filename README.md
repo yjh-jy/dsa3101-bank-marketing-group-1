@@ -102,8 +102,7 @@ Ensure you have the following installed:
    ```bash
    ./<module_directory>/run_scripts.sh
    ```
-
-DISCLAIMER: Do not use a virtual environment or your global environment to run this project, because the file paths are prioritized to be compatible with Docker container environments thus running some scripts with your own environments might produce unexpected results. In general, using `python` or `python3` to run the scripts is NOT guranteed to work.
+   > **DISCLAIMER**: Do not use a virtual environment or your global environment to run this project, because the file paths are prioritized to be compatible with Docker container environments thus running some scripts with your own environments might produce unexpected results. In general, using `python` or `python3` to run the scripts is NOT guranteed to work.
 
 ### Troubleshooting
 
@@ -120,8 +119,8 @@ Run the following to give permissions recursively to all `.sh` scripts in this p
 Each sub-directory contains specific analyses related to bank marketing strategies. To utilize the analyses:
 
 1. Navigate to the relevant directory.
-2. Open the Jupyter Notebook files (`.ipynb`), Python scripts (`.py`), or Markdown files (`.md`) to explore the analyses and insights.
-3. Follow any instructions provided within the notebooks, scripts, or markdown files to replicate the analyses or input new data.
+2. Open the Python scripts (`.py`), or Markdown files (`.md`) to explore the analyses and insights.
+3. Follow any instructions provided within the scripts, or markdown files to replicate the analyses or input new data.
 
 ## Contributing
 
