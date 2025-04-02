@@ -4,6 +4,23 @@
 
 This project, developed as part of the DSA3101 AY24/25 Semester 2 curriculum, focuses on analyzing bank marketing strategies to enhance customer engagement and optimize campaign effectiveness. The primary objective is to leverage data analytics and machine learning to design personalized marketing campaigns that helpthe bank by segmenting customers based on behaviors and preferences, predicting future customer needs, and optimizing marketing campaigns in real time to boost engagement and ROI.
 
+## Group Members
+
+> **Note:** Some members may have multiple GitHub accounts used across commits. The following table maps the GitHub IDs of the group members to their respective names for easy identification and tracking of contributions:
+
+| Name     | GitHub ID(s)                         |
+|----------|--------------------------------------|
+| Ashley   | ashleytoh                            |
+| Bao      | baorng                               |
+| Jas      | jaslaii                              |
+| Jolene   | jolene-ho, jxlenehoxe, shuangegg     |
+| Jun Han  | yjh-jy                               |
+| Quan     | Q                                    |
+| Rena     | txrrena                              |
+| Roderich | rooderich                            |
+| Sybella  | sybe11a                              |
+| Teresa   | teresaliau, Teresa-liau, Teresa liau |
+
 ## Repository Structure
 
 The repository is organized as follows (this is a rough structure, and each module may contain additional files such as data, notebooks, or documentation):
