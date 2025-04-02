@@ -103,7 +103,7 @@ All tables were merged on `customer_id` to form a unified DataFrame for analysis
 ## Outlier Treatment & Scaling
 
 ### Outlier Visualization (Before Winsorization)
-![Boxplot Before Winsorization](../visuals/boxplots_for_outliers.png)
+![Boxplot Before Winsorization](visuals/boxplots_for_outliers.png)
 
 To prepare features for clustering, we first applied **winsorization** to cap extreme outliers.
 
@@ -123,7 +123,7 @@ This preprocessing ensures fair feature contribution to the clustering algorithm
 - **StandardScaler** used on features like recency, digital engagement, and products owned which were more normally distributed.
 
 ### Outlier Visualization (After Winsorization)
-![Boxplot After Winsorization](../visuals/post_winsorize_boxplots_for_outliers.png)
+![Boxplot After Winsorization](visuals/post_winsorize_boxplots_for_outliers.png)
 
 ---
 
