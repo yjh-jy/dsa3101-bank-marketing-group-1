@@ -11,6 +11,7 @@ import os
 pd.set_option('display.max_columns', None)
 # Set random seed for reproducibility
 np.random.seed(888)
+project_root = os.getcwd()
 
 os.makedirs("data/visuals", exist_ok=True)
 

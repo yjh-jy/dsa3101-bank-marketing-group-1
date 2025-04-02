@@ -9,15 +9,16 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
-os.makedirs("data/visuals", exist_ok=True)
+project_root = os.getcwd()
+os.makedirs(f"{project_root}/visuals", exist_ok=True)
 
 
-bank_df = pd.read_csv("data/raw/bank_full.csv", delimiter=";")
-loan_pred_df = pd.read_csv("data/raw/loan_prediction_full.csv")
-churners_df = pd.read_csv("data/raw/bank_churn.csv")
-nps_df = pd.read_csv("data/raw/NPSTimeSeries.csv")
-ecommerce_df = pd.read_csv("data/raw/ecommerce_customer_data.csv")
-loan_ir_df = pd.read_csv("data/raw/loan_interest.csv")
+bank_df = pd.read_csv(f"{project_root}/raw/bank_full.csv", delimiter=";")
+loan_pred_df = pd.read_csv(f"{project_root}/raw/loan_prediction_full.csv")
+churners_df = pd.read_csv(f"{project_root}/raw/bank_churn.csv")
+nps_df = pd.read_csv(f"{project_root}/raw/NPStimeseries.csv")
+ecommerce_df = pd.read_csv(f"{project_root}/raw/ecommerce_customer_data.csv")
+loan_ir_df = pd.read_csv(f"{project_root}/raw/loan_interest.csv")
 fake = Faker()
 random.seed(3101)
 
