@@ -25,7 +25,7 @@ customer_segmentation/
 ├── visuals/                           # Output boxplots auto-saved here
 │   └── boxplots_for_outliers.png
 │   └── post_winsorize_boxplots_for_outliers.png
-│── customer_segments.csv              # Input data file
+│── customer_segments.csv              # Output data file
 │── Dockerfile                         # Docker container setup
 │── README.md                          # Module-specific documentation
 │── requirements.txt                   # Import required packages
@@ -40,7 +40,7 @@ customer_segmentation/
 |------|-------------|
 | `customer_segmentation/scripts/segmentation.py` | **Main execution script.** Calls the functions from `utils.py` to perform customer segmentation, handle missing values, outlier treatment, clustering, and labeling. Also generates boxplots and outputs a processed CSV file with customer segments (`customer_segments_rerun.csv`). |
 | `customer_segmentation/scripts/utils.py` | **Contains all reusable functions** for data loading, preprocessing, handling missing values, feature engineering, outlier detection and treatment, scaling, clustering, labeling, and saving outputs. This file organizes the segmentation logic into modular functions. |
-| `customer_segmentation/customer_segments.csv` | **Reference output data file** containing customer id with their segmentation. This is the version used for analysis and exploration. The output CSV file generated after running `segmentation.py` will be named `customer_segments_rerun.csv`, but analysis will refer to `customer_segments.csv` to ensure consistency across different environments. |
+| `customer_segmentation/customer_segments.csv` | **Output data file** containing customer id with their segmentation. This is the version used for analysis and exploration.|
 | `customer_segmentation/markdown/segmentation.md` | **Project documentation** and business logic explanation. Summarizes the methodology used in `segmentation.py`, key data characteristics, assumptions, and insights derived from customer segmentation. Meant for clean and structured explanation. |
 | `customer_segmentation/visuals/` | **Folder to store visual outputs** such as boxplots generated during the segmentation process. Example files include `boxplots_for_outliers.png` and `post_winsorize_boxplots_for_outliers.png` to compare data distributions before and after outlier treatment. |
 | `customer_segmentation/README.md` | **Project-level documentation.** Provides an overview of the customer segmentation module, instructions to run the scripts, dependencies, and folder structure. Meant for onboarding or for others to quickly understand how to use the module. |
@@ -95,7 +95,7 @@ Follow the printed instructions to fix
    Saved 'customer_segments.csv' with Customer ID & segment name
    ```
 
-3. A file named `customer_segments_rerun.csv` should be saved under:
+3. A file named `customer_segments.csv` should be saved under:
    ```
    /customer_segmentation/
    ```
@@ -104,14 +104,13 @@ Follow the printed instructions to fix
 
 ## Output Summary
 
-### 1. `customer_segments_rerun.csv`
+### 1. `customer_segments.csv`
 
 This CSV file contains:
 - `Customer_ID`: The unique customer identifier
 - `Segment`: Assigned segment label for each customer
 
 Segmentation is done using the **KMeans algorithm**, based on customer behavioural features such as balance and transaction frequency.
-The random_state parameter produces deterministic results on a specific OS, but does not produce the same results on different OSes. Hence, any further analysis will be ran on the `customer_segments.csv` instead of the `customer_segments_rerun.csv` obtained from further reruns. 
 
 Segment labels and meanings:
 
