@@ -38,7 +38,7 @@ def main():
     print(df.isnull().sum())
     features_to_scale = [ "income", "balance", "debt", "customer_lifetime_value","days_from_last_transaction", "avg_transaction_amt","digital_engagement_score", "total_products_owned", "transaction_freq"]
     # Make visuals folder
-    visuals_path = os.path.join(project_root, "customer_segmentation", "visuals")
+    visuals_path = os.path.join(project_root, "visuals")
     save_boxplot(df, features_to_scale,  "boxplots_for_outliers.png", visuals_path)
     outliers_zscore_df = count_outliers_zscore(df)
     print(outliers_zscore_df)

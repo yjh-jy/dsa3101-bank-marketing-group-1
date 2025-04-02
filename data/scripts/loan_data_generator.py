@@ -9,7 +9,9 @@ from random import choices
 import random
 import os
 
-os.makedirs("data/visuals", exist_ok=True)
+project_root = os.getcwd()
+
+os.makedirs(f"{project_root}//visuals", exist_ok=True)
 
 pd.set_option('display.max_columns', None)
 # Set random seed for reproducibility
@@ -17,7 +19,7 @@ np.random.seed(888)
 
 
 # Initalising the DataFrame 
-s = pd.read_csv("data/raw/loan_data_train.csv")
+s = pd.read_csv(f"{project_root}//raw/loan_data_train.csv")
 df = pd.DataFrame( 
     columns = ['loan_id', 
               'customer_id', 

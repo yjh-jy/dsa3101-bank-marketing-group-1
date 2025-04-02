@@ -228,7 +228,7 @@ def save_segmentation_csv(df_final):
     """
     ## Creates csv table in under customer segmentation
     project_root = os.getcwd() 
-    df_final.to_csv(os.path.join(project_root, "customer_segmentation", "customer_segments_rerun.csv"), index=False)
+    df_final.to_csv(os.path.join(project_root, "reruns", "customer_segments_rerun.csv"), index=False)
     print("Saved 'customer_segments_rerun.csv' with Customer ID & segment name")
     return
 # Check if correct Packages installed
