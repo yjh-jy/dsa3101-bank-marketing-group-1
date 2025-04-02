@@ -26,10 +26,10 @@ To evaluate potential redundancy among financial-related features, we perform co
 ![Correlation Matrix](visuals/correlation_matrix.png)
 
 - **High Correlation between Income and Balance (0.73):**  
-    The correlation analysis identified a strong positive correlation (0.73) between the features income and balance. Since both features represent similar aspects of a customer's financial capability, retaining both could lead to feature redundancy. Furthermore, the balance feature exhibited relatively low feature importance in predicting customer preferences during model training. Thus, we opted to remove balance to simplify the model without sacrificing predictive power or interpretability.
+    The correlation analysis identified a strong positive correlation (0.73) between the features `income` and `balance`. Since both features represent similar aspects of a customer's financial capability, retaining both could lead to feature redundancy. Furthermore, `balance` exhibited relatively low feature importance in predicting customer preferences during model training. Thus, we opted to remove `balance` to simplify the model without sacrificing predictive power or interpretability.
 
 - **Low Correlation of Debt with Income and Balance:**  
-  The debt feature exhibited negligible correlation with both income and balance, suggesting it provides unique financial information relevant to predicting customer preferences.
+  The `debt` feature exhibited negligible correlation with both income and balance, suggesting it provides unique financial information relevant to predicting customer preferences.
 
 ### Categorical Feature Distributions
 
@@ -39,12 +39,12 @@ The categorical feature distributions were analyzed to identify potential imbala
 
 
 - **Significant Class Imbalance in default:**  
-  The default feature is highly imbalanced, with a dominant majority of customers categorized as non-defaulters (default=0). Such an imbalance might bias model predictions, especially by underrepresenting minority classes.
-  Upon analysis of the correlation between the default feature and target variables (product ownership), we uncovered that the correlations were very weak—close to zero, indicating that the default feature does not significantly contribute useful predictive information regarding customer product preferences. It was hence excluded from the predictive model.
+  The `default` feature is highly imbalanced, with a dominant majority of customers categorized as non-defaulters (default=0). Such an imbalance might bias model predictions, especially by underrepresenting minority classes.
+  Upon analysis of the correlation between `default` and target variables (product ownership), we uncovered that the correlations were very weak—close to zero, indicating that `default` does not significantly contribute useful predictive information regarding customer product preferences. It was hence excluded from the predictive model.
 
 ### Relationship between Product Ownership and Active Loans
 
-To assess the predictive value of loan-related data, we aggregated multiple loan features—including total loan amount, average loan amount, and a binary indicator (has_active_loan)—and visualized their relationships with product ownership. Among these aggregated features, only the binary indicator has_active_loan demonstrated meaningful patterns with product ownership.
+To assess the predictive value of loan-related data, we aggregated multiple loan features—including total loan amount, average loan amount, and a binary indicator (`has_active_loan`)—and visualized their relationships with product ownership. Among these aggregated features, only `has_active_loan` demonstrated meaningful patterns with product ownership.
 
 ![Heatmaps Active Loans](visuals/heatmaps_active_loans.png)
 
@@ -52,7 +52,7 @@ To assess the predictive value of loan-related data, we aggregated multiple loan
 
 - Particularly strong relationships emerged between active loan status and the ownership of **credit card** and **fixed deposit** products, highlighting potential cross-selling opportunities.
 
-Given these insights, the binary feature has_active_loan was retained as a valuable predictor, while other aggregated loan features (total loan amount, average loan amount) were excluded due to their lack of meaningful relationships with product ownership.
+Given these insights, the binary feature `has_active_loan` was retained as a valuable predictor, while other aggregated loan features (total loan amount, average loan amount) were excluded due to their lack of meaningful relationships with product ownership.
 
 ### Product Ownership Distribution
 
@@ -171,13 +171,17 @@ These feature importance insights enhance the interpretability of the model, all
 
 ## 5. Key Recommendations
 - **Align outreach for Investment and Fixed Deposits**
-These products share similar top predictors (Segment - High-value, Income), indicating potential overlap in target audiences. Coordinated campaigns may improve efficiency and cross-selling success.
+
+These products share similar top predictors (`Segment_High-value`, `Income`), indicating potential overlap in target audiences. Coordinated campaigns may improve efficiency and cross-selling success.
 
 - **Prioritize Customer Segmentation**
+
 Segment-related features consistently appear among the top predictors across all products. Invest in refining segmentation models and designing tailored messaging per group (e.g., high-value, budget-conscious).
 
 - **Target age groups for Credit Card products**
-With Age as the most dominant feature, age-based segmentation (e.g., millennials, retirees) is likely to yield better conversion rates for credit card marketing.
+
+With `Age` as the most dominant feature, age-based segmentation (e.g., millennials, retirees) is likely to yield better conversion rates for credit card marketing.
 
 - **Highlight family protection for Insurance**
-Dependents is a key driver of insurance adoption. Position insurance products around family protection and financial security for dependent care.
+
+`Dependents` is a key driver of insurance adoption. Position insurance products around family protection and financial security for dependent care.
