@@ -1,8 +1,30 @@
-# Personalised Campaigns in Bank Marketing
+# Personalised Campaigns for Bank Marketing
+![Status](https://img.shields.io/badge/status-complete-brightgreen)
+![License](https://img.shields.io/badge/license-Academic-lightgrey)
+![Contributions](https://img.shields.io/badge/contributions-welcome-blue)
+![Python](https://img.shields.io/badge/python-3.10.6-lightblue)
+![Docker](https://img.shields.io/badge/docker-ready-lightblue)
 
 ## Project Overview
 
 This project, developed as part of the DSA3101 AY24/25 Semester 2 curriculum, focuses on analyzing bank marketing strategies to enhance customer engagement and optimize campaign effectiveness. The primary objective is to leverage data analytics and machine learning to design personalized marketing campaigns that helpthe bank by segmenting customers based on behaviors and preferences, predicting future customer needs, and optimizing marketing campaigns in real time to boost engagement and ROI.
+
+## Group Members
+
+> **Note:** Some members may have multiple GitHub accounts used across commits. The following table maps the GitHub IDs of the group members to their respective names for easy identification and tracking of contributions:
+
+| **Name**  | **GitHub ID(s)**                                                                 |
+|-----------|------------------------------------------------------------------------------------|
+| Ashley    | [ashleytoh](https://github.com/ashleytoh)                                         |
+| Bao       | [baorng](https://github.com/baorng)                                               |
+| Jas       | [jaslaii](https://github.com/jaslaii)                                             |
+| Jolene    | [jolene-ho](https://github.com/jolene-ho), [jxlenehoxe](https://github.com/jxlenehoxe), [shuangegg](https://github.com/shuangegg) |
+| Jun Han   | [yjh-jy](https://github.com/yjh-jy)                                               |
+| Quan      | [Kurorz2004](https://github.com/Kurorz2004), Q                                    |
+| Rena      | [txrrena](https://github.com/txrrena)                                             |
+| Roderich  | [rooderich](https://github.com/rooderich)                                         |
+| Sybella   | [sybe11a](https://github.com/sybe11a)                                             |
+| Teresa    | [teresaliau](https://github.com/teresaliau), [Teresa-liau](https://github.com/Teresa-liau), Teresa liau |
 
 ## Repository Structure
 
@@ -80,8 +102,7 @@ Ensure you have the following installed:
    ```bash
    ./<module_directory>/run_scripts.sh
    ```
-
-DISCLAIMER: Do not use a virtual environment or your global environment to run this project, because the file paths are prioritized to be compatible with Docker container environments thus running some scripts with your own environments might produce different results. In general, using `python` or `python3` to run the scripts is NOT guranteed to work.
+   > **DISCLAIMER**: Do not use a virtual environment or your global environment to run this project, because the file paths are prioritized to be compatible with Docker container environments thus running some scripts with your own environments might produce unexpected results. In general, using `python` or `python3` to run the scripts is NOT guranteed to work.
 
 ### Troubleshooting
 
@@ -98,10 +119,11 @@ Run the following to give permissions recursively to all `.sh` scripts in this p
 Each sub-directory contains specific analyses related to bank marketing strategies. To utilize the analyses:
 
 1. Navigate to the relevant directory.
-2. Open the Jupyter Notebook files (`.ipynb`), Python scripts (`.py`), or Markdown files (`.md`) to explore the analyses and insights.
-3. Follow any instructions provided within the notebooks, scripts, or markdown files to replicate the analyses or input new data.
+2. Open the Python scripts (`.py`), or Markdown files (`.md`) to explore the analyses and insights.
+3. Follow any instructions provided within the scripts, or markdown files to replicate the analyses or input new data.
 
 ## Contributing
 
 Contributions to this project are welcome. If you have suggestions for improvements or new analyses, please fork the repository and submit a pull request. Ensure that your contributions align with the project's objectives and maintain code quality standards.
 
+*Last updated: April 2025*
