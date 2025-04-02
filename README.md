@@ -1,4 +1,4 @@
-# Personalised Campaigns for Bank Marketing
+# Personalised Campaigns in Bank Marketing
 
 ## Project Overview
 
