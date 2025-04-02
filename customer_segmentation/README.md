@@ -2,7 +2,6 @@
 
 This module performs customer segmentation based on transaction data and customers' behaviours/attributes.
 
-#### **Disclaimer: This module has to be run before behavioural_patterns, predicting_customer_preferences and segmentation_updates as these listed modules on dependent on this customer_segmentation module.**
 ---
 
 ## Prerequisites
