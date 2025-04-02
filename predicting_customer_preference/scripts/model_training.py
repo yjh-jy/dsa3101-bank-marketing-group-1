@@ -166,10 +166,6 @@ def get_feature_importance(best_models, top_n=5, plot=False):
 
     return feature_importance_dict
 
-
-import os
-import pandas as pd
-
 def export_feature_importances(feature_importances_dict, project_root, folder, output_csv_name='feature_importances_rerun.csv'):
     """
     Merges all target-specific feature importances into a single CSV file, preserving the original order
