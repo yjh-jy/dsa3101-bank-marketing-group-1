@@ -50,6 +50,10 @@ Banks rely on relational databases like PostgreSQL for secure, structured, and A
 
 Employs Dash to provide a quick prototype of a real-time interface for visualizing segmentation results, ensuring immediate insights into customer groupings as new transactions occur.
 
+![Image](https://github.com/user-attachments/assets/de278577-0358-4145-9746-aee1e0fc2187)
+
+Live View of the Dashboard
+
 ### **Modular Architecture**
 
 Organized into distinct components—API, consumer, producer, and database directories—enhancing maintainability and scalability, with Kafka enabling efficient, real-time communication between them.
