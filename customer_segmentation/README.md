@@ -19,16 +19,16 @@ Ensure the following dependencies are installed before running the system:
 customer_segmentation/
 ├── scripts/
 │   ├── utils.py                                         # Contains functions with segmentation logic
-│   ├── segmentation.py                                  # Contains main functions
+│   └── segmentation.py                                  # Contains main functions
 ├── visuals/                                             # Output boxplots auto-saved here
-│   └── boxplots_for_outliers.png
+│   ├── boxplots_for_outliers.png
 │   └── post_winsorize_boxplots_for_outliers.png
 │── Dockerfile                                           # Docker container setup
 │── README.md                                            # Module-specific documentation
 │── customer_segments.csv                                # Output data file
 │── requirements.txt                                     # Import required packages
 │── run_scripts.sh                                       # Bash script to coordinate all the script runs
-├── segmentation.md                                      # For project documentation and to summarize insights
+└── segmentation.md                                      # For project documentation and to summarize insights
 ```
 
 ---
