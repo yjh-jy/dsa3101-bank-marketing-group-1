@@ -40,7 +40,7 @@ CAMPAIGN_TO_CHANNEL = {
 # Currently we don't have new datasets on engagements, so we create a synthetic one.
 def generate_event():
     """Simulates a new engagement event"""
-    campaign_id = random.randint(1,100)
+    campaign_id = random.randint(1,99)
     campaign_type = campaigns.loc[campaigns["campaign_id"] == campaign_id, "campaign_type"].iloc[0]
     channel_used = random.choice(CAMPAIGN_TO_CHANNEL[campaign_type])
     income_category = random.choice(["Low Income", "Medium Income", "High Income"])

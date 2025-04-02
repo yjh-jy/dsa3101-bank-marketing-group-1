@@ -32,6 +32,10 @@ def recommend_campaign(income_level, age_range, media_type):
     for _ in range(200):
         campaign_selection.append(campaign_optimizer.select_campaign(income_level, age_range, media_type))
 
+    # If there is no known past data for that particular segment, then raise error (need more data to assess segment behaviour)
+    if all(campaign is None for campaign in campaign_selection):
+        raise ValueError("No valid campaign found for the given criteria.")
+    
     most_common_campaign = mode(campaign_selection, keepdims=False).mode  # Get the mode
     print("Most Selected Campaign:", most_common_campaign)  
     campaign_details = campaigns[campaigns["campaign_id"] == most_common_campaign]
