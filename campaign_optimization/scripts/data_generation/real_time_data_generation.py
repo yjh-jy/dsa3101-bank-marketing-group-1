@@ -41,8 +41,7 @@ CAMPAIGN_TO_CHANNEL = {
 def generate_event():
     """Simulates a new engagement event"""
     campaign_id = random.randint(1,100)
-    campaign_type = campaigns.loc[campaigns["campaign_id"] == campaign_id, "campaign_type"]
-
+    campaign_type = campaigns.loc[campaigns["campaign_id"] == campaign_id, "campaign_type"].iloc[0]
     channel_used = random.choice(CAMPAIGN_TO_CHANNEL[campaign_type])
     income_category = random.choice(["Low Income", "Medium Income", "High Income"])
     target_audience = random.choice(["18-24", "25-34", "35-44", "45-54", "55+"])
