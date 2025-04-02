@@ -21,7 +21,6 @@ This module evaluates the effectiveness of marketing campaigns by analyzing cust
 
 ```
 campaign_impact_analysis/
-├── notebooks/                      # Notebooks used during analysis, to be deleted
 ├── scripts/
 │   └── campaign_impact_analysis.py # Main analysis logic
 ├── insights/
