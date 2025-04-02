@@ -1,0 +1,162 @@
+services:
+  behavioural_patterns: 
+    build: 
+      context: ./behavioural_patterns
+      dockerfile: Dockerfile
+    container_name: behavioural_patterns
+    volumes:
+      - ./data:/app/data
+      - ./customer_segmentation/customer_segments.csv:/app/customer_segmentation/customer_segments.csv
+    stdin_open: true
+    tty: true
+    
+  campaign_impact_analysis: 
+    build: 
+      context: ./campaign_impact_analysis
+      dockerfile: Dockerfile
+    container_name: campaign_impact_analysis
+    volumes:
+      - ./data:/app/data
+      - ./campaign_impact_analysis/insights/visuals:/app/insights/visuals
+      - ./customer_segmentation/customer_segments.csv:/app/customer_segmentation/customer_segments.csv
+    stdin_open: true
+    tty: true
+
+  cost_effectiveness_of_campaigns: 
+    build: 
+      context: ./cost_effectiveness_of_campaigns
+      dockerfile: Dockerfile
+    container_name: cost_effectiveness_of_campaigns
+    volumes:
+      - ./data:/app/data
+    stdin_open: true
+    tty: true
+
+  customer_engagement: 
+    build: 
+      context: ./customer_engagement
+      dockerfile: Dockerfile
+    container_name: customer_engagement
+    volumes:
+      - ./data:/app/data
+      - ./customer_engagement/figures:/app/figures
+    stdin_open: true
+    tty: true
+
+  customer_retention_strategies: 
+    build: 
+      context: ./customer_retention_strategies
+      dockerfile: Dockerfile
+    container_name: customer_retention_strategies
+    volumes:
+      - ./data:/app/data
+      - ./customer_retention_strategies/visuals:/app/visuals
+      - ./customer_segmentation/customer_segments.csv:/app/customer_segmentation/customer_segments.csv
+    stdin_open: true
+    tty: true
+
+  customer_segmentation: 
+    build: 
+      context: ./customer_segmentation
+      dockerfile: Dockerfile
+    container_name: customer_segmentation
+    volumes:
+      - ./data:/app/data
+      - ./customer_segmentation/reruns:/app/reruns
+      - ./customer_segmentation/visuals:/app/visuals
+    stdin_open: true
+    tty: true
+  
+  measuring_campaign_roi: 
+    build: 
+      context: ./measuring_campaign_roi
+      dockerfile: Dockerfile
+    container_name: measuring_campaign_roi
+    volumes:
+      - ./data:/app/data
+      - ./measuring_campaign_roi/output:/app/output
+      - ./measuring_campaign_roi/visuals:/app/visuals
+    stdin_open: true
+    tty: true
+  
+  predicting_customer_preference: 
+    build: 
+      context: ./predicting_customer_preference
+      dockerfile: Dockerfile
+    container_name: predicting_customer_preference
+    volumes:
+      - ./data:/app/data
+      - ./predicting_customer_preference/results:/app/results
+      - ./predicting_customer_preference/visuals:/app/visuals
+      - ./customer_segmentation/customer_segments.csv:/app/customer_segmentation/customer_segments.csv
+    stdin_open: true
+    tty: true
+
+  zookeeper: 
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka: 
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    depends_on:
+      - zookeeper
+
+  postgres: 
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_NAME: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dsa3101project
+      POSTGRES_HOST: localhost
+    ports:
+      - "5433:5432"
+    volumes:
+      # - postgres_data:/var/lib/postgresql/data  # Persistent DB storage
+      - ./segmentation_updates/db/init.sql:/docker-entrypoint-initdb.d/segmentation_updates-init.sql  # Init script for segmentation_updates
+      - ./segmentation_updates/customer_segments_initial_data.csv:/csv_files/customer_segments_initial_data.csv  # Mount CSV file directly
+      - ./campaign_optimization/db/init.sql:/docker-entrypoint-initdb.d/campaign_optimization-init.sql  # Init script for campaign_optimization
+  
+  segmentation_updates: 
+    build:
+      context: ./segmentation_updates
+      dockerfile: Dockerfile
+    container_name: segmentation_updates
+    ports:
+      - "5001:5001"
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      - KAFKA_BROKER=kafka:9092
+    stdin_open: true
+    tty: true
+
+  campaign_optimization:
+    build:
+      context: ./campaign_optimization
+      dockerfile: Dockerfile
+    container_name: campaign_optimization
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      - KAFKA_BROKER=kafka:9092
+    volumes:
+      - ./data:/app/data
+    stdin_open: true
+    tty: true
+
+# volumes: # for persistent DB storage
+#   postgres_data:  
+#     driver: local

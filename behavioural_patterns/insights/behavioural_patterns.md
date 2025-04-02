@@ -8,9 +8,9 @@
 
 - **High-value** customers have the highest proportion of promoters, indicating strong brand loyalty and satisfaction. However, some customers may have unmet expectations or issues that need addressing.
 
-- **Budget-conscious** customers have a notable share of promoters, indicating moderate satisfaction. However, a significant portion are detractors, highlighting dissatisfaction.
+- **Budget-conscious** customers have a notable share of promoters, indicating moderate satisfaction. However, there is a slightly higher proportion of detractors among budget-conscious customers compared to at-risk/inactive customers, indicating possible financial strains or other pressures influencing their perception of the brand.
 
-- **At-risk/inactive** customers have the lowest proportion of promoters, suggesting disengagement and dissatisfaction, possibly due to irrelevant products or lack of engagement.
+- **At-risk/inactive** customers have the lowest proportion of promoters, suggesting overall disengagement. They also have the highest proportion of passives, which may imply that they are undecided and could potentially be swayed with the right interventions, or are simply unengaged due to irrelevant product offerings or communication.
 
 ## **Financial health across customer segments**
 
@@ -20,7 +20,16 @@
 
 **Key insights:**
 
-Higher income and savings (**log_income** and **log_balance**) strongly correlate with improved financial health metrics like **balance_to_debt**, while rising debt (**log_debt**) increases **debt_to_income** ratios. Notably, income growth and savings accumulation counteract debt burdens, suggesting that boosting income and reducing debt are critical for financial stability. The near-perfect correlation between **log_balance** and **balance_to_debt** underscores savings as a key lever for debt management.
+Financial health correlations:
+Higher income and savings (`log_income` and `log_balance`) strongly correlate with improved financial metrics like `balance_to_debt`, while rising debt (`log_debt`) increases `debt_to_income` ratios. The near-perfect correlation between `log_balance` and `balance_to_debt` underscores that savings are a key lever for managing debt.
+
+Segment differentiation and business implications:
+
+- Customers with robust income and savings typically exhibit stronger financial stability, indicating **high-value** segments that can be nurtured for upselling and cross-selling opportunities.
+
+- Customers with lower income and savings, and often showing higher debt burdens, may represent **budget-conscious** segments that could benefit from targeted financial wellness support.
+
+- Patterns of rising debt and financial instability may help flag **at-risk** segments, suggesting the need for re-engagement strategies to improve their financial health and overall loyalty.
 
 ### **Boxplots of 'debt-to-income' ratio and 'balance-to-debt' ratio by customer segment**
 
@@ -42,9 +51,11 @@ Higher income and savings (**log_income** and **log_balance**) strongly correlat
 
 - **High-value** customers exhibit the highest on-time payment rate, indicating strong financial reliability and stability. This suggests they are ideal candidates for premium offers (e.g. lower interest rates, exclusive credit lines) to reinforce loyalty.
 
-- **Budget-conscious** customers have the lowest on-time payment rate, likely due to cash flow sensitivity.They may benefit from flexible repayment plans, automated reminders, or budgeting tools to reduce late payments.
+- **Budget-conscious** customers have the lowest on-time payment rate, likely due to cash flow sensitivity. They may benefit from support measures like flexible repayment plans, automated reminders, or budgeting tools to further improve payment outcomes.
 
 - **At-risk/inactive** customers show a moderate on-time payment rate, implying their "risk" may stem from inactivity (e.g. low engagement with other bank services) rather than payment defaults. Proactive re-engagement strategies (e.g. personalized incentives, reactivation campaigns) could improve retention.
+
+The differences in payment behaviour across customer segments are relatively small, suggesting that overall payment reliability is not the key differentiator between segments.
 
 ### **Stacked bar chart for the percentage distribution of loan categories within each segment**
 
@@ -88,9 +99,9 @@ The chi-square tests validate that customer segments exhibit distinct financial 
 
 - **High-value** customers lead in transaction frequency and value, indicating frequent and high-value financial activities (e.g. investments, large purchases). Combined with their net depositor status (strong cash inflow) and premium product dominance, this reflects wealth-building behavior.
 
-- **Budget-conscious** customers show moderate transaction frequency and value, indicating cautious spending. This aligns with their net spender status (higher cash outflow) and reliance on core products.
+- **Budget-conscious** customers show moderate transaction frequency and value, indicating cautious spending. This aligns with their net spender status (higher cash outflow) and reliance on core products. However, they account for the largest share of the bank’s overall transaction volume, making them a key segment for engagement efforts, as targeted support could significantly impact overall transaction activity and customer retention.
 
-- **At-risk** customers exhibit the lowest transaction frequency, value, and activity, indicating low engagement rate.
+- **At-risk** customers exhibit the lowest transaction frequency, value, and activity, indicating low engagement rate. Targeted re-engagement efforts, such as tailored product offers or personalized outreach, may help to boost their activity and retention.
 
 ## **Digital engagement across customer segments**
 
@@ -138,7 +149,7 @@ The chi-square tests validate that customer segments exhibit distinct financial 
 - **Mixed Satisfaction:** Moderate number of promoters and detractors
 - **Financial Constraints:** Moderate debt-to-income ratios with some outliers and higher instances of debt management usage
 - **Core Product Reliance:** Frequent use of credit cards and insurance but lower engagement with savings products like fixed deposits
-- **Cautious Transaction Behavior:** Fewer and lower-value transactions with a slight net spending profile  
+- **Cautious Transaction Behaviour:** Fewer and lower-value transactions on average with a net spending profile  
 - **Digital Challenges:** Moderate mobile adoption but highest observed inactivity among digital users
 
 **Targeted Marketing Approaches:**  
@@ -160,7 +171,7 @@ The chi-square tests validate that customer segments exhibit distinct financial 
 - **High Dissatisfaction:** Lowest promoter scores and highest percentage of detractors, reflecting disengagement 
 - **Financial Stress:** High debt management usage, significant negative balance-to-debt ratios, and inconsistent financial stability
 - **Loan Dependence:** Higher reliance on debt management and miscellaneous borrowing, indicating emergency-driven needs  
-- **Low Transactional Activity:** Lowest average transaction frequency and value
+- **Low Transactional Activity:** Lowest average transaction frequency and value with a net spending profile
 - **Digital Disengagement:** Lowest mobile adoption and overall lower digital interaction
 
 **Targeted Marketing Approaches:**  

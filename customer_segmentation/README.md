@@ -25,9 +25,11 @@ customer_segmentation/
 ├── visuals/                           # Output boxplots auto-saved here
 │   └── boxplots_for_outliers.png
 │   └── post_winsorize_boxplots_for_outliers.png
-└── README.md
-└── customer_segments.csv              # Input data file
-└── requirements.txt                   # Import required packages
+│── customer_segments.csv              # Input data file
+│── Dockerfile                         # Docker container setup
+│── README.md                          # Module-specific documentation
+│── requirements.txt                   # Import required packages
+└── run_scripts.sh                     # Bash script to coordinate all the script runs
 ```
 
 ---

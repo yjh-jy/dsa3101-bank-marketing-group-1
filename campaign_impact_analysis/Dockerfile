@@ -8,10 +8,7 @@ WORKDIR /app
 COPY ../requirements.txt /app/requirements.txt
 
 # Install required Python libraries
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire codebase
 COPY . .
-
-# Run the consumer script on container start
-CMD ["python", "consumer/consumer.py"]

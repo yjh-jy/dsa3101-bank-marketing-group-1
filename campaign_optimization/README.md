@@ -17,10 +17,8 @@ Here’s a brief overview of the project structure:
 │── /scripts                        # Backend scripts for data generation, ingestion, and optimization  
 │   ├── /data_generation            # Real-time data generation scripts  
 │   │   ├── real_time_data_generation.py   # Generates data every 5 seconds  
-│   │   ├── Dockerfile                      # Dockerfile for the data generation script  
 │   ├── /data_ingestion             # Real-time data ingestion scripts  
 │   │   ├── real_time_data_ingestion.py    # Ingests Kafka data into Engagements table  
-│   │   ├── Dockerfile                      # Dockerfile for the data ingestion script  
 │   ├── campaign_optimization.py    # Populates the Thompson-Sampling model with data  
 │   ├── data_ingestion_initial.py   # Loads initial dataset into Engagements table  
 │  
@@ -28,53 +26,35 @@ Here’s a brief overview of the project structure:
 │   ├── init_db.sql                 # Initializes PostgreSQL database schema  
 │  
 │── campaign_suggestion.py          # Recommends a campaign for a given segment  
-│── docker-compose.yml              # Docker Compose configuration for containerized services  
-│── README.md                       # Project documentation  
-│── requirements.txt                # Python dependencies  
+│── Dockerfile                      # Docker container setup
+│── README.md                       # Module-specific documentation
+│── requirements.txt                # Import required packages
+└── run_scripts.sh                  # Bash script to coordinate all the script runs
 ```
 
 ## Setup Instructions
 
-Follow these steps to get the Kafka prototype running locally:
-
-### 1. Clone the Repository
-
-If you haven't already, clone the repository to your local machine:
+### 1. Ensure that the relevant docker services are up and running:
 
 ```bash
-git clone <repository-url>
-cd campaign_optimization
+docker ps | grep postgres
+docker ps | grep kafka
+docker ps | grep zookeeper
+docker ps | grep campaign_optimization
 ```
-Here's the revised section with the Dash frontend integration:  
 
----
+### 2. Run the bash script
 
-### 2. Running Services Sequentially  
+To ensure proper dependencies, use the provided startup script and run it **twice**:
 
-#### Steps to Run the Services Sequentially  
+```bash
+./run_scripts.sh
+```
 
-1. **Build and Run Docker compose**  
-   After pulling the repository, run the following command in your terminal to build the Docker image:  
+campaign_suggestion.py  is the main script to test which campaigns to recommend for a particular segment group. 
 
-   ```
-    docker-compose down -v  # Removes containers AND volumes
-    docker-compose up --build -d  # Rebuilds and starts fresh
-   ```
-
-2. **Run the Script:**  
-   Now, run the script to build and start the services in the correct order:  
-
-   ```
-    run docker exec real_time_data python scripts/data_ingestion_initial.py
-    run docker exec real_time_data python scripts/campaign_optimization.py
-    run docker exec real_time_data python campaign_suggestion.py 
-   ```
-   
-   run docker exec real_time_data python campaign_suggestion.py 
-   
-   campaign_suggestion.py  is the main script to test which campaigns to recommend for a particular segment group. All you need to do is to adjust the global variables (INCOME_LEVEL, AGE_RANGE, MEDIA_TYPE)
+All you need to do is to adjust the global variables (INCOME_LEVEL, AGE_RANGE, MEDIA_TYPE)
  
-
 ### 3. PostgreSQL Integration  
 
 This project integrates **PostgreSQL** as the primary database for handling engagements.
@@ -100,28 +80,33 @@ Stores incoming engagements to be utilized for measuring campaign optimization m
 
 ### 4. Verify the Setup
 
-You can verify that everything is running correctly by checking the logs of the consumer and producer in split terminals:
+Monitor logs to ensure that following outputs are logged correctly with no errors:
 
 ```bash
-docker-compose logs real_time_data -f
+Starting analysis...
+Starting real_time_data_generation.py ...
+Starting real_time_data_ingestion.py ...
+Starting data_ingestion_initial.py ...
+Starting campaign_optimization.py ...
+Starting campaign_suggestion.py ...
 ```
+Additionally, the Most Selected Campaign will also be logged based on the suggestions given by the Multi-Bandit algorithm and as more data comes in, the Most Selected Campaign will change accordingly. 
+
+To observe the change, run the following command to regenerate the suggestions:
 
 ```bash
-docker-compose logs real_time_data_ingestion -f
+docker exec -it campaign_optimization python campaign_suggestion.py
 ```
 
-Look for messages indicating that both the producer and consumer are connected to Kafka and processing transactions.
-
-
-### 6. Stopping the Services
-
-To stop all running services, use:
+### 5. Stop Service
 
 ```bash
-docker-compose down
+docker container stop campaign_optimization
 ```
 
-This will stop the containers and remove the associated networks.
+This will stop the main container serving the `real_time_data_ingestion.py`, `real_time_data_generation.py`, `campaign_optimization.py` and `campaign_suggestion.py` scripts.
+
+Note that `segmentation_updates` depends on the same Kafka and Zookeeper containers so do not stop these two containers unless absolutely sure.
 
 ## Troubleshooting
 
@@ -130,7 +115,8 @@ If you encounter any issues, try the following steps:
 2. Check the logs for any error messages:
 
    ```bash
-   docker-compose logs
+   docker-compose logs -f campaign_optimization
+   docker-compose logs -f kafka
+   docker-compose logs -f zookeeper
+   docker-compose logs -f postgres
    ```
-
-3. Make sure Kafka and Zookeeper are running correctly by verifying their logs.

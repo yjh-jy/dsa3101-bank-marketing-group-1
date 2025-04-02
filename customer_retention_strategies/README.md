@@ -41,8 +41,10 @@ customer_retention/
 ├── visuals/ # Plots and graphs 
 ├── notebooks/ # Notebooks used for development 
 ├── churn_warning_report.csv # Final churn score for CRM integration
-├── requirements.txt # Dependencies list 
-└── README.md # Project documentation
+│── Dockerfile                      # Docker container setup
+│── README.md                       # Module-specific documentation
+│── requirements.txt                # Import required packages
+└── run_scripts.sh                  # Bash script to coordinate all the script runs
 ```
 
 ## Methodology

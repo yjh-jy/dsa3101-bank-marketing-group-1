@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 
 # Global constant: Define the project root.
 PROJECT_ROOT = os.getcwd()
-visuals_path = os.path.join(PROJECT_ROOT, "predicting_customer_preference", "visuals")
+visuals_path = os.path.join(PROJECT_ROOT, "visuals")
 
 # Import functions from your separate modules
 from load_data import load_data
@@ -95,14 +95,14 @@ def main():
     print("Performance Metrics:")
     print(train_performance_df)
     print(feature_importances)
-    export_feature_importances(feature_importances, PROJECT_ROOT, "predicting_customer_preference/results")
+    export_feature_importances(feature_importances, PROJECT_ROOT, "results")
         
     # ---------------------------
     # 6. Model Prediction on Test Set
     # ---------------------------
     # Use the best models to generate predictions on the held-out test set.
     predictions_df = predict_with_best_model(df_test, feature_cols, best_models)
-    predictions_df.to_csv(os.path.join(PROJECT_ROOT, "predicting_customer_preference", "results", "product_recommendations_rerun.csv"), index=False)
+    predictions_df.to_csv(os.path.join(PROJECT_ROOT, "results", "product_recommendations_rerun.csv"), index=False)
     print("Predictions saved to product_recommendations.csv")
 
     test_performance_df = evaluate_model_on_test(predictions_df, df_test, target_cols)

@@ -28,10 +28,11 @@ The repository is organized as follows (this is a rough structure, and each modu
 │   └── run_scripts.sh                # Bash script to run module-specific scripts
 ├── predicting_customer_preference/   # Forecasts customer preferences using analytics
 │   └── run_scripts.sh                # Bash script to run module-specific scripts
-├── segmentation_updates/             # Updates and refines customer segmentation methodologies
+├── segmentation_updates/             # Updates and refines customer segmentation methodologies in real-time
 │   └── run_scripts.sh                # Bash script to run module-specific scripts
 ├── .gitignore                        # .gitignore file to ignore metadata
 ├── docker-compose.yaml               # Docker compose config file for orchestrating the modules
+├── give_permissions.sh               # Optional bash script, run only if permissions is insufficient
 ├── README.md                         # Overall README documentation
 ```
 
@@ -67,18 +68,34 @@ Ensure you have the following installed:
 
    This will build and start the containers, but it **will not automatically execute any scripts.**
 
-4. **Manually run the scripts**: After the containers are up and running, navigate to each module directory and execute the respective bash script:
+4. **Manually run the scripts in Bash terminal**: After the containers are up and running, navigate to each module directory and execute the respective bash script:
 
    ```bash
    cd <module_directory>
    ./run_scripts.sh
    ```
 
-   You must navigate to each relevant module directory before executing its script.
+   Optionally, you can also run from the root:
+
+   ```bash
+   ./<module_directory>/run_scripts.sh
+   ```
+
+DISCLAIMER: Do not use a virtual environment or your global environment to run this project, because the file paths are prioritized to be compatible with Docker container environments thus running some scripts with your own environments might produce unexpected results. In general, using `python` or `python3` to run the scripts is NOT guranteed to work.
+
+### Troubleshooting
+
+1. Encountered `Permission denied` when running `./run_scripts.sh`:
+
+Run the following to give permissions recursively to all `.sh` scripts in this project:
+   ```bash
+   chmod +x give_permissions.sh
+   ./give_permissions.sh   
+   ```
 
 ## Usage
 
-Each directory contains specific analyses related to bank marketing strategies. To utilize the analyses:
+Each sub-directory contains specific analyses related to bank marketing strategies. To utilize the analyses:
 
 1. Navigate to the relevant directory.
 2. Open the Jupyter Notebook files (`.ipynb`), Python scripts (`.py`), or Markdown files (`.md`) to explore the analyses and insights.

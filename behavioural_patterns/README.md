@@ -13,12 +13,14 @@ behvioural_patterns/
 ├── insights/
 │   └── visualizations/             # Folder containing output visualizations
 │   └── behavioural_patterns.md     # Markdown file containing key insights and targeted marketing approaches
-├── scripts/
-|   └── analysis_functions.py       # Functions for performing various analyses and visualizations
+│── scripts/
+│   └── analysis_functions.py       # Functions for performing various analyses and visualizations
 │   └── behavioural_patterns.py     # Main analysis     
 │   └── utils.py                    # Utility functions for data loading and transformation
-│── README.md                       # Project overview and instructions
-└── requirements.txt                # Import required packages
+│── Dockerfile                      # Docker container setup
+│── README.md                       # Module-specific documentation
+│── requirements.txt                # Import required packages
+└── run_scripts.sh                  # Bash script to coordinate all the script runs
 ```
 
 ---
