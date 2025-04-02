@@ -39,12 +39,12 @@ customer_retention/
 ├── scripts/ 
 │ └── customer_retention_strategies.py # Main ML logic 
 ├── visuals/ # Plots and graphs 
-├── notebooks/ # Notebooks used for development 
 ├── churn_warning_report.csv # Final churn score for CRM integration
 │── Dockerfile                      # Docker container setup
 │── README.md                       # Module-specific documentation
 │── requirements.txt                # Import required packages
 └── run_scripts.sh                  # Bash script to coordinate all the script runs
+│── customer_retention_strategies.md                       # Analysis report
 ```
 
 ## Methodology
