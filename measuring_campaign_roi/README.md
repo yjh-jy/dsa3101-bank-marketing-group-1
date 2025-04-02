@@ -8,6 +8,8 @@ This repository contains scripts and visualizations for predicting and analyzing
 
 ```plaintext
 measuring_campaign_roi/
+├── output/
+│   └── output_predictions.csv        # Predicted ROI from ROI model
 ├── scripts/
 │   ├── acquisition_cost_model.py     # Acquisition cost predictive model
 │   ├── conversion_rate_model.py      # Conversion rate predictive model
