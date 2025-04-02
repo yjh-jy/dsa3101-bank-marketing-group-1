@@ -27,10 +27,6 @@ from campaign_optimization import campaign_optimizer
 
 campaigns = pd.read_csv("/app/data/processed/campaigns.csv")
 
-INCOME_LEVEL = "High Income" # Choose from ['Low Income', 'Medium Income', 'High Income']
-AGE_RANGE = "18-24" # Choose from ['18-24', '25-34', '35-44', '45-54', '55+']
-MEDIA_TYPE = "Google Ads" # Choose from ['Google Ads', 'Telephone', 'Website', 'Email', 'TikTok', 'Instagram', 'Landline']
-
 def recommend_campaign(income_level, age_range, media_type):
     campaign_selection = []
     for _ in range(200):
