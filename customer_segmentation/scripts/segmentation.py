@@ -29,7 +29,6 @@ from utils import (
 import os
 
 def main():
-    script_dir = os.path.dirname(os.path.abspath(__file__)) 
     project_root = os.getcwd() # Check directory ends with dsa3101-bank-marketing-group-1
     customer_df, digital_usage_df, transactions_df, products_df = load_data(project_root)
     customer_subset_df, latest_transaction, transaction_summary, digital_engagement, products_df = preprocess_data(customer_df, digital_usage_df, transactions_df, products_df)
@@ -39,7 +38,7 @@ def main():
     print(df.isnull().sum())
     features_to_scale = [ "income", "balance", "debt", "customer_lifetime_value","days_from_last_transaction", "avg_transaction_amt","digital_engagement_score", "total_products_owned", "transaction_freq"]
     # Make visuals folder
-    visuals_path = os.path.join(script_dir, "..", "visuals")
+    visuals_path = os.path.join(project_root, "visuals")
     save_boxplot(df, features_to_scale,  "boxplots_for_outliers.png", visuals_path)
     outliers_zscore_df = count_outliers_zscore(df)
     print(outliers_zscore_df)
@@ -94,7 +93,7 @@ def main():
     print("Mean of original features per segment:")
     print(segment_means)
     check_packages()
-    save_segmentation_csv(df_final, script_dir)
+    save_segmentation_csv(df_final)
 
 
 if __name__ == "__main__":
