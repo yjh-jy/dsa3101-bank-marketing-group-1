@@ -23,6 +23,7 @@ measuring_campaign_roi/
 │   └── lineplots_duration_vs_targets.png
 │── Dockerfile                      # Docker container setup
 │── README.md                       # Module-specific documentation
+|── measuring_campaign_roi.md       # Business interpretation and key findings
 │── requirements.txt                # Import required packages
 └── run_scripts.sh                  # Bash script to coordinate all the script runs
 ```
