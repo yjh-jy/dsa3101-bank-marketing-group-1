@@ -6,14 +6,17 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-os.makedirs("data/visuals", exist_ok=True)
+
+project_root = os.getcwd()
+
+os.makedirs(f"{project_root}//visuals", exist_ok=True)
 
 np.random.seed(42)
 
 # Load Pre-Processed CSVs
-loans_df = pd.read_csv("data/processed/loans.csv", delimiter=",")
-customers_df = pd.read_csv("data/processed/customer.csv", delimiter=",")
-transactions_df = pd.read_csv("data/processed/transactions.csv", delimiter=",")
+loans_df = pd.read_csv(f"{project_root}//processed/loans.csv", delimiter=",")
+customers_df = pd.read_csv(f"{project_root}//processed/customer.csv", delimiter=",")
+transactions_df = pd.read_csv(f"{project_root}//processed/transactions.csv", delimiter=",")
 
 # Feature Engineering (DTI, Avg Transaction Amount, and Transaction Frequency)
 # Compute Debt-to-Income Ratio (DTI)

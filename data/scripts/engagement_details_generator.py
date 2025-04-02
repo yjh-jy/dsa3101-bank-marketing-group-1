@@ -7,7 +7,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-os.makedirs("data/visuals", exist_ok=True)
+project_root = os.getcwd()
+
+os.makedirs(f"{project_root}//visuals", exist_ok=True)
 
 fake = Faker()
 
@@ -19,7 +21,7 @@ engagement_ids = np.arange(1, total_engagements + 1)
 
 #Generate channel_used feature
 
-reference_df = pd.read_csv("data/raw/marketing_campaign_dataset.csv", delimiter=",")
+reference_df = pd.read_csv(f"{project_root}//raw/marketing_campaign_dataset.csv", delimiter=",")
 
 # Assign channel_used based on predefined probabilities
 original_dist = reference_df['Channel_Used'].value_counts(normalize=True).to_dict()

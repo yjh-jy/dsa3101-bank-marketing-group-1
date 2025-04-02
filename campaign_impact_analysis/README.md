@@ -17,11 +17,10 @@ This module evaluates the effectiveness of marketing campaigns by analyzing cust
 3. **Visualizations:**  
    Charts and graphs that illustrate key findings, saved in the `visuals/` folder.
 
-## Folder Structure
+## Project Structure
 
 ```
 campaign_impact_analysis/
-├── notebooks/                      # Notebooks used during analysis, to be deleted
 ├── scripts/
 │   └── campaign_impact_analysis.py # Main analysis logic
 ├── insights/

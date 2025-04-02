@@ -156,7 +156,18 @@ services:
       - ./data:/app/data
     stdin_open: true
     tty: true
-
+  data: 
+    build: 
+      context: ./data
+      dockerfile: Dockerfile
+    container_name: data
+    volumes:
+      - ./data/raw:/app/data/raw
+      - ./data/processed:/app/data/processed
+      - ./data/visuals:/app/data/visuals
+    stdin_open: true
+    tty: true
+    
 # volumes: # for persistent DB storage
 #   postgres_data:  
 #     driver: local

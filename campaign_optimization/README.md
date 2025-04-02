@@ -45,7 +45,7 @@ docker ps | grep campaign_optimization
 
 ### 2. Run the bash script
 
-To ensure proper dependencies, use the provided startup script and run it **twice**:
+To ensure proper dependencies, use the provided startup script:
 
 ```bash
 ./run_scripts.sh

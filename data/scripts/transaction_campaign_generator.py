@@ -26,12 +26,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-os.makedirs("data/visuals", exist_ok=True)
+
+project_root = os.getcwd()
+
+os.makedirs(f"{project_root}//visuals", exist_ok=True)
 
 fake = Faker()
 
 #Extract customer dataset
-df_customers = pd.read_csv("data/processed/customer.csv")
+df_customers = pd.read_csv(f"{project_root}//processed/customer.csv")
 customers = df_customers.to_dict(orient="records")
 
 NUM_TRANSACTIONS = 2500
@@ -122,7 +125,7 @@ print(df_transactions.head())
 # # Transaction table data analysis
 
 
-data = pd.read_csv("data/processed/customer.csv")
+data = pd.read_csv(f"{project_root}//processed/customer.csv")
 
 
 # Plot density curves for transaction_amt grouped by transaction_type
@@ -146,8 +149,8 @@ plt.close()
 
 
 # Combine Customer and EngagementDetail data for reference
-customer_df = pd.read_csv("data/processed/customer.csv")
-engagement_df = pd.read_csv("data/processed/engagement_details.csv")
+customer_df = pd.read_csv(f"{project_root}//processed/customer.csv")
+engagement_df = pd.read_csv(f"{project_root}//processed/engagement_details.csv")
 merge_df = pd.merge(customer_df, engagement_df, on="customer_id", how="inner")
 
 # Define Languages and Duration
