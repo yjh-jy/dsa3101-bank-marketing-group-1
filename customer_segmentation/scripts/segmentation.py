@@ -29,6 +29,7 @@ from utils import (
 import os
 
 def main():
+    script_dir = os.path.dirname(os.path.abspath(__file__)) 
     project_root = os.getcwd() # Check directory ends with dsa3101-bank-marketing-group-1
     customer_df, digital_usage_df, transactions_df, products_df = load_data(project_root)
     customer_subset_df, latest_transaction, transaction_summary, digital_engagement, products_df = preprocess_data(customer_df, digital_usage_df, transactions_df, products_df)
