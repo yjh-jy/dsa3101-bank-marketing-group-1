@@ -1,7 +1,8 @@
 # Customer-Level EDA
 '''
 This script analyses customer attributes in relation to engagement outcomes,
-focusing on behavioural, financial, and digital activity indicators that may drive customer responsiveness.
+focusing on behavioural, financial, and digital activity indicators that may 
+drive customer responsiveness.
 '''
 
 import utils as ut
@@ -16,6 +17,10 @@ from business_rules import define_high_value_user, is_recently_active, is_multic
 target_col = "has_engaged"
 
 def main():
+    '''
+    Main function to execute customer-level exploratory data analysis (EDA).
+    '''
+
     # Load data
     engagement_details, customers, digital_usage, products_owned, transactions = ut.load_customer_data()
 
@@ -38,6 +43,7 @@ def main():
     ut.print_null_summary(digital_usage, "digital_usage")
     ut.print_shape_and_preview(digital_usage, "digital_usage")
 
+    # Check correlation between missing values in digital usage data
     ut.check_missing_correlation(digital_usage, "days_since_mobile_use", "has_mobile_app")
     ut.check_missing_correlation(digital_usage, "days_since_web_use", "has_web_account")
 
@@ -46,7 +52,7 @@ def main():
     ut.print_null_summary(products_owned, "products_owned")
     ut.print_shape_and_preview(products_owned, "products_owned")
 
-    # Merge all features
+    # Merge all features into a single dataframe
     combined_df = (
         customers
         .merge(customer_engagement, on="customer_id", how="left")
@@ -55,19 +61,17 @@ def main():
         .merge(products_owned[["customer_id", "num_products_owned"]], on="customer_id", how="left")
     )
 
-    # High-value user flag
+    # Feature engineering for additional attributes
     combined_df["is_high_value_user"] = define_high_value_user(combined_df)
-    # Transaction frequency
     combined_df["transaction_frequency"] = combined_df["transaction_count"] / combined_df["tenure"]
     combined_df[["total_transaction_amt", "transaction_count", "transaction_frequency"]] = combined_df[[
-        "total_transaction_amt", "transaction_count", "transaction_frequency"]].fillna(0)
+        "total_transaction_amt", "transaction_count", "transaction_frequency"]].fillna(0) # Fill missing values with zero
     combined_df.drop(columns=["last_transaction_date"], inplace=True)
-    # Active in the last 30 days flag
+    # Flags for customer activity
     combined_df["is_recently_active"] = is_recently_active(combined_df, days=30)
-    # Customers with both mobile and web usage flag
     combined_df["is_multichannel_user"] = is_multichannel_user(combined_df)
 
-    # Final checks
+    # Final dataset checks
     ut.print_null_summary(combined_df, "combined_df")
     ut.print_shape_and_preview(combined_df, "combined_df")
 
@@ -79,9 +83,8 @@ def main():
     # Impute missing values
     combined_df = ut.impute_missing_values(combined_df)
 
-    # Relationship Analysis
+    # Relationship Analysis (against target variable)
     df = combined_df.copy()
-
     ut.get_boxplot(df, target_col)
     print("T-test Results:\n", ut.get_ttest(df, target_col))
     ut.get_proportion_table(df, target_col)
@@ -90,12 +93,12 @@ def main():
 
     # Multivariate Exploration
     
-    # Define the feature columns tobe  included
+    # Select numerical & boolean feature for analysis
     multivariate_features = [col for col in df.columns 
                              if col != target_col and 
                              df[col].dtype in ["int64", "float64", "int32", "bool"]]
 
-    # Run multivariate exploratory model
+    # Run multivariate exploratory analysis model
     ut.run_multivariate_exploration(df,
                                     target_col='has_engaged',
                                     feature_cols=multivariate_features
