@@ -45,7 +45,7 @@ docker ps | grep campaign_optimization
 
 ### 2. Run the bash script
 
-To ensure proper dependencies, use the provided startup script and run it **twice**:
+To ensure proper dependencies, use the provided startup script:
 
 ```bash
 ./run_scripts.sh
@@ -95,8 +95,16 @@ Additionally, the Most Selected Campaign will also be logged based on the sugges
 To observe the change, run the following command to regenerate the suggestions:
 
 ```bash
-docker exec -it campaign_optimization python campaign_suggestion.py
+docker exec -it campaign_optimization python campaign_suggestion.py income_level age_range media_type
+
+e.g. docker exec -it campaign_optimization python campaign_suggestion.py "High Income" "25-34" "Google Ads"
 ```
+
+#### Parameters:
+
+INCOME_LEVEL: Choose from ['Low Income', 'Medium Income', 'High Income']
+AGE_RANGE: Choose from ['18-24', '25-34', '35-44', '45-54', '55+']
+MEDIA_TYPE: Choose from ['Google Ads', 'Telephone', 'Website', 'Email', 'TikTok', 'Instagram', 'Landline']
 
 ### 5. Stop Service
 

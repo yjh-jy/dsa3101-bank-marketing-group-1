@@ -4,6 +4,10 @@ import random
 import psycopg2
 from scipy.stats import mode
 
+"""
+Script helps to define the CampaignOptimizer class and populate its prior distribution with initial csv data
+"""
+
 # Thompson Sampling Class
 class CampaignOptimizer:
     def __init__(self, alpha, beta):
@@ -63,6 +67,8 @@ conn = psycopg2.connect(
 )
 cur = conn.cursor()
 
+# Extract Engagement table for analysis
+
 query = """
 SELECT campaign_id, income_category, target_audience, channel_used, has_engaged
 FROM Engagements;
@@ -103,16 +109,20 @@ campaign_optimizer = CampaignOptimizer(alpha, beta)
 
 
 def simulate_engagement(campaign_id, income_category, target_audience, channel_used):
-    """Simulate customer engagement based on past data"""
+    """Simulate customer engagement based on past data
+    
+    RETURNS: Boolean value that indicates where the engagement is a success or a failure
+    
+    """
     engagement_prob = campaign_stats.loc[(campaign_stats["campaign_id"] == campaign_id) & (campaign_stats["income_category"] == income_category) 
                                          & (campaign_stats["target_audience"] == target_audience) & (campaign_stats["channel_used"] == channel_used), 
                                          "engagement_rate"].values[0]
-    return random.random() < engagement_prob  # Simulate success/failure
+    return random.random() < engagement_prob  
 
 # Update initial alpha-beta values with prior data
 campaign_stats_concise = campaign_stats[["campaign_id", "income_category", "target_audience", "channel_used", "engagement_rate"]]
 
-
+# Update initial prior-distribution values for each segment
 for _ in range(2):
     for index, row in campaign_stats_concise.iterrows():
         campaign_id = row["campaign_id"]
