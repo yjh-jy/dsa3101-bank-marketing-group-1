@@ -8,18 +8,18 @@ This project, developed as part of the DSA3101 AY24/25 Semester 2 curriculum, fo
 
 > **Note:** Some members may have multiple GitHub accounts used across commits. The following table maps the GitHub IDs of the group members to their respective names for easy identification and tracking of contributions:
 
-| **Name** | **GitHub ID(s)**                     |
-|----------|--------------------------------------|
-| Ashley   | ashleytoh                            |
-| Bao      | baorng                               |
-| Jas      | jaslaii                              |
-| Jolene   | jolene-ho, jxlenehoxe, shuangegg     |
-| Jun Han  | yjh-jy                               |
-| Quan     | Q                                    |
-| Rena     | txrrena                              |
-| Roderich | rooderich                            |
-| Sybella  | sybe11a                              |
-| Teresa   | teresaliau, Teresa-liau, Teresa liau |
+| **Name**  | **GitHub ID(s)**                                                                 |
+|-----------|------------------------------------------------------------------------------------|
+| Ashley    | [ashleytoh](https://github.com/ashleytoh)                                         |
+| Bao       | [baorng](https://github.com/baorng)                                               |
+| Jas       | [jaslaii](https://github.com/jaslaii)                                             |
+| Jolene    | [jolene-ho](https://github.com/jolene-ho), [jxlenehoxe](https://github.com/jxlenehoxe), [shuangegg](https://github.com/shuangegg) |
+| Jun Han   | [yjh-jy](https://github.com/yjh-jy)                                               |
+| Quan      | [Kurorz2004](https://github.com/Kurorz2004), Q                                    |
+| Rena      | [txrrena](https://github.com/txrrena)                                             |
+| Roderich  | [rooderich](https://github.com/rooderich)                                         |
+| Sybella   | [sybe11a](https://github.com/sybe11a)                                             |
+| Teresa    | [teresaliau](https://github.com/teresaliau), [Teresa-liau](https://github.com/Teresa-liau), Teresa liau |
 
 ## Repository Structure
 
