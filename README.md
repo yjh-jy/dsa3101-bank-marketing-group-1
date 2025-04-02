@@ -20,7 +20,7 @@ This project, developed as part of the DSA3101 AY24/25 Semester 2 curriculum, fo
 | Jas       | [jaslaii](https://github.com/jaslaii)                                             |
 | Jolene    | [jolene-ho](https://github.com/jolene-ho), [jxlenehoxe](https://github.com/jxlenehoxe), [shuangegg](https://github.com/shuangegg) |
 | Jun Han   | [yjh-jy](https://github.com/yjh-jy)                                               |
-| Quan      | [Kurorz2004](https://github.com/Kurorz2004), Q                                    |
+| Quan      | [Kurorz2004](https://github.com/Kurorz2004), [Q](https://github.com/Q)            |
 | Rena      | [txrrena](https://github.com/txrrena)                                             |
 | Roderich  | [rooderich](https://github.com/rooderich)                                         |
 | Sybella   | [sybe11a](https://github.com/sybe11a)                                             |
