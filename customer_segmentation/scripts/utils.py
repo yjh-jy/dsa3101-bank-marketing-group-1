@@ -222,13 +222,12 @@ def label_cluster(df, cluster_means, weights):
     df["Segment"] = df["Cluster"].map(dynamic_segment_mapping)
     return df
 
-def save_segmentation_csv(df_final):
+def save_segmentation_csv(df_final, script_dir):
     """
     Saves the final customer segments to a CSV file.
     """
     ## Creates csv table in under customer segmentation
-    project_root = os.getcwd() 
-    df_final.to_csv(os.path.join(project_root, "customer_segmentation", "customer_segments.csv"), index=False)
+    df_final.to_csv(os.path.join(script_dir, "..", "customer_segments.csv"), index=False)
     print("Saved 'customer_segments.csv' with Customer ID & segment name")
     return
 # Check if correct Packages installed
