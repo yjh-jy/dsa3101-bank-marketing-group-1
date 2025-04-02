@@ -83,7 +83,7 @@ The differences in payment behaviour across customer segments are relatively sma
 
 - **At-risk/inactive** customers show low engagement with the bank products.
 
-The chi-square tests validate that customer segments exhibit distinct financial behaviors, enabling highly targeted and data-driven marketing strategies.
+The chi-square tests validate that customer segments exhibit distinct financial behaviours, enabling highly targeted and data-driven marketing strategies.
 
 ## **Transaction history across customer segments**
 
@@ -97,7 +97,7 @@ The chi-square tests validate that customer segments exhibit distinct financial 
 
 ### **Summary of key insights:**
 
-- **High-value** customers lead in transaction frequency and value, indicating frequent and high-value financial activities (e.g. investments, large purchases). Combined with their net depositor status (strong cash inflow) and premium product dominance, this reflects wealth-building behavior.
+- **High-value** customers lead in transaction frequency and value, indicating frequent and high-value financial activities (e.g. investments, large purchases). Combined with their net depositor status (strong cash inflow) and premium product dominance, this reflects wealth-building behaviour.
 
 - **Budget-conscious** customers show moderate transaction frequency and value, indicating cautious spending. This aligns with their net spender status (higher cash outflow) and reliance on core products. However, they account for the largest share of the bank’s overall transaction volume, making them a key segment for engagement efforts, as targeted support could significantly impact overall transaction activity and customer retention.
 
@@ -128,7 +128,7 @@ The chi-square tests validate that customer segments exhibit distinct financial 
 **Key Characteristics:**  
 - **High Loyalty:** High percentage of promoters and on-time loan payments  
 - **Strong Financial Health:** Lower debt-to-income ratios and high balance-to-debt ratios
-- **Premium Product Behavior:** High adoption of investment products, fixed deposits, insurance, and credit cards 
+- **Premium Product Behaviour:** High adoption of investment products, fixed deposits, insurance, and credit cards 
 - **Active Digital Engagement:** High mobile app adoption and high transaction values and frequency
 
 **Targeted Marketing Approaches:**  
