@@ -4,6 +4,11 @@ import os
 import psycopg2
 import time
 
+"""
+Script ingests the real_time_data from Kafka into the Engagements table in PostgreSQL
+"""
+
+
 print("Waiting for Kafka and postgres to be ready...")
 time.sleep(10)  # Wait 10 seconds before connecting
 
