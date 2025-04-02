@@ -8,7 +8,7 @@ This project, developed as part of the DSA3101 AY24/25 Semester 2 curriculum, fo
 
 > **Note:** Some members may have multiple GitHub accounts used across commits. The following table maps the GitHub IDs of the group members to their respective names for easy identification and tracking of contributions:
 
-| Name     | GitHub ID(s)                         |
+| **Name** | **GitHub ID(s)**                     |
 |----------|--------------------------------------|
 | Ashley   | ashleytoh                            |
 | Bao      | baorng                               |
