@@ -18,18 +18,17 @@ Ensure the following dependencies are installed before running the system:
 ```
 customer_segmentation/
 ├── scripts/
-│   ├── utils.py                       # Contains functions with segmentation logic
-│   ├── segmentation.py                # Contains main functions
-├── markdown/
-│   └── segmentation.md                # For project documentation and to summarize insights
-├── visuals/                           # Output boxplots auto-saved here
+│   ├── utils.py                                         # Contains functions with segmentation logic
+│   ├── segmentation.py                                  # Contains main functions
+├── visuals/                                             # Output boxplots auto-saved here
 │   └── boxplots_for_outliers.png
 │   └── post_winsorize_boxplots_for_outliers.png
-│── customer_segments.csv              # Output data file
-│── Dockerfile                         # Docker container setup
-│── README.md                          # Module-specific documentation
-│── requirements.txt                   # Import required packages
-└── run_scripts.sh                     # Bash script to coordinate all the script runs
+│── Dockerfile                                           # Docker container setup
+│── README.md                                            # Module-specific documentation
+│── customer_segments.csv                                # Output data file
+│── requirements.txt                                     # Import required packages
+│── run_scripts.sh                                       # Bash script to coordinate all the script runs
+├── segmentation.md                                      # For project documentation and to summarize insights
 ```
 
 ---
@@ -41,7 +40,7 @@ customer_segmentation/
 | `customer_segmentation/scripts/segmentation.py` | **Main execution script.** Calls the functions from `utils.py` to perform customer segmentation, handle missing values, outlier treatment, clustering, and labeling. Also generates boxplots and outputs a processed CSV file with customer segments (`customer_segments_rerun.csv`). |
 | `customer_segmentation/scripts/utils.py` | **Contains all reusable functions** for data loading, preprocessing, handling missing values, feature engineering, outlier detection and treatment, scaling, clustering, labeling, and saving outputs. This file organizes the segmentation logic into modular functions. |
 | `customer_segmentation/customer_segments.csv` | **Output data file** containing customer id with their segmentation. This is the version used for analysis and exploration.|
-| `customer_segmentation/markdown/segmentation.md` | **Project documentation** and business logic explanation. Summarizes the methodology used in `segmentation.py`, key data characteristics, assumptions, and insights derived from customer segmentation. Meant for clean and structured explanation. |
+| `customer_segmentation/segmentation.md` | **Project documentation** and business logic explanation. Summarizes the methodology used in `segmentation.py`, key data characteristics, assumptions, and insights derived from customer segmentation. Meant for clean and structured explanation. |
 | `customer_segmentation/visuals/` | **Folder to store visual outputs** such as boxplots generated during the segmentation process. Example files include `boxplots_for_outliers.png` and `post_winsorize_boxplots_for_outliers.png` to compare data distributions before and after outlier treatment. |
 | `customer_segmentation/README.md` | **Project-level documentation.** Provides an overview of the customer segmentation module, instructions to run the scripts, dependencies, and folder structure. Meant for onboarding or for others to quickly understand how to use the module. |
 | `customer_segmentation/requirements.txt` | Lists all the Python packages and their versions required to run the segmentation pipeline. This ensures a consistent development environment across different systems. |
