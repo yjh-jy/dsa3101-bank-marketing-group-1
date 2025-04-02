@@ -38,7 +38,7 @@ def get_cluster_data():
     """
     conn = psycopg2.connect("dbname=postgres user=postgres password=dsa3101project host=postgres")
     query = """
-        SELECT customer_id, balance, avg_transaction_amt, segment 
+        SELECT customer_id, balance, income, debt, avg_transaction_amt, segment 
         FROM customer_segments 
         ORDER BY last_updated DESC;
     """
@@ -48,8 +48,8 @@ def get_cluster_data():
 
 # Dash Layout: Defines the dashboard structure
 dash_app.layout = html.Div([
-    html.H1("Real-Time Customer Segmentation Dashboard"),
-    html.H2("Live Customer Table (Sorted by last updated)"),
+    html.H1("Group 1's Real-Time Customer Segmentation Dashboard for Bank Marketing Campaigns", style={'text-align':'center', 'font-size': '40px'}),
+    html.H2("Live Customer Information Table", style={'text-align':'center', 'font-size': '30px', 'text-decoration':'underline'}),
     
     # Data Table for Customer Segments
     dash_table.DataTable(
@@ -57,6 +57,8 @@ dash_app.layout = html.Div([
         columns=[
             {'name': 'Customer ID', 'id': 'customer_id'},
             {'name': 'Balance', 'id': 'balance'},
+            {'name': 'Income', 'id': 'income'},
+            {'name': 'Debt', 'id': 'debt'},
             {'name': 'Average Transaction Amount', 'id': 'avg_transaction_amt'},
             {'name': 'Cluster', 'id': 'segment'},
         ],
@@ -70,27 +72,33 @@ dash_app.layout = html.Div([
         ],
         page_size=10,
     ),
-    
-    # Scatter Plot for Customer Segments
-    dcc.Graph(id='cluster-graph-scatter', style={'height': '800px'}),
+
+    html.H2("Live Customer Segment Clusters", style={'text-align':'center', 'font-size': '30px', 'text-decoration':'underline'}),
+
+    # Scatter Plots for Customer Segments
+    dcc.Graph(id='scatter-balance', style={'height': '500px'}),
+    dcc.Graph(id='scatter-income', style={'height': '500px'}),
+    dcc.Graph(id='scatter-debt', style={'height': '500px'}),
     
     # Auto-refresh interval
     dcc.Interval(id='interval-component', interval=1000, n_intervals=0)
-], style={'backgroundColor': '#111111', 'color': 'white', 'height': '100vh', 'width': '100vw', 'margin-top': '-20px', 'margin-left': '-9px'})
+], style={'backgroundColor': '#111111', 'color': 'white', 'height': '100vh', 'width': '100vw', 'margin-top': '-25px', 'margin-left': '-8px'})
 
 @dash_app.callback(
-    Output('cluster-graph-scatter', 'figure'),
+    [Output('scatter-balance', 'figure'),
+     Output('scatter-income', 'figure'),
+     Output('scatter-debt', 'figure')],
     Input('interval-component', 'n_intervals')
 )
-def update_graph(n):
+def update_graphs(n):
     """
-    Updates the scatter plot with the latest customer segmentation data.
+    Updates the scatter plots with the latest customer segmentation data.
     
     Args:
         n (int): Number of intervals passed (unused, but required by Dash callback mechanism).
     
     Returns:
-        plotly.graph_objs.Figure: Updated scatter plot figure.
+        tuple: Updated scatter plot figures.
     """
     color_map = {
         "High-value": "#28A745",
@@ -98,13 +106,21 @@ def update_graph(n):
         "At risk / inactive customers": "#FF4136",
     }
     df = get_cluster_data()
-    fig = px.scatter(df, x='balance', y='avg_transaction_amt', color='segment', hover_data=['customer_id'], color_discrete_map=color_map)
-    fig.layout.template = 'plotly_dark'
-    fig.update_layout(
-        legend=dict(orientation="h", yanchor="bottom", xanchor="center", x=0.5, y=1.05, font=dict(size=20)),
-        legend_title=dict(text='Customer Segments')
-    )
-    return fig
+    
+    fig_balance = px.scatter(df, x='balance', y='avg_transaction_amt', color='segment', hover_data=['customer_id'], color_discrete_map=color_map)
+    fig_income = px.scatter(df, x='income', y='avg_transaction_amt', color='segment', hover_data=['customer_id'], color_discrete_map=color_map)
+    fig_debt = px.scatter(df, x='debt', y='avg_transaction_amt', color='segment', hover_data=['customer_id'], color_discrete_map=color_map)
+    
+    for fig in [fig_balance, fig_income, fig_debt]:
+        fig.layout.template = 'plotly_dark'
+        fig.update_layout(
+            legend=dict(orientation="h", yanchor="bottom", xanchor="center", x=0.5, y=1.05, font=dict(size=16)),
+            legend_title=dict(text='Segment Types'),
+            xaxis=dict(title_font=dict(size=24)),
+            yaxis=dict(title_font=dict(size=24))
+        )
+    
+    return fig_balance, fig_income, fig_debt
 
 @dash_app.callback(
     Output('customer-table', 'data'),
@@ -121,7 +137,7 @@ def update_table(n):
         list[dict]: List of dictionaries representing updated customer data.
     """
     df = get_cluster_data()
-    return df[['customer_id', 'balance', 'avg_transaction_amt', 'segment']].to_dict('records')
+    return df[['customer_id', 'balance', 'income', 'debt', 'avg_transaction_amt', 'segment']].to_dict('records')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=5001)
