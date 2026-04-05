@@ -7,7 +7,9 @@
 
 ## Project Overview
 
-This project, developed as part of the DSA3101 AY24/25 Semester 2 curriculum, focuses on analyzing bank marketing strategies to enhance customer engagement and optimize campaign effectiveness. The primary objective is to leverage data analytics and machine learning to design personalized marketing campaigns that helpthe bank by segmenting customers based on behaviors and preferences, predicting future customer needs, and optimizing marketing campaigns in real time to boost engagement and ROI.
+This project, developed as part of the DSA3101 AY24/25 Semester 2 curriculum, focuses on analyzing bank marketing strategies to enhance customer engagement and optimize campaign effectiveness. The primary objective is to leverage data analytics and machine learning to design personalized marketing campaigns that helpthe bank by segmenting customers based on behaviors and preferences, predicting future customer needs, and optimizing marketing campaigns in real time to boost engagement and ROI. 
+
+The full academic writeup is provided at our [Github Wiki Page](https://github.com/yjh-jy/dsa3101-bank-marketing-group-1/wiki).
 
 ## Group Members
 
